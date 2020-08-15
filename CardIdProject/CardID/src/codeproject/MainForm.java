@@ -405,6 +405,52 @@ public class MainForm extends javax.swing.JFrame {
                             btn_f.setSelected(true);
                             break;
                     }
+                    //get image
+                    List<Byte> imageBytes = new ArrayList<>();
+                    //ins 0x02
+                    command = "00020000";
+                    apdu = JavaSmartcard.hexStringToByteArray(command);
+                    try {
+                        javaCard.sendApdu(apdu);
+                    } catch (CardException | IllegalArgumentException | NullPointerException ex) {
+                        Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    //ins 0x01
+                    command = "00010000";
+                    apdu = JavaSmartcard.hexStringToByteArray(command);
+                    //System.out.println(""+ JavaSmartcard.htos(apdu));
+                    for(int i = 0; i<200;i++){
+                        try
+                        {
+                            javaCard.sendApdu(apdu);
+                            byte[] data = javaCard.getData();
+                            for(int j =0;j<data.length;j++){
+                                if(data[j]!=0x00){
+                                    imageBytes.add(data[j]);
+                                }
+                            }
+
+                        } 
+                        catch (CardException | IllegalArgumentException ex) 
+                        {
+                            JOptionPane.showMessageDialog(this, "Error while tried to send command APDU\n"+ex.getMessage()+"", "APDU sending fail", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                    //Convert convert = new Convert();
+                    String base64String = Convert.hexToString(imageBytes);
+                    byte[] btDataFile;
+                    BufferedImage image = null;
+                    try {
+                        btDataFile = new sun.misc.BASE64Decoder().decodeBuffer(base64String);
+                        image = ImageIO.read(new ByteArrayInputStream(btDataFile));
+                    } catch (IOException ex) {
+                        Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    ImageIcon imageIcon = new ImageIcon(image);
+                    Image newImg = imageIcon.getImage().getScaledInstance(lbl_image.getWidth(), lbl_image.getHeight(), Image.SCALE_SMOOTH);
+                    lbl_image.setIcon(new ImageIcon(newImg));
                 }
                 
             }
