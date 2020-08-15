@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -29,8 +30,25 @@ public class MainForm extends javax.swing.JFrame {
 
     String name,gender,birth,address,issueDate,expDate,idCard,pinCode;
     JavaSmartcard javaCard ;
+    private final static String INS_NAME ="10";
+    private final static String INS_BIRTH ="11";
+    private final static String INS_ADDRESS ="12";
+    private final static String INS_ISSUE ="13";
+    private final static String INS_EXP ="14";
+    private final static String INS_CARD_ID ="15";
+    private final static String INS_PIN ="16";
+    private final static String INS_GENDER ="17";
     
-    public MainForm() {
+    private final static String INS_ONAME ="20";
+    private final static String INS_OBIRTH ="21";
+    private final static String INS_OADDRESS ="22";
+    private final static String INS_OISSUE ="23";
+    private final static String INS_OEXP ="24";
+    private final static String INS_OCARD_ID ="25";
+    private final static String INS_OPIN ="26";
+    private final static String INS_OGENDER ="27";
+    
+    public MainForm(){
         initComponents();
         javaCard = new JavaSmartcard();
         this.getContentPane().setBackground(Color.white);
@@ -50,6 +68,7 @@ public class MainForm extends javax.swing.JFrame {
         //set date
         txtIssueDate.setText(dayOfIssue);
         txtExpDate.setText(dayOfExp);
+           
     }
 
     /**
@@ -62,7 +81,6 @@ public class MainForm extends javax.swing.JFrame {
     private void initComponents() {
 
         group_gender = new javax.swing.ButtonGroup();
-        btn_view = new javax.swing.JButton();
         connect_Button = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         status_Label = new javax.swing.JLabel();
@@ -94,13 +112,6 @@ public class MainForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Thẻ CDĐT");
-
-        btn_view.setText("Test");
-        btn_view.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_viewActionPerformed(evt);
-            }
-        });
 
         connect_Button.setText("Connect");
         connect_Button.addActionListener(new java.awt.event.ActionListener() {
@@ -193,13 +204,7 @@ public class MainForm extends javax.swing.JFrame {
                         .addGap(39, 39, 39)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(btn_view, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btn_save, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jSeparator1)
                                 .addGap(19, 19, 19))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(refresh_Button)
@@ -225,13 +230,16 @@ public class MainForm extends javax.swing.JFrame {
                                 .addGap(20, 20, 20)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtExpDate)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(0, 0, Short.MAX_VALUE)
+                                                .addComponent(btn_save, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addComponent(txt_pin)
                                             .addComponent(txt_id))
-                                        .addGap(3, 3, 3))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtExpDate)
-                                        .addGap(0, 0, Short.MAX_VALUE))))
+                                        .addGap(3, 3, 3))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
@@ -263,59 +271,53 @@ public class MainForm extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(59, 59, 59)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btn_save, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_view, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addComponent(jLabel1)
+                            .addComponent(txt_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(btn_m)
+                            .addComponent(btn_f))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(cbb_dob, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbb_mob, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_yob, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(txt_address, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(txtIssueDate))
+                        .addGap(19, 19, 19)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(txtExpDate))
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txt_pin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel1)
-                                    .addComponent(txt_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel2)
-                                    .addComponent(btn_m)
-                                    .addComponent(btn_f))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel3)
-                                    .addComponent(cbb_dob, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbb_mob, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_yob, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel7)
-                                    .addComponent(txt_address, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel4)
-                                    .addComponent(txtIssueDate))
-                                .addGap(19, 19, 19)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel5)
-                                    .addComponent(txtExpDate))
-                                .addGap(29, 29, 29)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel6)
-                                    .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txt_pin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel9)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addComponent(lbl_image, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(26, 26, 26)
-                                .addComponent(btn_file)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txt_file_name, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)))
+                        .addGap(2, 2, 2)
+                        .addComponent(lbl_image, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(btn_file)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txt_file_name, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(33, 33, 33)
+                .addComponent(btn_save, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -332,16 +334,7 @@ public class MainForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private byte[] getLCData(String byte1Str, String byte2Str) throws Exception
-    {
-        byte[] data_LC = new byte[2];
-        byte byte1 =  Byte.parseByte(byte1Str );
-        byte byte2 =  Byte.parseByte(byte2Str);
-        data_LC[0] = byte1;
-        data_LC[1] = byte2;
-      
-        return data_LC;
-    }
+    
     
     private boolean selectApplet(byte[] apdu)
     {
@@ -363,67 +356,6 @@ public class MainForm extends javax.swing.JFrame {
         
         return isSelected;
     }
-    private void btn_viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_viewActionPerformed
-        
-        String command = "00A4040006112233445500";
-        byte[] apdu = JavaSmartcard.hexStringToByteArray(command);
-        if (!selectApplet(apdu))
-        {
-            return;
-        }
-        else{
-            System.out.println("Select applet successfully");
-        }
-        List<Byte> imageBytes = new ArrayList<>();
-        //ins 0x02
-        command = "00020000";
-        apdu = JavaSmartcard.hexStringToByteArray(command);
-        try {
-            javaCard.sendApdu(apdu);
-        } catch (CardException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalArgumentException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NullPointerException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        //ins 0x01
-        command = "00010000";
-        apdu = JavaSmartcard.hexStringToByteArray(command);
-        //System.out.println(""+ JavaSmartcard.htos(apdu));
-        for(int i = 0; i<200;i++){
-            try
-            {
-                javaCard.sendApdu(apdu);
-                byte[] data = javaCard.getData();
-                for(int j =0;j<data.length;j++){
-                    if(data[j]!=0x00){
-                        imageBytes.add(data[j]);
-                    }
-                }
-                
-            } 
-            catch (CardException | IllegalArgumentException ex) 
-            {
-                JOptionPane.showMessageDialog(this, "Error while tried to send command APDU\n"+ex.getMessage()+"", "APDU sending fail", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-        //Convert convert = new Convert();
-        String base64String = Convert.hexToString(imageBytes);
-        byte[] btDataFile;
-        BufferedImage image = null;
-        try {
-            btDataFile = new sun.misc.BASE64Decoder().decodeBuffer(base64String);
-            image = ImageIO.read(new ByteArrayInputStream(btDataFile));
-        } catch (IOException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
-         
-        JOptionPane.showMessageDialog(null, "", "Image", 
-        JOptionPane.INFORMATION_MESSAGE, 
-        new ImageIcon(image));
-    }//GEN-LAST:event_btn_viewActionPerformed
-
     private void connect_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connect_ButtonActionPerformed
         
         if (this.terminals_ComboBox.getSelectedItem().equals( "--select--"))
@@ -435,6 +367,47 @@ public class MainForm extends javax.swing.JFrame {
         {
             javaCard.connectToCard(cardReader);
             this.status_Label.setText("Connected");
+            //set info
+            //select applet
+            String command = "00A4040006112233445500";
+            byte[] apdu = JavaSmartcard.hexStringToByteArray(command);
+            if (selectApplet(apdu))
+            {
+                System.out.println("Applet is selected");
+                name = receiveData(INS_ONAME);
+                if(name.length()>0){
+                    txt_name.setText(name);
+                    
+                    birth=receiveData(INS_OBIRTH);
+                    String[] date = birth.split("/");
+                    cbb_dob.setSelectedItem(date[0]);
+                    cbb_mob.setSelectedItem(date[1]);
+                    txt_yob.setText(date[2]);
+                    
+                    address = receiveData(INS_OADDRESS);
+                    txt_address.setText(address);
+                    
+                    issueDate = receiveData(INS_OISSUE);
+                    txtIssueDate.setText(issueDate);
+                    
+                    expDate = receiveData(INS_OEXP);
+                    txtExpDate.setText(expDate);
+                    
+                    idCard = receiveData(INS_OCARD_ID);
+                    txt_id.setText(idCard);
+                    
+                    gender = receiveData(INS_OGENDER);
+                    switch(gender){
+                        case "M":
+                            btn_m.setSelected(true);
+                            break;
+                        case "F":
+                            btn_f.setSelected(true);
+                            break;
+                    }
+                }
+                
+            }
         }
         catch (CardException ex) 
         {
@@ -444,17 +417,21 @@ public class MainForm extends javax.swing.JFrame {
 
     private void btn_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saveActionPerformed
         
-        boolean checkInput = getInfo();
-        
-        //select applet
-        String command = "00A4040006112233445500";
-        byte[] apdu = JavaSmartcard.hexStringToByteArray(command);
-        if (!selectApplet(apdu))
-        {
+        if(!getInfo()){
             return;
         }
-        else{
-            System.out.println("Select applet successfully");
+        
+        //select applet
+        String command = "00450000";
+        byte[] apdu = JavaSmartcard.hexStringToByteArray(command);
+        try {
+            javaCard.sendApdu(apdu);
+        } catch (CardException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalArgumentException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NullPointerException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         
@@ -464,6 +441,8 @@ public class MainForm extends javax.swing.JFrame {
         try {
             
             String dataString = Convert.stringToHex(Convert.imageToBase64(f));
+            //dataString = AES.encrypt(dataString, pinCode);
+            System.out.println(dataString);
             byte[] dataArr = JavaSmartcard.hexStringToByteArray(dataString);
             int i =0;
             while(i<dataArr.length){
@@ -483,31 +462,21 @@ public class MainForm extends javax.swing.JFrame {
                 //command.concat(lc);
                 command = command.concat(JavaSmartcard.byteArrayToHexString(data));
                 apdu = JavaSmartcard.hexStringToByteArray(command);
-                System.out.println(""+JavaSmartcard.htos(apdu));
+                
                 javaCard.sendApdu(apdu);
             }
         } catch (CardException|IOException e) {
             e.printStackTrace();
         }
         //send info
-        String dataInfo = getDataInfo();
- 
-        System.out.println(dataInfo);
-        System.out.println(dataInfo.length());
-        String lc = Integer.toHexString(dataInfo.length()/2);
-        String p1 = Convert.stringToHex(gender);
-        command = "0003"+p1+"00"+lc+dataInfo;
-        apdu = JavaSmartcard.hexStringToByteArray(command);
-        System.out.println(""+JavaSmartcard.htos(apdu));
-        try {
-            javaCard.sendApdu(apdu);
-        } catch (CardException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalArgumentException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NullPointerException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        sendInfo(name,INS_NAME);
+        sendInfo(birth,INS_BIRTH);
+        sendInfo(address,INS_ADDRESS);
+        sendInfo(issueDate,INS_ISSUE);
+        sendInfo(expDate,INS_EXP);
+        sendInfo(idCard,INS_CARD_ID);
+        //sendInfo(pinCode,INS_PIN);
+        sendInfo(gender,INS_GENDER);
         
     }//GEN-LAST:event_btn_saveActionPerformed
 
@@ -591,7 +560,6 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JButton btn_file;
     private javax.swing.JRadioButton btn_m;
     private javax.swing.JButton btn_save;
-    private javax.swing.JButton btn_view;
     private javax.swing.JComboBox<String> cbb_dob;
     private javax.swing.JComboBox<String> cbb_mob;
     private javax.swing.JButton connect_Button;
@@ -660,23 +628,17 @@ public class MainForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Số thẻ không hợp lệ");
             return false;
         }
+        pinCode = txt_pin.getText().trim();
+        if(pinCode.length()<1||pinCode.length()>16){
+            JOptionPane.showMessageDialog(null, "Độ dài mã pin không hợp lệ");
+            return false;
+        }
         return true;
     }
 
-    private String getDataInfo() {
-        String s = "";
-        
-        s = s.concat(returnS(name));
-        s = s.concat(returnS(birth));
-        s = s.concat(returnS(address));
-        s = s.concat(returnS(issueDate));
-        s = s.concat(returnS(expDate));
-        s = s.concat(returnS(idCard));
-        
-        return s;
-    }
+    
 
-    private String returnS(String string) {
+    private String returnData(String string) {
         String t = "";
         String lc ="";
         t = Convert.stringToHex(string);
@@ -685,5 +647,42 @@ public class MainForm extends javax.swing.JFrame {
             lc = "0"+lc;
         }
         return lc+t;
+    }
+
+    private void sendInfo(String info, String ins) {
+        String data = returnData(AES.encrypt(info, pinCode));
+        String command = "00"+ins+"0000"+data;
+        byte[] apdu = JavaSmartcard.hexStringToByteArray(command);
+        try {
+            javaCard.sendApdu(apdu);
+        } catch (CardException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalArgumentException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NullPointerException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private String receiveData(String ins) {
+        String command = "00"+ins+"0000";
+        String info ="";
+        byte[] apdu =JavaSmartcard.hexStringToByteArray(command);
+        try {
+            javaCard.sendApdu(apdu);
+            byte[] data = javaCard.getData();
+            if(data.length>0){
+                info = AES.decrypt(new String(data,"UTF-8"), txt_pin.getText());
+            }
+        } catch (CardException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalArgumentException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NullPointerException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return info;
     }
 }

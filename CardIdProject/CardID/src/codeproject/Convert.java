@@ -33,6 +33,7 @@ public class Convert{
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        
         return encodedFile;
     }
     public static String stringToHex(String string){
@@ -45,7 +46,7 @@ public class Convert{
         }
         String imageString = "";
         try {
-            imageString = imageString = new String(bytes,"UTF-8");
+            imageString = new String(bytes,"UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
