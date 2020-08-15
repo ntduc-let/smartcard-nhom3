@@ -1,0 +1,8 @@
+<JavaCardProject name="save_image">
+<USER>
+<PKG name="save_image" aid="11 22 33 44 55" major="1" minor="0">
+<APPLET aid="11 22 33 44 55 00" instanceaid="" parameter="" authority="" privileges="" index="-13096" name="Applet1"/>
+</PKG>
+<Libs/>
+</USER>
+</JavaCardProject>
