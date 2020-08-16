@@ -168,3 +168,5 @@ public class Applet1 extends Applet
 	}
 
 }
+//[B@5ca85aa5 publickey
+//privateKey: [B@50b449b4
