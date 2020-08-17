@@ -30,6 +30,7 @@ public class MainForm extends javax.swing.JFrame {
 
     String name,gender,birth,address,issueDate,expDate,idCard,pinCode;
     JavaSmartcard javaCard ;
+    boolean check;
     private final static String INS_NAME ="10";
     private final static String INS_BIRTH ="11";
     private final static String INS_ADDRESS ="12";
@@ -53,7 +54,9 @@ public class MainForm extends javax.swing.JFrame {
     
     public MainForm(){
         initComponents();
+        setLocationRelativeTo(null);
         javaCard = new JavaSmartcard();
+        check = true;
         this.getContentPane().setBackground(Color.white);
         //get date
         Calendar cal = Calendar.getInstance();
@@ -474,6 +477,7 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_connect_ButtonActionPerformed
 
     private void btn_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saveActionPerformed
+
         
         if(!getInfo()){
             return;
@@ -518,9 +522,12 @@ public class MainForm extends javax.swing.JFrame {
                 apdu = JavaSmartcard.hexStringToByteArray(command);
                 
                 javaCard.sendApdu(apdu);
+                String sw = Integer.toHexString(javaCard.getStatusWords());
+                if(!sw.equals("9000"))
+                    check = false;
             }
         } catch (CardException|IOException e) {
-            e.printStackTrace();
+            check = false;
         }
         //send info
         sendInfo(name,INS_NAME);
@@ -537,9 +544,11 @@ public class MainForm extends javax.swing.JFrame {
         try {
             javaCard.sendApdu(apdu);
         } catch (CardException | IllegalArgumentException | NullPointerException ex) {
+            check = false;
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        if(check)
+            JOptionPane.showMessageDialog(null, "Lưu thành công");
     }//GEN-LAST:event_btn_saveActionPerformed
 
     private void refresh_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refresh_ButtonActionPerformed
@@ -717,11 +726,8 @@ public class MainForm extends javax.swing.JFrame {
         byte[] apdu = JavaSmartcard.hexStringToByteArray(command);
         try {
             javaCard.sendApdu(apdu);
-        } catch (CardException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalArgumentException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NullPointerException ex) {
+        } catch (CardException | IllegalArgumentException | NullPointerException ex) {
+            check = false;
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -736,13 +742,7 @@ public class MainForm extends javax.swing.JFrame {
             if(data.length>0){
                 info = AES.decrypt(new String(data,"UTF-8"), txt_pin.getText());
             }
-        } catch (CardException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalArgumentException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NullPointerException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedEncodingException ex) {
+        } catch (CardException | IllegalArgumentException | NullPointerException | UnsupportedEncodingException ex) {
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
         }
         return info;

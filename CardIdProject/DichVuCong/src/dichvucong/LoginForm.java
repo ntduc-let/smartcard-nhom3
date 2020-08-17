@@ -3,41 +3,60 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.appacceptproj;
+package dichvucong;
 
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import javax.swing.JOptionPane;
 import java.security.PrivateKey;
-import java.security.spec.PKCS8EncodedKeySpec;
-import com.mycompany.appacceptproj.RSA;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.PublicKey;
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.smartcardio.CardException;
 import javax.smartcardio.CardTerminal;
+import javax.swing.ImageIcon;
 
 /**
  *
  * @author longa
  */
-public class MainForm extends javax.swing.JFrame {
+public class LoginForm extends javax.swing.JFrame {
+    
+    private static final String INS_VERIFY_PIN = "41";
+    
+    private final static String INS_ONAME ="20";
+    private final static String INS_OBIRTH ="21";
+    private final static String INS_OADDRESS ="22";
+    private final static String INS_OISSUE ="23";
+    private final static String INS_OEXP ="24";
+    private final static String INS_OCARD_ID ="25";
+    private final static String INS_OPIN ="26";
+    private final static String INS_OGENDER ="27";
 
     private static PublicKey publicKey;
     private static PrivateKey privateKey;
-    private JavaSmartcard javaCard;
+    JavaSmartcard javaCard;
 
     /**
      * Creates new form MainForm
      */
-    public MainForm() {
+    public LoginForm() {
         initComponents();
         this.handleCode();
+        javaCard = new JavaSmartcard();
         SecurityKeyPairGenerator();
+        setLocationRelativeTo(null);
     }
     private boolean selectApplet(byte[] apdu)
     {
@@ -59,6 +78,31 @@ public class MainForm extends javax.swing.JFrame {
         
         return isSelected;
     }
+    private String returnData(String string) {
+        String t = "";
+        String lc ="";
+        t = Convert.stringToHex(string);
+        lc = Integer.toHexString(string.length());
+        if (lc.length()==1){
+            lc = "0"+lc;
+        }
+        return lc+t;
+    }
+        private String receiveData(String ins,String pin) {
+        String command = "00"+ins+"0000";
+        String info ="";
+        byte[] apdu =JavaSmartcard.hexStringToByteArray(command);
+        try {
+            javaCard.sendApdu(apdu);
+            byte[] data = javaCard.getData();
+            if(data.length>0){
+                info = AES.decrypt(new String(data,"UTF-8"), pin);
+            }
+        } catch (CardException | IllegalArgumentException | NullPointerException | UnsupportedEncodingException ex) {
+            Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return info;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -69,7 +113,7 @@ public class MainForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pincode = new javax.swing.JTextField();
+        txtPin = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         btnLogin = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -80,9 +124,9 @@ public class MainForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        pincode.addActionListener(new java.awt.event.ActionListener() {
+        txtPin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pincodeActionPerformed(evt);
+                txtPinActionPerformed(evt);
             }
         });
 
@@ -106,6 +150,11 @@ public class MainForm extends javax.swing.JFrame {
         });
 
         cbbTerminal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Select Card--" }));
+        cbbTerminal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbTerminalActionPerformed(evt);
+            }
+        });
 
         btnConnect.setText("Connect");
         btnConnect.addActionListener(new java.awt.event.ActionListener() {
@@ -130,7 +179,7 @@ public class MainForm extends javax.swing.JFrame {
                         .addContainerGap(205, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pincode)
+                            .addComponent(txtPin)
                             .addComponent(cbbTerminal, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -150,7 +199,7 @@ public class MainForm extends javax.swing.JFrame {
                 .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(pincode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLogin))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -165,20 +214,117 @@ public class MainForm extends javax.swing.JFrame {
                     .addContainerGap(57, Short.MAX_VALUE)))
         );
 
-        pincode.getAccessibleContext().setAccessibleDescription("");
+        txtPin.getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void pincodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pincodeActionPerformed
+    private void txtPinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPinActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_pincodeActionPerformed
+    }//GEN-LAST:event_txtPinActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         String command = "00A4040006112233445500";
         byte[] apdu = JavaSmartcard.hexStringToByteArray(command);
         if(selectApplet(apdu)){
             System.out.println("Applet is selected");
+            
+            String pin = txtPin.getText().trim();
+            if(pin.equals("")){
+                JOptionPane.showMessageDialog(null, "Bạn chưa nhập mã pin");
+                return;
+            }
+            
+            command = "00"+INS_VERIFY_PIN+"0000"+returnData(pin);
+            apdu = JavaSmartcard.hexStringToByteArray(command);
+            try {
+                javaCard.sendApdu(apdu);
+            } catch (CardException | IllegalArgumentException | NullPointerException ex) {
+                Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            String sw = Integer.toHexString(javaCard.getStatusWords());
+            System.out.println(sw);
+            switch(sw){
+                case "63c2":
+                    JOptionPane.showMessageDialog(null, "Sai mã pin, bạn còn 2 lần nhập");
+                    break;
+                case "63c1":
+                    JOptionPane.showMessageDialog(null, "Sai mã pin, bạn còn 1 lần nhập");
+                    break;
+                case "63c0":
+                    JOptionPane.showMessageDialog(null, "Sai mã pin, thẻ đã bị khoá");
+                    break;
+                case "9000":
+                    Person person = new Person();
+                person.setName(receiveData(INS_ONAME, pin));
+                //System.out.println(person.getName());
+                person.setAddress(receiveData(INS_OADDRESS, pin));
+                person.setBirth(receiveData(INS_OBIRTH, pin));
+                person.setIssue(receiveData(INS_OISSUE, pin));
+                person.setExp(receiveData(INS_OEXP, pin));
+                person.setId(receiveData(INS_OCARD_ID, pin));
+                switch(receiveData(INS_OGENDER, pin)){
+                        case "M":
+                            person.setGender("Nam");
+                            break;
+                        case "F":
+                            person.setGender("Nữ");
+                            break;
+                }
+                
+                
+                //get image
+                    List<Byte> imageBytes = new ArrayList<>();
+                    //ins 0x02 reset offset output
+                    command = "00020000";
+                    apdu = JavaSmartcard.hexStringToByteArray(command);
+                    try {
+                        javaCard.sendApdu(apdu);
+                    } catch (CardException | IllegalArgumentException | NullPointerException ex) {
+                        Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    //ins 0x01 output
+                    command = "00010000";
+                    apdu = JavaSmartcard.hexStringToByteArray(command);
+                    //System.out.println(""+ JavaSmartcard.htos(apdu));
+                    for(int i = 0; i<200;i++){
+                        try
+                        {
+                            javaCard.sendApdu(apdu);
+                            byte[] data = javaCard.getData();
+                            for(int j =0;j<data.length;j++){
+                                if(data[j]!=0x00){
+                                    imageBytes.add(data[j]);
+                                }
+                            }
+
+                        } 
+                        catch (CardException | IllegalArgumentException ex) 
+                        {
+                            JOptionPane.showMessageDialog(this, "Error while tried to send command APDU\n"+ex.getMessage()+"", "APDU sending fail", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                    //Convert convert = new Convert();
+                    String base64String = Convert.hexToString(imageBytes);
+                    byte[] btDataFile;
+                    BufferedImage image = null;
+                    try {
+                        btDataFile = new sun.misc.BASE64Decoder().decodeBuffer(base64String);
+                        image = ImageIO.read(new ByteArrayInputStream(btDataFile));
+                    } catch (IOException ex) {
+                        Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    ImageIcon imageIcon = new ImageIcon(image);
+                    
+                    person.setImage(imageIcon);
+                    
+                    this.setVisible(false);
+                    new DichVuCong(person).setVisible(true);
+                    break;
+            }
+           
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 
@@ -210,13 +356,17 @@ public class MainForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnConnectActionPerformed
 
+    private void cbbTerminalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbTerminalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbbTerminalActionPerformed
+
     public void handleCode() {
         String randomTxt = "daylachuoingaunhien";
         System.out.println("Random text: " + randomTxt);
         btnLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String pin = pincode.getText();
+                String pin = txtPin.getText();
                 try {
 //                    RSA.decrypt(pin, privateKey);
 //                    RSA.encrypt(pin, publicKey);
@@ -229,7 +379,7 @@ public class MainForm extends javax.swing.JFrame {
                     // thuc hien so sanh ma pin nguoi dung nhap voi ma pin vua giai ma duoc.
                     // neu thanh cong thi cho phep dang nhap
                 } catch (Exception ex) {
-                    Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 System.out.println("Pin Code: " + pin);
             }
@@ -276,20 +426,23 @@ public class MainForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainForm().setVisible(true);
+                new LoginForm().setVisible(true);
             }
         });
     }
@@ -302,7 +455,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField pincode;
+    private javax.swing.JTextField txtPin;
     // End of variables declaration//GEN-END:variables
 
 }
