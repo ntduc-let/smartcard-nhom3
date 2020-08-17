@@ -27,15 +27,37 @@ public class Applet1 extends Applet
 	final static byte INS_OPIN=(byte)0x26;
 	final static byte INS_OGENDER=(byte)0x27;
 	final static byte INS_RESET = (byte)0x45;
-	private static byte[] image,name,birth,address,issue,exp,pin,gender,id;
-	private static short lengImage,imageOffset,lcName,lcBirth,lcAddress,lcIssue,lcExp,lcPin,lcGender,lcId;
+	
+	private static final byte INS_CREATE_PIN = (byte)0x40;
+	private static final byte INS_VERIFY_PIN = (byte)0x41;
+	
+	// Minimum PIN size
+	private final static byte PIN_MIN_SIZE = (byte) 4;
+	// Maximum PIN size
+	private final static byte PIN_MAX_SIZE = (byte) 16;// TODO: increase size?
+	// maximum number of incorrect tries before the PIN is blocked
+	final static byte PIN_TRY_LIMIT =(byte)0x03;
+	
+	////error code
+		private final static short SW_PIN_NULL = (short)0x9C01;
+		private final static short SW_PIN_FAILED = (short)0x63C0;// includes number of tries remaining
+		///** DEPRECATED - Entered PIN is not correct */
+		/** Required operation was not authorized because of a lack of privileges */
+		private final static short SW_UNAUTHORIZED = (short) 0x9C06;
+		/** Operation has been blocked for security reason */
+		private final static short SW_IDENTITY_BLOCKED = (short) 0x9C0C;
+	
+	private static byte[] image,name,birth,address,issue,exp,gender,id;
+	private static short lengImage,imageOffset,lcName,lcBirth,lcAddress,lcIssue,lcExp,lcGender,lcId;
+	
+	private OwnerPIN pin;
+	
 	//final static short LENGTH_CARD_ID = (short)12;
 	public Applet1(){
 		image = new byte[32767];
 		lengImage = (short)0;
 		imageOffset = (short)0;
-		// info = new byte[200];
-		// lengInfo = (short)0;
+		
 	}
 	public static void install(byte[] bArray, short bOffset, byte bLength) 
 	{
@@ -78,6 +100,9 @@ public class Applet1 extends Applet
 			lcName = lc;
 			break;
 		case INS_ONAME:
+			if(!pin.isValidated())
+				ISOException.throwIt(SW_UNAUTHORIZED);
+				
 			Util.arrayCopy(name,(short)0,buf,(short)0,lcName);
 			apdu.setOutgoingAndSend((short)0,lcName);
 			break;
@@ -87,6 +112,8 @@ public class Applet1 extends Applet
 			lcBirth = lc;
 			break;
 		case INS_OBIRTH:
+			if(!pin.isValidated())
+				ISOException.throwIt(SW_UNAUTHORIZED);
 			Util.arrayCopy(birth,(short)0,buf,(short)0,lcBirth);
 			apdu.setOutgoingAndSend((short)0,lcBirth);
 			break;
@@ -96,6 +123,9 @@ public class Applet1 extends Applet
 			lcAddress = lc;
 			break;
 		case INS_OADDRESS:
+			if(!pin.isValidated())
+				ISOException.throwIt(SW_UNAUTHORIZED);
+				
 			Util.arrayCopy(address,(short)0,buf,(short)0,lcAddress);
 			apdu.setOutgoingAndSend((short)0,lcAddress);
 			break;
@@ -105,6 +135,9 @@ public class Applet1 extends Applet
 			lcIssue = lc;
 			break;
 		case INS_OISSUE:
+			if(!pin.isValidated())
+				ISOException.throwIt(SW_UNAUTHORIZED);
+				
 			Util.arrayCopy(issue,(short)0,buf,(short)0,lcIssue);
 			apdu.setOutgoingAndSend((short)0,lcIssue);
 			break;
@@ -114,6 +147,9 @@ public class Applet1 extends Applet
 			lcExp = lc;
 			break;
 		case INS_OEXP:
+			if(!pin.isValidated())
+				ISOException.throwIt(SW_UNAUTHORIZED);
+				
 			Util.arrayCopy(exp,(short)0,buf,(short)0,lcName);
 			apdu.setOutgoingAndSend((short)0,lcName);
 			break;
@@ -123,6 +159,9 @@ public class Applet1 extends Applet
 			lcId = lc;
 			break;
 		case INS_OCARD_ID:
+			if(!pin.isValidated())
+				ISOException.throwIt(SW_UNAUTHORIZED);
+				
 			Util.arrayCopy(id,(short)0,buf,(short)0,lcId);
 			apdu.setOutgoingAndSend((short)0,lcId);
 			break;
@@ -132,41 +171,52 @@ public class Applet1 extends Applet
 			lcGender = lc;
 			break;
 		case INS_OGENDER:
+		if(!pin.isValidated())
+				ISOException.throwIt(SW_UNAUTHORIZED);
+				
 			Util.arrayCopy(gender,(short)0,buf,(short)0,lcGender);
 			apdu.setOutgoingAndSend((short)0,lcGender);
 			break;
-		// case INS_INFO:
-			// //p1->gender
-			// gender = (byte)(buf[ISO7816.OFFSET_P1]);
-			// //cdata
-			// Util.arrayCopy(buf,ISO7816.OFFSET_CDATA,info,(short)0,lc);
-			// lengInfo = lc;
-			// buf[0]= (byte)lc;
-			// apdu.setOutgoingAndSend((short)0,(short)1);
-			// break;
-		// case INS_OUT_INFO:
-			// short le = apdu.setOutgoing();
-			// if(lengInfo>0){
-				// apdu.setOutgoingLength((short)(lengInfo+2));
-				// Util.arrayCopy(info,(short)0,buf,(short)0,lengInfo);
-				// buf[lengInfo]=(byte)0x01;
-				// buf[(short)(lengInfo+1)]=(byte)gender;
-				// apdu.sendBytes((short)0,(short)(lengInfo+2));
-			// }
-			// break;
 		case INS_RESET:
 			image = new byte[32767];
 			lengImage = (short)0;
 			imageOffset = (short)0;
-			// info = new byte[200];
-			// lengInfo = (short)0;
+			break;
+			
+		case INS_CREATE_PIN:
+			CreatePIN(apdu);
+			break;
+		case INS_VERIFY_PIN:
+			VerifyPIN(apdu);
 			break;
 			
 		default:
 			ISOException.throwIt(ISO7816.SW_INS_NOT_SUPPORTED);
 		}
 	}
-
+	private short CreatePIN(APDU apdu)
+	{
+		pin = new OwnerPIN(PIN_TRY_LIMIT,PIN_MAX_SIZE);
+		byte[] buf = apdu.getBuffer();
+		pin.update(buf,ISO7816.OFFSET_CDATA,ISO7816.OFFSET_LC);
+		return (short)0;
+	}
+	private short VerifyPIN(APDU apdu)
+	{
+		if(pin == null)
+			ISOException.throwIt(SW_PIN_NULL);
+		byte[] buf = apdu.getBuffer();
+		byte triesRemaining = pin.getTriesRemaining();
+		if(triesRemaining==(byte)0x00){
+			ISOException.throwIt(SW_IDENTITY_BLOCKED);
+		}
+		if(!pin.check(buf,ISO7816.OFFSET_CDATA,ISO7816.OFFSET_LC)){
+			ISOException.throwIt((short)(SW_PIN_FAILED + triesRemaining - 1));
+		}
+		return (short)0;
+	}
+	private short UnblockPIN(APDU apdu){
+		pin.resetAndUnblock();
+		return (short)0;
+	}
 }
-//[B@5ca85aa5 publickey
-//privateKey: [B@50b449b4

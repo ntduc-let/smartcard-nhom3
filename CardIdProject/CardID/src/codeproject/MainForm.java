@@ -48,6 +48,9 @@ public class MainForm extends javax.swing.JFrame {
     private final static String INS_OPIN ="26";
     private final static String INS_OGENDER ="27";
     
+    private static final String INS_CREATE_PIN = "40";
+    private static final String INS_VERIFY_PIN = "41";
+    
     public MainForm(){
         initComponents();
         javaCard = new JavaSmartcard();
@@ -374,6 +377,15 @@ public class MainForm extends javax.swing.JFrame {
             if (selectApplet(apdu))
             {
                 System.out.println("Applet is selected");
+                //verify pin
+                pinCode = txt_pin.getText().trim()+"";
+                if(pinCode.equals(""))
+                    return;
+                command = "00"+INS_VERIFY_PIN+"0000"+returnData(pinCode);
+                apdu = JavaSmartcard.hexStringToByteArray(command);
+                javaCard.sendApdu(apdu);
+                String sw = Integer.toHexString(javaCard.getStatusWords());
+                System.out.println(sw);
                 name = receiveData(INS_ONAME);
                 if(name.length()>0){
                     txt_name.setText(name);
@@ -472,11 +484,7 @@ public class MainForm extends javax.swing.JFrame {
         byte[] apdu = JavaSmartcard.hexStringToByteArray(command);
         try {
             javaCard.sendApdu(apdu);
-        } catch (CardException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalArgumentException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NullPointerException ex) {
+        } catch (CardException | IllegalArgumentException | NullPointerException ex) {
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -523,6 +531,14 @@ public class MainForm extends javax.swing.JFrame {
         sendInfo(idCard,INS_CARD_ID);
         //sendInfo(pinCode,INS_PIN);
         sendInfo(gender,INS_GENDER);
+        //set pin
+        command = "00"+INS_CREATE_PIN+"0000"+returnData(pinCode);
+        apdu = JavaSmartcard.hexStringToByteArray(command);
+        try {
+            javaCard.sendApdu(apdu);
+        } catch (CardException | IllegalArgumentException | NullPointerException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }//GEN-LAST:event_btn_saveActionPerformed
 

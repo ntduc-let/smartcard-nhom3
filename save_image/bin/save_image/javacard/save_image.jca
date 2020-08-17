@@ -1,5 +1,5 @@
 // converted by version 1.3
-// on Sat Aug 15 15:29:20 ICT 2020
+// on Mon Aug 17 11:14:56 ICT 2020
 
 .package save_image {
 	.aid 0x11:0x22:0x33:0x44:0x55;
@@ -15,7 +15,7 @@
 
 	.constantPool {
 		// 0
-		staticMethodRef 0.3.0()V;		// javacard/framework/Applet.<init>()V
+		instanceFieldRef 0.9 Applet1/pin;
 		// 1
 		staticFieldRef byte[] Applet1/image;
 		// 2
@@ -47,38 +47,63 @@
 		// 15
 		staticFieldRef short Applet1/lcName;
 		// 16
-		virtualMethodRef 0.10.8(SS)V;		// javacard/framework/APDU.setOutgoingAndSend(SS)V
+		staticMethodRef 0.3.0()V;		// javacard/framework/Applet.<init>()V
 		// 17
-		staticFieldRef byte[] Applet1/birth;
+		virtualMethodRef 0.9.4()Z;		// javacard/framework/OwnerPIN.isValidated()Z
 		// 18
-		staticFieldRef short Applet1/lcBirth;
-		// 19
-		staticFieldRef byte[] Applet1/address;
-		// 20
-		staticFieldRef short Applet1/lcAddress;
-		// 21
-		staticFieldRef byte[] Applet1/issue;
-		// 22
-		staticFieldRef short Applet1/lcIssue;
-		// 23
-		staticFieldRef byte[] Applet1/exp;
-		// 24
-		staticFieldRef short Applet1/lcExp;
-		// 25
-		staticFieldRef byte[] Applet1/id;
-		// 26
-		staticFieldRef short Applet1/lcId;
-		// 27
-		staticFieldRef byte[] Applet1/gender;
-		// 28
-		staticFieldRef short Applet1/lcGender;
-		// 29
 		staticMethodRef 0.7.1(S)V;		// javacard/framework/ISOException.throwIt(S)V
+		// 19
+		virtualMethodRef 0.10.8(SS)V;		// javacard/framework/APDU.setOutgoingAndSend(SS)V
+		// 20
+		staticFieldRef byte[] Applet1/birth;
+		// 21
+		staticFieldRef short Applet1/lcBirth;
+		// 22
+		staticFieldRef byte[] Applet1/address;
+		// 23
+		staticFieldRef short Applet1/lcAddress;
+		// 24
+		staticFieldRef byte[] Applet1/issue;
+		// 25
+		staticFieldRef short Applet1/lcIssue;
+		// 26
+		staticFieldRef byte[] Applet1/exp;
+		// 27
+		staticFieldRef short Applet1/lcExp;
+		// 28
+		staticFieldRef byte[] Applet1/id;
+		// 29
+		staticFieldRef short Applet1/lcId;
+		// 30
+		staticFieldRef byte[] Applet1/gender;
+		// 31
+		staticFieldRef short Applet1/lcGender;
+		// 32
+		staticMethodRef Applet1/CreatePIN(Ljavacard/framework/APDU;)S;
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+		// 33
+		staticMethodRef Applet1/VerifyPIN(Ljavacard/framework/APDU;)S;
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+		// 34
+		classRef 0.9;		// javacard/framework/OwnerPIN
+		// 35
+		staticMethodRef 0.9.0(BB)V;		// javacard/framework/OwnerPIN.<init>(BB)V
+		// 36
+		virtualMethodRef 0.9.8([BSB)V;		// javacard/framework/OwnerPIN.update([BSB)V
+		// 37
+		virtualMethodRef 0.9.2()B;		// javacard/framework/OwnerPIN.getTriesRemaining()B
+		// 38
+		virtualMethodRef 0.9.1([BSB)Z;		// javacard/framework/OwnerPIN.check([BSB)Z
+		// 39
+		virtualMethodRef 0.9.6()V;		// javacard/framework/OwnerPIN.resetAndUnblock()V
 	}
 
 	.class public Applet1 0 extends 0.3 {		// extends javacard/framework/Applet
 
 		.fields {
+			private 0.9 pin 0;		// Ljavacard/framework/OwnerPIN;
 			static final byte INS_IMAGE = 0;		// B
 			static final byte INS_OUT_IMAGE = 1;		// B
 			static final byte INS_NAME = 16;		// B
@@ -98,13 +123,21 @@
 			static final byte INS_OPIN = 38;		// B
 			static final byte INS_OGENDER = 39;		// B
 			static final byte INS_RESET = 69;		// B
+			private static final byte INS_CREATE_PIN = 64;		// B
+			private static final byte INS_VERIFY_PIN = 65;		// B
+			private static final byte PIN_MIN_SIZE = 4;		// B
+			private static final byte PIN_MAX_SIZE = 16;		// B
+			static final byte PIN_TRY_LIMIT = 3;		// B
+			private static final short SW_PIN_NULL = -25599;		// S
+			private static final short SW_PIN_FAILED = 25536;		// S
+			private static final short SW_UNAUTHORIZED = -25594;		// S
+			private static final short SW_IDENTITY_BLOCKED = -25588;		// S
 			private static byte[] image;		// [B
 			private static byte[] name;		// [B
 			private static byte[] birth;		// [B
 			private static byte[] address;		// [B
 			private static byte[] issue;		// [B
 			private static byte[] exp;		// [B
-			private static byte[] pin;		// [B
 			private static byte[] gender;		// [B
 			private static byte[] id;		// [B
 			private static short lengImage;		// S
@@ -114,7 +147,6 @@
 			private static short lcAddress;		// S
 			private static short lcIssue;		// S
 			private static short lcExp;		// S
-			private static short lcPin;		// S
 			private static short lcGender;		// S
 			private static short lcId;		// S
 		}
@@ -138,7 +170,7 @@
 			.locals 0;
 
 				L0:	aload_0;
-					invokespecial 0;		// javacard/framework/Applet.<init>()V
+					invokespecial 16;		// javacard/framework/Applet.<init>()V
 					sspush 32767;
 					newarray 11;
 					putstatic_a 1;		// reference save_image/Applet1.image
@@ -190,7 +222,7 @@
 				L4:	aload_2;
 					sconst_1;
 					baload;
-					stableswitch L26 0 69 L5 L6 L10 L26 L26 L26 L26 L26 L26 L26 L26 L26 L26 L26 L26 L26 L11 L13 L15 L17 L19 L21 L26 L23 L26 L26 L26 L26 L26 L26 L26 L26 L12 L14 L16 L18 L20 L22 L26 L24 L26 L26 L26 L26 L26 L26 L26 L26 L26 L26 L26 L26 L26 L26 L26 L26 L26 L26 L26 L26 L26 L26 L26 L26 L26 L26 L26 L26 L26 L25;
+					stableswitch L42 0 69 L5 L6 L10 L42 L42 L42 L42 L42 L42 L42 L42 L42 L42 L42 L42 L42 L11 L15 L19 L23 L27 L31 L42 L35 L42 L42 L42 L42 L42 L42 L42 L42 L12 L16 L20 L24 L28 L32 L42 L36 L42 L42 L42 L42 L42 L42 L42 L42 L42 L42 L42 L42 L42 L42 L42 L42 L42 L42 L42 L42 L42 L42 L42 L42 L40 L41 L42 L42 L42 L39;
 				L5:	aload_2;
 					sconst_5;
 					getstatic_a 1;		// reference save_image/Applet1.image
@@ -202,12 +234,12 @@
 					sload_3;
 					sadd;
 					putstatic_s 2;		// short save_image/Applet1.lengImage
-					goto_w L27;
+					goto_w L43;
 				L6:	getstatic_s 3;		// short save_image/Applet1.imageOffset
 					getstatic_s 2;		// short save_image/Applet1.lengImage
 					sconst_1;
 					ssub;
-					if_scmpge_w L27;
+					if_scmpge_w L43;
 				L7:	aload_1;
 					invokevirtual 11;		// javacard/framework/APDU.setOutgoing()S
 					sstore 4;
@@ -229,10 +261,10 @@
 					sconst_0;
 					bspush 99;
 					invokevirtual 13;		// javacard/framework/APDU.sendBytes(SS)V
-				L9:	goto_w L27;
+				L9:	goto_w L43;
 				L10:	sconst_0;
 					putstatic_s 3;		// short save_image/Applet1.imageOffset
-					goto_w L27;
+					goto_w L43;
 				L11:	sload_3;
 					newarray 11;
 					putstatic_a 14;		// reference save_image/Applet1.name
@@ -245,8 +277,13 @@
 					pop;
 					sload_3;
 					putstatic_s 15;		// short save_image/Applet1.lcName
-					goto_w L27;
-				L12:	getstatic_a 14;		// reference save_image/Applet1.name
+					goto_w L43;
+				L12:	getfield_a_this 0;		// reference save_image/Applet1.pin
+					invokevirtual 17;		// javacard/framework/OwnerPIN.isValidated()Z
+					ifne L14;
+				L13:	sspush -25594;
+					invokestatic 18;		// javacard/framework/ISOException.throwIt(S)V
+				L14:	getstatic_a 14;		// reference save_image/Applet1.name
 					sconst_0;
 					aload_2;
 					sconst_0;
@@ -256,169 +293,282 @@
 					aload_1;
 					sconst_0;
 					getstatic_s 15;		// short save_image/Applet1.lcName
-					invokevirtual 16;		// javacard/framework/APDU.setOutgoingAndSend(SS)V
-					goto_w L27;
-				L13:	sload_3;
-					newarray 11;
-					putstatic_a 17;		// reference save_image/Applet1.birth
-					aload_2;
-					sconst_5;
-					getstatic_a 17;		// reference save_image/Applet1.birth
-					sconst_0;
-					sload_3;
-					invokestatic 10;		// javacard/framework/Util.arrayCopy([BS[BSS)S
-					pop;
-					sload_3;
-					putstatic_s 18;		// short save_image/Applet1.lcBirth
-					goto_w L27;
-				L14:	getstatic_a 17;		// reference save_image/Applet1.birth
-					sconst_0;
-					aload_2;
-					sconst_0;
-					getstatic_s 18;		// short save_image/Applet1.lcBirth
-					invokestatic 10;		// javacard/framework/Util.arrayCopy([BS[BSS)S
-					pop;
-					aload_1;
-					sconst_0;
-					getstatic_s 18;		// short save_image/Applet1.lcBirth
-					invokevirtual 16;		// javacard/framework/APDU.setOutgoingAndSend(SS)V
-					goto_w L27;
+					invokevirtual 19;		// javacard/framework/APDU.setOutgoingAndSend(SS)V
+					goto_w L43;
 				L15:	sload_3;
 					newarray 11;
-					putstatic_a 19;		// reference save_image/Applet1.address
+					putstatic_a 20;		// reference save_image/Applet1.birth
 					aload_2;
 					sconst_5;
-					getstatic_a 19;		// reference save_image/Applet1.address
+					getstatic_a 20;		// reference save_image/Applet1.birth
 					sconst_0;
 					sload_3;
 					invokestatic 10;		// javacard/framework/Util.arrayCopy([BS[BSS)S
 					pop;
 					sload_3;
-					putstatic_s 20;		// short save_image/Applet1.lcAddress
-					goto_w L27;
-				L16:	getstatic_a 19;		// reference save_image/Applet1.address
+					putstatic_s 21;		// short save_image/Applet1.lcBirth
+					goto_w L43;
+				L16:	getfield_a_this 0;		// reference save_image/Applet1.pin
+					invokevirtual 17;		// javacard/framework/OwnerPIN.isValidated()Z
+					ifne L18;
+				L17:	sspush -25594;
+					invokestatic 18;		// javacard/framework/ISOException.throwIt(S)V
+				L18:	getstatic_a 20;		// reference save_image/Applet1.birth
 					sconst_0;
 					aload_2;
 					sconst_0;
-					getstatic_s 20;		// short save_image/Applet1.lcAddress
+					getstatic_s 21;		// short save_image/Applet1.lcBirth
 					invokestatic 10;		// javacard/framework/Util.arrayCopy([BS[BSS)S
 					pop;
 					aload_1;
 					sconst_0;
-					getstatic_s 20;		// short save_image/Applet1.lcAddress
-					invokevirtual 16;		// javacard/framework/APDU.setOutgoingAndSend(SS)V
-					goto_w L27;
-				L17:	sload_3;
-					newarray 11;
-					putstatic_a 21;		// reference save_image/Applet1.issue
-					aload_2;
-					sconst_5;
-					getstatic_a 21;		// reference save_image/Applet1.issue
-					sconst_0;
-					sload_3;
-					invokestatic 10;		// javacard/framework/Util.arrayCopy([BS[BSS)S
-					pop;
-					sload_3;
-					putstatic_s 22;		// short save_image/Applet1.lcIssue
-					goto_w L27;
-				L18:	getstatic_a 21;		// reference save_image/Applet1.issue
-					sconst_0;
-					aload_2;
-					sconst_0;
-					getstatic_s 22;		// short save_image/Applet1.lcIssue
-					invokestatic 10;		// javacard/framework/Util.arrayCopy([BS[BSS)S
-					pop;
-					aload_1;
-					sconst_0;
-					getstatic_s 22;		// short save_image/Applet1.lcIssue
-					invokevirtual 16;		// javacard/framework/APDU.setOutgoingAndSend(SS)V
-					goto_w L27;
+					getstatic_s 21;		// short save_image/Applet1.lcBirth
+					invokevirtual 19;		// javacard/framework/APDU.setOutgoingAndSend(SS)V
+					goto_w L43;
 				L19:	sload_3;
 					newarray 11;
-					putstatic_a 23;		// reference save_image/Applet1.exp
+					putstatic_a 22;		// reference save_image/Applet1.address
 					aload_2;
 					sconst_5;
-					getstatic_a 23;		// reference save_image/Applet1.exp
+					getstatic_a 22;		// reference save_image/Applet1.address
 					sconst_0;
 					sload_3;
 					invokestatic 10;		// javacard/framework/Util.arrayCopy([BS[BSS)S
 					pop;
 					sload_3;
-					putstatic_s 24;		// short save_image/Applet1.lcExp
-					goto_w L27;
-				L20:	getstatic_a 23;		// reference save_image/Applet1.exp
+					putstatic_s 23;		// short save_image/Applet1.lcAddress
+					goto_w L43;
+				L20:	getfield_a_this 0;		// reference save_image/Applet1.pin
+					invokevirtual 17;		// javacard/framework/OwnerPIN.isValidated()Z
+					ifne L22;
+				L21:	sspush -25594;
+					invokestatic 18;		// javacard/framework/ISOException.throwIt(S)V
+				L22:	getstatic_a 22;		// reference save_image/Applet1.address
 					sconst_0;
 					aload_2;
 					sconst_0;
-					getstatic_s 15;		// short save_image/Applet1.lcName
+					getstatic_s 23;		// short save_image/Applet1.lcAddress
 					invokestatic 10;		// javacard/framework/Util.arrayCopy([BS[BSS)S
 					pop;
 					aload_1;
 					sconst_0;
-					getstatic_s 15;		// short save_image/Applet1.lcName
-					invokevirtual 16;		// javacard/framework/APDU.setOutgoingAndSend(SS)V
-					goto L27;
-				L21:	sload_3;
-					newarray 11;
-					putstatic_a 25;		// reference save_image/Applet1.id
-					aload_2;
-					sconst_5;
-					getstatic_a 25;		// reference save_image/Applet1.id
-					sconst_0;
-					sload_3;
-					invokestatic 10;		// javacard/framework/Util.arrayCopy([BS[BSS)S
-					pop;
-					sload_3;
-					putstatic_s 26;		// short save_image/Applet1.lcId
-					goto L27;
-				L22:	getstatic_a 25;		// reference save_image/Applet1.id
-					sconst_0;
-					aload_2;
-					sconst_0;
-					getstatic_s 26;		// short save_image/Applet1.lcId
-					invokestatic 10;		// javacard/framework/Util.arrayCopy([BS[BSS)S
-					pop;
-					aload_1;
-					sconst_0;
-					getstatic_s 26;		// short save_image/Applet1.lcId
-					invokevirtual 16;		// javacard/framework/APDU.setOutgoingAndSend(SS)V
-					goto L27;
+					getstatic_s 23;		// short save_image/Applet1.lcAddress
+					invokevirtual 19;		// javacard/framework/APDU.setOutgoingAndSend(SS)V
+					goto_w L43;
 				L23:	sload_3;
 					newarray 11;
-					putstatic_a 27;		// reference save_image/Applet1.gender
+					putstatic_a 24;		// reference save_image/Applet1.issue
 					aload_2;
 					sconst_5;
-					getstatic_a 27;		// reference save_image/Applet1.gender
+					getstatic_a 24;		// reference save_image/Applet1.issue
 					sconst_0;
 					sload_3;
 					invokestatic 10;		// javacard/framework/Util.arrayCopy([BS[BSS)S
 					pop;
 					sload_3;
-					putstatic_s 28;		// short save_image/Applet1.lcGender
-					goto L27;
-				L24:	getstatic_a 27;		// reference save_image/Applet1.gender
+					putstatic_s 25;		// short save_image/Applet1.lcIssue
+					goto_w L43;
+				L24:	getfield_a_this 0;		// reference save_image/Applet1.pin
+					invokevirtual 17;		// javacard/framework/OwnerPIN.isValidated()Z
+					ifne L26;
+				L25:	sspush -25594;
+					invokestatic 18;		// javacard/framework/ISOException.throwIt(S)V
+				L26:	getstatic_a 24;		// reference save_image/Applet1.issue
 					sconst_0;
 					aload_2;
 					sconst_0;
-					getstatic_s 28;		// short save_image/Applet1.lcGender
+					getstatic_s 25;		// short save_image/Applet1.lcIssue
 					invokestatic 10;		// javacard/framework/Util.arrayCopy([BS[BSS)S
 					pop;
 					aload_1;
 					sconst_0;
-					getstatic_s 28;		// short save_image/Applet1.lcGender
-					invokevirtual 16;		// javacard/framework/APDU.setOutgoingAndSend(SS)V
-					goto L27;
-				L25:	sspush 32767;
+					getstatic_s 25;		// short save_image/Applet1.lcIssue
+					invokevirtual 19;		// javacard/framework/APDU.setOutgoingAndSend(SS)V
+					goto_w L43;
+				L27:	sload_3;
+					newarray 11;
+					putstatic_a 26;		// reference save_image/Applet1.exp
+					aload_2;
+					sconst_5;
+					getstatic_a 26;		// reference save_image/Applet1.exp
+					sconst_0;
+					sload_3;
+					invokestatic 10;		// javacard/framework/Util.arrayCopy([BS[BSS)S
+					pop;
+					sload_3;
+					putstatic_s 27;		// short save_image/Applet1.lcExp
+					goto_w L43;
+				L28:	getfield_a_this 0;		// reference save_image/Applet1.pin
+					invokevirtual 17;		// javacard/framework/OwnerPIN.isValidated()Z
+					ifne L30;
+				L29:	sspush -25594;
+					invokestatic 18;		// javacard/framework/ISOException.throwIt(S)V
+				L30:	getstatic_a 26;		// reference save_image/Applet1.exp
+					sconst_0;
+					aload_2;
+					sconst_0;
+					getstatic_s 15;		// short save_image/Applet1.lcName
+					invokestatic 10;		// javacard/framework/Util.arrayCopy([BS[BSS)S
+					pop;
+					aload_1;
+					sconst_0;
+					getstatic_s 15;		// short save_image/Applet1.lcName
+					invokevirtual 19;		// javacard/framework/APDU.setOutgoingAndSend(SS)V
+					goto_w L43;
+				L31:	sload_3;
+					newarray 11;
+					putstatic_a 28;		// reference save_image/Applet1.id
+					aload_2;
+					sconst_5;
+					getstatic_a 28;		// reference save_image/Applet1.id
+					sconst_0;
+					sload_3;
+					invokestatic 10;		// javacard/framework/Util.arrayCopy([BS[BSS)S
+					pop;
+					sload_3;
+					putstatic_s 29;		// short save_image/Applet1.lcId
+					goto_w L43;
+				L32:	getfield_a_this 0;		// reference save_image/Applet1.pin
+					invokevirtual 17;		// javacard/framework/OwnerPIN.isValidated()Z
+					ifne L34;
+				L33:	sspush -25594;
+					invokestatic 18;		// javacard/framework/ISOException.throwIt(S)V
+				L34:	getstatic_a 28;		// reference save_image/Applet1.id
+					sconst_0;
+					aload_2;
+					sconst_0;
+					getstatic_s 29;		// short save_image/Applet1.lcId
+					invokestatic 10;		// javacard/framework/Util.arrayCopy([BS[BSS)S
+					pop;
+					aload_1;
+					sconst_0;
+					getstatic_s 29;		// short save_image/Applet1.lcId
+					invokevirtual 19;		// javacard/framework/APDU.setOutgoingAndSend(SS)V
+					goto L43;
+				L35:	sload_3;
+					newarray 11;
+					putstatic_a 30;		// reference save_image/Applet1.gender
+					aload_2;
+					sconst_5;
+					getstatic_a 30;		// reference save_image/Applet1.gender
+					sconst_0;
+					sload_3;
+					invokestatic 10;		// javacard/framework/Util.arrayCopy([BS[BSS)S
+					pop;
+					sload_3;
+					putstatic_s 31;		// short save_image/Applet1.lcGender
+					goto L43;
+				L36:	getfield_a_this 0;		// reference save_image/Applet1.pin
+					invokevirtual 17;		// javacard/framework/OwnerPIN.isValidated()Z
+					ifne L38;
+				L37:	sspush -25594;
+					invokestatic 18;		// javacard/framework/ISOException.throwIt(S)V
+				L38:	getstatic_a 30;		// reference save_image/Applet1.gender
+					sconst_0;
+					aload_2;
+					sconst_0;
+					getstatic_s 31;		// short save_image/Applet1.lcGender
+					invokestatic 10;		// javacard/framework/Util.arrayCopy([BS[BSS)S
+					pop;
+					aload_1;
+					sconst_0;
+					getstatic_s 31;		// short save_image/Applet1.lcGender
+					invokevirtual 19;		// javacard/framework/APDU.setOutgoingAndSend(SS)V
+					goto L43;
+				L39:	sspush 32767;
 					newarray 11;
 					putstatic_a 1;		// reference save_image/Applet1.image
 					sconst_0;
 					putstatic_s 2;		// short save_image/Applet1.lengImage
 					sconst_0;
 					putstatic_s 3;		// short save_image/Applet1.imageOffset
-					goto L27;
-				L26:	sspush 27904;
-					invokestatic 29;		// javacard/framework/ISOException.throwIt(S)V
-				L27:	return;
+					goto L43;
+				L40:	aload_0;
+					aload_1;
+					invokespecial 32;		// save_image/Applet1.CreatePIN(Ljavacard/framework/APDU;)S
+					pop;
+					goto L43;
+				L41:	aload_0;
+					aload_1;
+					invokespecial 33;		// save_image/Applet1.VerifyPIN(Ljavacard/framework/APDU;)S
+					pop;
+					goto L43;
+				L42:	sspush 27904;
+					invokestatic 18;		// javacard/framework/ISOException.throwIt(S)V
+				L43:	return;
+		}
+
+		.method private CreatePIN(Ljavacard/framework/APDU;)S {
+			.stack 5;
+			.locals 1;
+
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+				L0:	aload_0;
+					new 34;		// javacard/framework/OwnerPIN
+					dup;
+					sconst_3;
+					bspush 16;
+					invokespecial 35;		// javacard/framework/OwnerPIN.<init>(BB)V
+					putfield_a 0;		// reference save_image/Applet1.pin
+					aload_1;
+					invokevirtual 8;		// javacard/framework/APDU.getBuffer()[B
+					astore_2;
+				L1:	getfield_a_this 0;		// reference save_image/Applet1.pin
+					aload_2;
+					sconst_5;
+					sconst_4;
+					invokevirtual 36;		// javacard/framework/OwnerPIN.update([BSB)V
+					sconst_0;
+					sreturn;
+		}
+
+		.method private VerifyPIN(Ljavacard/framework/APDU;)S {
+			.stack 4;
+			.locals 2;
+
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+				L0:	getfield_a_this 0;		// reference save_image/Applet1.pin
+					ifnonnull L2;
+				L1:	sspush -25599;
+					invokestatic 18;		// javacard/framework/ISOException.throwIt(S)V
+				L2:	aload_1;
+					invokevirtual 8;		// javacard/framework/APDU.getBuffer()[B
+					astore_2;
+				L3:	getfield_a_this 0;		// reference save_image/Applet1.pin
+					invokevirtual 37;		// javacard/framework/OwnerPIN.getTriesRemaining()B
+					sstore_3;
+				L4:	sload_3;
+					ifne L6;
+				L5:	sspush -25588;
+					invokestatic 18;		// javacard/framework/ISOException.throwIt(S)V
+				L6:	getfield_a_this 0;		// reference save_image/Applet1.pin
+					aload_2;
+					sconst_5;
+					sconst_4;
+					invokevirtual 38;		// javacard/framework/OwnerPIN.check([BSB)Z
+					ifne L8;
+				L7:	sspush 25536;
+					sload_3;
+					sadd;
+					sconst_1;
+					ssub;
+					invokestatic 18;		// javacard/framework/ISOException.throwIt(S)V
+				L8:	sconst_0;
+					sreturn;
+		}
+
+		.method private UnblockPIN(Ljavacard/framework/APDU;)S {
+			.stack 1;
+			.locals 0;
+
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+				L0:	getfield_a_this 0;		// reference save_image/Applet1.pin
+					invokevirtual 39;		// javacard/framework/OwnerPIN.resetAndUnblock()V
+					sconst_0;
+					sreturn;
 		}
 
 	}
