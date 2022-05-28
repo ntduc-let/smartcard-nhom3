@@ -1,0 +1,275 @@
+// converted by version 1.3
+// on Sat Jun 05 14:13:11 ICT 2021
+
+.package buoi7 {
+	.aid 0x25:0x10:0x19:0x99:0x0:0x0:0x7;
+	.version 1.0;
+
+	.imports {
+		0xA0:0x0:0x0:0x0:0x62:0x0:0x1 1.0;		//java/lang
+		0xA0:0x0:0x0:0x0:0x62:0x1:0x1 1.2;		//javacard/framework
+	}
+
+	.applet {
+		0x25:0x10:0x19:0x99:0x0:0x0:0x7:0x0 buoi7;
+		0x25:0x10:0x19:0x99:0x0:0x0:0x7:0x1 masterApp;
+	}
+
+	.constantPool {
+		// 0
+		instanceFieldRef byte[] masterApp/testArray;
+		// 1
+		staticMethodRef 1.3.0()V;		// javacard/framework/Applet.<init>()V
+		// 2
+		classRef masterApp;
+		// 3
+		staticMethodRef masterApp/<init>()V;
+		// 4
+		virtualMethodRef 1.3.2([BSB)V;		// javacard/framework/Applet.register([BSB)V
+		// 5
+		virtualMethodRef 1.3.3()Z;		// javacard/framework/Applet.selectingApplet()Z
+		// 6
+		virtualMethodRef 1.10.1()[B;		// javacard/framework/APDU.getBuffer()[B
+		// 7
+		virtualMethodRef 1.10.6()S;		// javacard/framework/APDU.setIncomingAndReceive()S
+		// 8
+		staticMethodRef 1.7.1(S)V;		// javacard/framework/ISOException.throwIt(S)V
+		// 9
+		staticMethodRef 1.16.1([BS[BSS)S;		// javacard/framework/Util.arrayCopy([BS[BSS)S
+		// 10
+		classRef buoi7;
+		// 11
+		staticMethodRef buoi7/<init>()V;
+		// 12
+		virtualMethodRef 1.3.2([BSB)V;		// javacard/framework/Applet.register([BSB)V
+		// 13
+		virtualMethodRef 1.3.3()Z;		// javacard/framework/Applet.selectingApplet()Z
+	}
+
+	.interface public abstract masterInterface 0 {
+
+		.shareable;
+
+		.superInterfaces {
+			1.2;		// javacard/framework/Shareable
+		}
+
+		.method public abstract getArray([B)S 0 {
+		}
+
+	}
+
+	.class public masterApp 1 extends 1.3 {		// extends javacard/framework/Applet
+
+		.shareable;
+
+		.fields {
+			private byte[] testArray 0;		// [B
+		}
+
+		.publicMethodTable 5 {
+			equals(Ljava/lang/Object;)Z;
+			register()V;
+			register([BSB)V;
+			selectingApplet()Z;
+			deselect()V;
+			getShareableInterfaceObject(Ljavacard/framework/AID;B)Ljavacard/framework/Shareable;;
+			select()Z;
+			process(Ljavacard/framework/APDU;)V;
+			getArray([B)S;
+		}
+
+		.packageMethodTable 0 {
+		}
+
+		.implementedInterfaceInfoTable { 
+			.interface 1.2 { 		// javacard/framework/Shareable
+			}
+
+			.interface masterInterface { 
+				8;		// getArray([B)S
+			}
+
+		}
+
+		.method private <init>()V {
+			.stack 5;
+			.locals 0;
+
+				L0:	aload_0;
+					invokespecial 1;		// javacard/framework/Applet.<init>()V
+					aload_0;
+					sconst_5;
+					newarray 11;
+					dup;
+					sconst_0;
+					sconst_1;
+					bastore;
+					dup;
+					sconst_1;
+					sconst_2;
+					bastore;
+					dup;
+					sconst_2;
+					sconst_3;
+					bastore;
+					dup;
+					sconst_3;
+					sconst_4;
+					bastore;
+					dup;
+					sconst_4;
+					sconst_5;
+					bastore;
+					putfield_a 0;		// reference buoi7/masterApp.testArray
+					return;
+		}
+
+		.method public static install([BSB)V 0 {
+			.stack 5;
+			.locals 0;
+
+				L0:	new 2;		// buoi7/masterApp
+					dup;
+					invokespecial 3;		// buoi7/masterApp.<init>()V
+					aload_0;
+					sload_1;
+					sconst_1;
+					sadd;
+					aload_0;
+					sload_1;
+					baload;
+					invokevirtual 4;		// javacard/framework/Applet.register([BSB)V
+					return;
+		}
+
+		.method public process(Ljavacard/framework/APDU;)V 7 {
+			.stack 2;
+			.locals 1;
+
+			.descriptor	Ljavacard/framework/APDU;	1.10;
+
+				L0:	aload_0;
+					invokevirtual 5;		// javacard/framework/Applet.selectingApplet()Z
+					ifeq L2;
+				L1:	return;
+				L2:	aload_1;
+					invokevirtual 6;		// javacard/framework/APDU.getBuffer()[B
+					astore_2;
+				L3:	aload_1;
+					invokevirtual 7;		// javacard/framework/APDU.setIncomingAndReceive()S
+					pop;
+					aload_2;
+					sconst_1;
+					baload;
+					slookupswitch L5 1 0 L4;
+				L4:	goto L6;
+				L5:	sspush 27904;
+					invokestatic 8;		// javacard/framework/ISOException.throwIt(S)V
+				L6:	return;
+		}
+
+		.method public getShareableInterfaceObject(Ljavacard/framework/AID;B)Ljavacard/framework/Shareable; 5 {
+			.stack 1;
+			.locals 0;
+
+			.descriptor	Ljavacard/framework/AID;	1.6;
+			.descriptor	Ljavacard/framework/Shareable;	1.2;
+
+				L0:	sload_2;
+					ifeq L2;
+				L1:	aconst_null;
+					areturn;
+				L2:	aload_0;
+					areturn;
+		}
+
+		.method public getArray([B)S 8 {
+			.stack 5;
+			.locals 1;
+
+				L0:	getfield_a_this 0;		// reference buoi7/masterApp.testArray
+					arraylength;
+					sstore_2;
+				L1:	getfield_a_this 0;		// reference buoi7/masterApp.testArray
+					sconst_0;
+					aload_1;
+					sconst_0;
+					sload_2;
+					invokestatic 9;		// javacard/framework/Util.arrayCopy([BS[BSS)S
+					pop;
+					sload_2;
+					sreturn;
+		}
+
+	}
+
+	.class public buoi7 2 extends 1.3 {		// extends javacard/framework/Applet
+
+		.publicMethodTable 7 {
+			equals(Ljava/lang/Object;)Z;
+			register()V;
+			register([BSB)V;
+			selectingApplet()Z;
+			deselect()V;
+			getShareableInterfaceObject(Ljavacard/framework/AID;B)Ljavacard/framework/Shareable;;
+			select()Z;
+			process(Ljavacard/framework/APDU;)V;
+		}
+
+		.packageMethodTable 0 {
+		}
+
+		.method public <init>()V 0 {
+			.stack 1;
+			.locals 0;
+
+				L0:	aload_0;
+					invokespecial 1;		// javacard/framework/Applet.<init>()V
+					return;
+		}
+
+		.method public static install([BSB)V 1 {
+			.stack 5;
+			.locals 0;
+
+				L0:	new 10;		// buoi7/buoi7
+					dup;
+					invokespecial 11;		// buoi7/buoi7.<init>()V
+					aload_0;
+					sload_1;
+					sconst_1;
+					sadd;
+					aload_0;
+					sload_1;
+					baload;
+					invokevirtual 12;		// javacard/framework/Applet.register([BSB)V
+					return;
+		}
+
+		.method public process(Ljavacard/framework/APDU;)V 7 {
+			.stack 2;
+			.locals 1;
+
+			.descriptor	Ljavacard/framework/APDU;	1.10;
+
+				L0:	aload_0;
+					invokevirtual 13;		// javacard/framework/Applet.selectingApplet()Z
+					ifeq L2;
+				L1:	return;
+				L2:	aload_1;
+					invokevirtual 6;		// javacard/framework/APDU.getBuffer()[B
+					astore_2;
+				L3:	aload_2;
+					sconst_1;
+					baload;
+					slookupswitch L5 1 0 L4;
+				L4:	goto L6;
+				L5:	sspush 27904;
+					invokestatic 8;		// javacard/framework/ISOException.throwIt(S)V
+				L6:	return;
+		}
+
+	}
+
+}

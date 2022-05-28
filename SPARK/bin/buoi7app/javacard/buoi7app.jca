@@ -1,0 +1,147 @@
+// converted by version 1.3
+// on Sat Jun 05 14:13:12 ICT 2021
+
+.package buoi7app {
+	.aid 0x25:0x10:0x19:0x99:0x0:0x1:0x7;
+	.version 1.0;
+
+	.imports {
+		0xA0:0x0:0x0:0x0:0x62:0x1:0x1 1.2;		//javacard/framework
+		0x25:0x10:0x19:0x99:0x0:0x0:0x7 1.0;		//buoi7
+	}
+
+	.applet {
+		0x25:0x10:0x19:0x99:0x0:0x1:0x7:0x0 buoi7app;
+	}
+
+	.constantPool {
+		// 0
+		staticMethodRef 0.3.0()V;		// javacard/framework/Applet.<init>()V
+		// 1
+		classRef buoi7app;
+		// 2
+		staticMethodRef buoi7app/<init>()V;
+		// 3
+		virtualMethodRef 0.3.2([BSB)V;		// javacard/framework/Applet.register([BSB)V
+		// 4
+		virtualMethodRef 0.3.3()Z;		// javacard/framework/Applet.selectingApplet()Z
+		// 5
+		virtualMethodRef 0.10.1()[B;		// javacard/framework/APDU.getBuffer()[B
+		// 6
+		virtualMethodRef 0.10.6()S;		// javacard/framework/APDU.setIncomingAndReceive()S
+		// 7
+		staticFieldRef byte[] buoi7app/serverAID;
+		// 8
+		staticMethodRef 0.8.11([BSB)Ljavacard/framework/AID;;		// javacard/framework/JCSystem.lookupAID([BSB)Ljavacard/framework/AID;
+			.descriptor	Ljavacard/framework/AID;	0.6;
+
+		// 9
+		staticMethodRef 0.8.4(Ljavacard/framework/AID;B)Ljavacard/framework/Shareable;;		// javacard/framework/JCSystem.getAppletShareableInterfaceObject(Ljavacard/framework/AID;B)Ljavacard/framework/Shareable;
+			.descriptor	Ljavacard/framework/AID;	0.6;
+			.descriptor	Ljavacard/framework/Shareable;	0.2;
+
+		// 10
+		classRef 1.0;		// buoi7/masterInterface
+		// 11
+		virtualMethodRef 0.10.8(SS)V;		// javacard/framework/APDU.setOutgoingAndSend(SS)V
+		// 12
+		staticMethodRef 0.7.1(S)V;		// javacard/framework/ISOException.throwIt(S)V
+	}
+
+	.class public buoi7app 0 extends 0.3 {		// extends javacard/framework/Applet
+
+		.fields {
+			static final byte[] serverAID = {37,16,25,-103,0,0,7,1};		// [B
+		}
+
+		.publicMethodTable 7 {
+			equals(Ljava/lang/Object;)Z;
+			register()V;
+			register([BSB)V;
+			selectingApplet()Z;
+			deselect()V;
+			getShareableInterfaceObject(Ljavacard/framework/AID;B)Ljavacard/framework/Shareable;;
+			select()Z;
+			process(Ljavacard/framework/APDU;)V;
+		}
+
+		.packageMethodTable 0 {
+		}
+
+		.method public <init>()V 0 {
+			.stack 1;
+			.locals 0;
+
+				L0:	aload_0;
+					invokespecial 0;		// javacard/framework/Applet.<init>()V
+					return;
+		}
+
+		.method public static install([BSB)V 1 {
+			.stack 5;
+			.locals 0;
+
+				L0:	new 1;		// buoi7app/buoi7app
+					dup;
+					invokespecial 2;		// buoi7app/buoi7app.<init>()V
+					aload_0;
+					sload_1;
+					sconst_1;
+					sadd;
+					aload_0;
+					sload_1;
+					baload;
+					invokevirtual 3;		// javacard/framework/Applet.register([BSB)V
+					return;
+		}
+
+		.method public process(Ljavacard/framework/APDU;)V 7 {
+			.stack 3;
+			.locals 4;
+
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+				L0:	aload_0;
+					invokevirtual 4;		// javacard/framework/Applet.selectingApplet()Z
+					ifeq L2;
+				L1:	return;
+				L2:	aload_1;
+					invokevirtual 5;		// javacard/framework/APDU.getBuffer()[B
+					astore_2;
+				L3:	aload_1;
+					invokevirtual 6;		// javacard/framework/APDU.setIncomingAndReceive()S
+					pop;
+					aload_2;
+					sconst_1;
+					baload;
+					slookupswitch L8 1 0 L4;
+				L4:	getstatic_a 7;		// reference buoi7app/buoi7app.serverAID
+					sconst_0;
+					getstatic_a 7;		// reference buoi7app/buoi7app.serverAID
+					arraylength;
+					s2b;
+					invokestatic 8;		// javacard/framework/JCSystem.lookupAID([BSB)Ljavacard/framework/AID;
+					astore_3;
+				L5:	aload_3;
+					sconst_0;
+					invokestatic 9;		// javacard/framework/JCSystem.getAppletShareableInterfaceObject(Ljavacard/framework/AID;B)Ljavacard/framework/Shareable;
+					checkcast 0 10;		// T_CLASSORINTERFACE buoi7/masterInterface
+					checkcast 0 10;		// T_CLASSORINTERFACE buoi7/masterInterface
+					astore 4;
+				L6:	aload 4;
+					aload_2;
+					invokeinterface 2 10 0;		// buoi7/masterInterface
+					sstore 5;
+				L7:	aload_1;
+					sconst_0;
+					sload 5;
+					invokevirtual 11;		// javacard/framework/APDU.setOutgoingAndSend(SS)V
+					goto L9;
+				L8:	sspush 27904;
+					invokestatic 12;		// javacard/framework/ISOException.throwIt(S)V
+				L9:	return;
+		}
+
+	}
+
+}

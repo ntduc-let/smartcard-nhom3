@@ -1,0 +1,35 @@
+<JavaCardProject name="SPARK">
+<USER>
+<PKG name="buoi03" aid="25 10 19 99 00 00 01" major="1" minor="0">
+<APPLET aid="25 10 19 99 00 00 01 00" instanceaid="" parameter="" authority="" privileges="" index="5144" name="buoi03"/>
+</PKG>
+<PKG name="buoi2" aid="25 10 19 99 00 00 02" major="1" minor="0">
+<APPLET aid="25 10 19 99 00 00 02 00" instanceaid="" parameter="" authority="" privileges="" index="-22608" name="buoi2"/>
+</PKG>
+<PKG name="buoi4" aid="25 10 19 99 00 00 04" major="1" minor="0">
+<APPLET aid="25 10 19 99 00 00 04 00" instanceaid="" parameter="" authority="" privileges="" index="7960" name="buoi4"/>
+</PKG>
+<PKG name="buoi5" aid="25 10 19 99 00 00 05" major="1" minor="0">
+<APPLET aid="25 10 19 99 00 00 05 00" instanceaid="" parameter="" authority="" privileges="" index="20344" name="buoi5"/>
+<APPLET aid="25 10 19 99 00 00 05 01" instanceaid="" parameter="" authority="" privileges="" index="27184" name="deselectAplet"/>
+</PKG>
+<PKG name="buoi6" aid="25 10 19 99 00 00 06" major="1" minor="0">
+<APPLET aid="25 10 19 99 00 00 06 00" instanceaid="" parameter="" authority="" privileges="" index="28576" name="buoi6"/>
+<APPLET aid="25 10 19 99 00 00 06 01" instanceaid="44 49 45 4D 5F 54 48 49" parameter="53 56 30 31 09" authority="00" privileges="--------" index="-32112" name="BTH4"/>
+</PKG>
+<PKG name="inputSV" aid="25 10 19 99 01 00" major="1" minor="0">
+<APPLET aid="25 10 19 99 01 00 00" instanceaid="" parameter="" authority="" privileges="" index="29192" name="inputSV"/>
+</PKG>
+<PKG name="buoi7" aid="25 10 19 99 00 00 07" major="1" minor="0">
+<APPLET aid="25 10 19 99 00 00 07 00" instanceaid="" parameter="" authority="" privileges="" index="17440" name="buoi7"/>
+<APPLET aid="25 10 19 99 00 00 07 01" instanceaid="" parameter="" authority="" privileges="" index="19480" name="masterApp"/>
+</PKG>
+<PKG name="buoi7app" aid="25 10 19 99 00 01 07" major="1" minor="0">
+<APPLET aid="25 10 19 99 00 01 07 00" instanceaid="" parameter="" authority="" privileges="" index="18160" name="buoi7app"/>
+</PKG>
+<Libs/>
+</USER>
+<DebugInfo>
+<Protocol name="T01"/>
+</DebugInfo>
+</JavaCardProject>
