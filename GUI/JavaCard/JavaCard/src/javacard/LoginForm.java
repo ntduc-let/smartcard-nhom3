@@ -31,12 +31,13 @@ import org.netbeans.lib.awtextra.AbsoluteLayout;
 
 /**
  *
- * @author Bawcs
+ * @author kqhuynh
  */
 public class LoginForm extends javax.swing.JFrame {
 
     private int firstUSE;
     private static int login_status = 0; 
+    private ConnectCard connect;
 
     /**
      * Creates new form LoginForm
@@ -166,7 +167,9 @@ public class LoginForm extends javax.swing.JFrame {
     private void btnLoginActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
 
         String pin = edt_pin.getText();
-        ConnectCard connect = new ConnectCard();
+        if(connect == null){
+            connect = new ConnectCard();
+        }
         
         if (connect.verifyPin(pin)) {
             if (firstUSE == 1) {
@@ -192,7 +195,7 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_adminActionPerformed
 
     private void btnConnectActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnConnectActionPerformed
-        ConnectCard connect = new ConnectCard();
+        connect = new ConnectCard();
         String response = connect.connectapplet();
         if (response.equals("Error")) {
             JOptionPane.showMessageDialog(null, "Kết nối bị lỗi");
