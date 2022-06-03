@@ -1,0 +1,12 @@
+<JavaCardProject name="Nhom3">
+<USER>
+<PKG name="nhom3" aid="25 10 19 99 00 00" major="1" minor="0">
+<APPLET aid="25 10 19 99 00 00 00" instanceaid="" parameter="" authority="" privileges="" index="13184" name="nhom3"/>
+<CLASS name="HMacSHA512"/>
+<CLASS name="Sha512"/>
+<APPLET aid="25 10 19 99 00 00 01" instanceaid="" parameter="" authority="" privileges="" index="1800" name="DeselectApplet"/>
+<APPLET aid="25 10 19 99 00 00 03" instanceaid="" parameter="" authority="" privileges="" index="1920" name="RSAApplet"/>
+</PKG>
+<Libs/>
+</USER>
+</JavaCardProject>
