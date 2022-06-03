@@ -17,11 +17,12 @@ public class project9 extends Applet
 {
 	// CLA
     final static byte project9_CLA =(byte)0xB0;
-    /** test va TESTCHECK de kiem tra pin sau khi thay doi*/
+
     //Kich thuoc ma pin
 	private final static byte PIN_MIN_SIZE = (byte) 4;
 	private final static byte PIN_MAX_SIZE = (byte) 16;
 	private final static byte[] PIN_INIT_VALUE={(byte)'n',(byte)'h',(byte)'o',(byte)'m',(byte)'3'};
+	
 	//Information
 	public static byte[] OpData = new byte[256];
 	public static byte lenData = (byte)0;
@@ -34,6 +35,10 @@ public class project9 extends Applet
 	public static byte lenDATE= (byte)0;
 	public static byte[] OpPHONE;
 	public static byte lenPHONE= (byte)0;
+	public static byte[] OpCoQuan;
+	public static byte lenCoQuan= (byte)0;
+	public static byte[] OpChucVu;
+	public static byte lenChucVu= (byte)0;
 	
 	public static byte[] OpImage,size;
 	
@@ -62,6 +67,8 @@ public class project9 extends Applet
 	private final static byte OUT_NAME = (byte)0x02;
 	private final static byte OUT_DATE = (byte)0x03;
 	private final static byte OUT_PHONE = (byte)0x04;
+	private final static byte OUT_CO_QUAN = (byte)0x05;
+	private final static byte OUT_CHUC_VU = (byte)0x06;
 	
 	private final static byte INS_CREATE_IMAGE = (byte)0x53;
 	private final static byte INS_CREATE_SIZEIMAGE = (byte)0x54;//countanh
@@ -376,15 +383,16 @@ public class project9 extends Applet
 			apdu.setIncomingAndReceive();
 			lenData = buffer[ISO7816.OFFSET_LC];
 			
-			if(lenData>(byte) 0x3C){
-				ISOException.throwIt(ISO7816.SW_WRONG_LENGTH);
-			}
+			// if(lenData>(byte) 0x3C){
+				// ISOException.throwIt(ISO7816.SW_WRONG_LENGTH);
+			// }
 			
 			Util.arrayCopyNonAtomic(buffer,ISO7816.OFFSET_CDATA,OpData,(short) 0x00,lenData);
 					
 			short flag = (short)0;
 			byte[] objData = new byte[0];
 			byte objDatalen = (short)0;
+			
 			for(short i=0;i<=lenData;i++){
 				if((byte)(OpData[i]) == (byte)0x02){
 					flag = (short)1;
@@ -444,7 +452,7 @@ public class project9 extends Applet
 						lenDATE = (byte)(objDatalen);
 						objData = new byte[0];
 					}
-					else{
+					else if(lenPHONE == (byte)0){
 						if(objDatalen > 10){
 							ISOException.throwIt(ISO7816.SW_WRONG_LENGTH);
 						}
@@ -452,6 +460,27 @@ public class project9 extends Applet
 						OpPHONE = new byte[128];
 						Util.arrayCopyNonAtomic(temp,(short)0x00,OpPHONE,(short)0x00,(short)(temp.length));
 						lenPHONE = (byte)(objDatalen);
+						objData = new byte[0];
+					}
+					else if(lenCoQuan == (byte)0){
+						if(objDatalen > 25){
+							ISOException.throwIt(ISO7816.SW_WRONG_LENGTH);
+						}
+						byte[] temp = encrypt(objData);
+						OpCoQuan = new byte[128];
+						Util.arrayCopyNonAtomic(temp,(short)0x00,OpCoQuan,(short)0x00,(short)(temp.length));
+						lenCoQuan = (byte)(objDatalen);
+						objData = new byte[0];
+					}
+					else if(lenChucVu == (byte)0){
+						if(objDatalen > 25){
+							ISOException.throwIt(ISO7816.SW_WRONG_LENGTH);
+						}
+						byte[] temp = encrypt(objData);
+						OpChucVu = new byte[128];
+						Util.arrayCopyNonAtomic(temp,(short)0x00,OpChucVu,(short)0x00,(short)(temp.length));
+						lenChucVu = (byte)(objDatalen);
+						objData = new byte[0];
 					}
 					objDatalen = (short)0;
 				};
@@ -483,12 +512,26 @@ public class project9 extends Applet
 				Util.arrayCopy(decrypt(OpPHONE,lenPHONE),(short)0,buffer,(short)0,lenPHONE);
 				apdu.sendBytes((short)0,lenPHONE);
 			}
+			else if(buffer[ISO7816.OFFSET_P1] == OUT_CO_QUAN){
+				apdu.setOutgoing();
+				apdu.setOutgoingLength(lenCoQuan);
+				Util.arrayCopy(decrypt(OpCoQuan,lenCoQuan),(short)0,buffer,(short)0,lenCoQuan);
+				apdu.sendBytes((short)0,lenCoQuan);
+			}
+			else if(buffer[ISO7816.OFFSET_P1] == OUT_CHUC_VU){
+				apdu.setOutgoing();
+				apdu.setOutgoingLength(lenChucVu);
+				Util.arrayCopy(decrypt(OpChucVu,lenChucVu),(short)0,buffer,(short)0,lenChucVu);
+				apdu.sendBytes((short)0,lenChucVu);
+			}
 	}
 	private void ChangeInformation(APDU APDU,byte[] buffer){
 		lenID = (byte) 0;
 		lenDATE = (byte) 0;
 		lenNAME = (byte) 0;
 		lenPHONE = (byte) 0;
+		lenCoQuan = (byte) 0;
+		lenChucVu = (byte) 0;
 	}
 	//Input Image
 	private void SetupImage(APDU apdu, byte[] buffer){
