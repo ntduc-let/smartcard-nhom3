@@ -37,7 +37,6 @@ public class LoginForm extends javax.swing.JFrame {
 
     private int firstUSE;
     private static int login_status = 0; 
-    private ConnectCard connect;
 
     /**
      * Creates new form LoginForm
@@ -62,7 +61,6 @@ public class LoginForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btn_close = new javax.swing.JLabel();
         btn_admin = new javax.swing.JButton();
         edt_pin = new javax.swing.JPasswordField();
         txt_pin = new javax.swing.JLabel();
@@ -74,19 +72,9 @@ public class LoginForm extends javax.swing.JFrame {
         bg_icon = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Đăng nhập");
         setLocationByPlatform(true);
-        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        btn_close.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        btn_close.setForeground(new java.awt.Color(255, 255, 255));
-        btn_close.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ic_close.png"))); // NOI18N
-        btn_close.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_closeMouseClicked(evt);
-            }
-        });
-        getContentPane().add(btn_close, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 20, -1, -1));
 
         btn_admin.setBackground(new java.awt.Color(0, 255, 255));
         btn_admin.setText("AdminForm");
@@ -150,11 +138,6 @@ public class LoginForm extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_closeMouseClicked(MouseEvent evt) {//GEN-FIRST:event_btn_closeMouseClicked
-        // TODO add your handling code here:
-        System.exit(0); 
-    }//GEN-LAST:event_btn_closeMouseClicked
-
     private void chk_show_pwActionPerformed(ActionEvent evt) {//GEN-FIRST:event_chk_show_pwActionPerformed
         // TODO add your handling code here:
         if (chk_show_pw.isSelected()) {
@@ -167,11 +150,8 @@ public class LoginForm extends javax.swing.JFrame {
     private void btnLoginActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
 
         String pin = edt_pin.getText();
-        if(connect == null){
-            connect = new ConnectCard();
-        }
         
-        if (connect.verifyPin(pin)) {
+        if (ConnectCard.getInstance().verifyPin(pin)) {
             if (firstUSE == 1) {
                 
                 PinForm pinform = new PinForm();
@@ -195,8 +175,7 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_adminActionPerformed
 
     private void btnConnectActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnConnectActionPerformed
-        connect = new ConnectCard();
-        String response = connect.connectapplet();
+        String response = ConnectCard.getInstance().connectapplet();
         if (response.equals("Error")) {
             JOptionPane.showMessageDialog(null, "Kết nối bị lỗi");
         } else {
@@ -205,8 +184,8 @@ public class LoginForm extends javax.swing.JFrame {
                 loginSetEnabled(true);
                 btnConnect.setText("Đã kết nối thẻ");
                 btnConnect.setEnabled(false);
-                firstUSE = (int) ((connect.data)[0] & 0xFF);
-                connect.setUp();
+                firstUSE = (int) ((ConnectCard.getInstance().data)[0] & 0xFF);
+                ConnectCard.getInstance().setUp();
             } else {
                 JOptionPane.showMessageDialog(null, "Kết nối bị lỗi");
             }
@@ -217,34 +196,9 @@ public class LoginForm extends javax.swing.JFrame {
      * @param args the command line arguments
      */
         public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new LoginForm().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new LoginForm().setVisible(true);
         });
     }
 
@@ -253,7 +207,6 @@ public class LoginForm extends javax.swing.JFrame {
     javax.swing.JButton btnConnect;
     javax.swing.JButton btnLogin;
     javax.swing.JButton btn_admin;
-    javax.swing.JLabel btn_close;
     javax.swing.JCheckBox chk_show_pw;
     javax.swing.JPasswordField edt_pin;
     javax.swing.JLabel form_login;
