@@ -6,28 +6,10 @@
 package javacard;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.security.PublicKey;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javacard.connect.ConnectCard;
-import javacard.connect.RSAAppletHelper;
-import javax.smartcardio.CardException;
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.JPasswordField;
-import javax.swing.WindowConstants;
-import javax.swing.border.Border;
-import org.netbeans.lib.awtextra.AbsoluteConstraints;
-import org.netbeans.lib.awtextra.AbsoluteLayout;
 
 /**
  *

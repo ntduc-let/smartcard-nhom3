@@ -9,12 +9,12 @@ import java.io.Serializable;
 
 /**
  *
- * @author Spark_Mac
+ * @author kqhuynh
  */
 public class StockFile implements Serializable{
-    private String dateString;
-    private String startTimeString;
-    private String endTimeString;
+    private final String dateString;
+    private final String startTimeString;
+    private final String endTimeString;
     public StockFile(String dateString,String startTimeString,String endTimeString){
         this.dateString = dateString;
         this.startTimeString = startTimeString;

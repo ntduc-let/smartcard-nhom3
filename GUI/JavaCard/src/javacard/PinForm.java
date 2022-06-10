@@ -6,12 +6,7 @@
 
 package javacard;
 
-import java.security.PublicKey;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javacard.connect.ConnectCard;
-import javacard.connect.RSAAppletHelper;
-import javax.smartcardio.CardException;
 import javax.swing.JOptionPane;
 
 /**

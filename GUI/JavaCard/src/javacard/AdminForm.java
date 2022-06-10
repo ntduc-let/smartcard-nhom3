@@ -11,7 +11,7 @@ import javacard.define.APPLET;
 
 /**
  *
- * @author Bawcs
+ * @author kqhuynh
  */
 public class AdminForm extends javax.swing.JFrame {
 

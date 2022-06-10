@@ -16,6 +16,7 @@ import java.util.List;
 import javax.smartcardio.*;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import javacard.define.APPLET;
@@ -383,7 +384,7 @@ public class ConnectCard {
             }
             return true;
         }
-        catch(Exception ex){
+        catch(IOException | CardException ex){
             return false;
         }
     }
