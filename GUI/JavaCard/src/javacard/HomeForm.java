@@ -8,7 +8,6 @@ package javacard;
 import javacard.connect.ConnectCard;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -190,13 +189,6 @@ public class HomeForm extends javax.swing.JFrame {
         txt_option = new javax.swing.JLabel();
         btn_disconnect = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jp_diem_danh = new javax.swing.JPanel();
-        txt_title_diem_danh = new javax.swing.JLabel();
-        txt_date = new javax.swing.JLabel();
-        txt_time = new javax.swing.JLabel();
-        btn_diemdanh = new javax.swing.JButton();
-        txt_log_diemdanh = new javax.swing.JScrollPane();
-        txt_log = new javax.swing.JTextArea();
         jp_pin = new javax.swing.JPanel();
         txt_pin_cu = new javax.swing.JLabel();
         edt_pin_cu = new javax.swing.JPasswordField();
@@ -230,6 +222,13 @@ public class HomeForm extends javax.swing.JFrame {
         txt_noti_chuc_vu = new javax.swing.JLabel();
         txt_noti_co_quan = new javax.swing.JLabel();
         txt_noti_phone = new javax.swing.JLabel();
+        jp_diem_danh = new javax.swing.JPanel();
+        txt_title_diem_danh = new javax.swing.JLabel();
+        txt_date = new javax.swing.JLabel();
+        txt_time = new javax.swing.JLabel();
+        btn_diemdanh = new javax.swing.JButton();
+        txt_log_diemdanh = new javax.swing.JScrollPane();
+        txt_log = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Trang chủ");
@@ -345,91 +344,23 @@ public class HomeForm extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jp_diem_danh.setBackground(new java.awt.Color(255, 255, 255));
-        jp_diem_danh.setPreferredSize(new java.awt.Dimension(712, 465));
-
-        txt_title_diem_danh.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        txt_title_diem_danh.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txt_title_diem_danh.setText("Điểm danh");
-
-        txt_date.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        txt_date.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-
-        txt_time.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        txt_time.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-
-        btn_diemdanh.setBackground(new java.awt.Color(0, 102, 153));
-        btn_diemdanh.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        btn_diemdanh.setForeground(new java.awt.Color(255, 255, 255));
-        btn_diemdanh.setText("Điểm danh");
-        btn_diemdanh.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_diemdanhActionPerformed(evt);
-            }
-        });
-
-        txt_log.setEditable(false);
-        txt_log.setColumns(20);
-        txt_log.setRows(5);
-        txt_log_diemdanh.setViewportView(txt_log);
-
-        javax.swing.GroupLayout jp_diem_danhLayout = new javax.swing.GroupLayout(jp_diem_danh);
-        jp_diem_danh.setLayout(jp_diem_danhLayout);
-        jp_diem_danhLayout.setHorizontalGroup(
-            jp_diem_danhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jp_diem_danhLayout.createSequentialGroup()
-                .addGap(239, 239, 239)
-                .addComponent(txt_title_diem_danh, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_diem_danhLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn_diemdanh, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(238, 238, 238))
-            .addGroup(jp_diem_danhLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jp_diem_danhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txt_log_diemdanh)
-                    .addGroup(jp_diem_danhLayout.createSequentialGroup()
-                        .addComponent(txt_date, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 206, Short.MAX_VALUE)
-                        .addComponent(txt_time, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-        jp_diem_danhLayout.setVerticalGroup(
-            jp_diem_danhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jp_diem_danhLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txt_title_diem_danh, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jp_diem_danhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txt_time, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_date, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_diemdanh, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txt_log_diemdanh, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jPanel4.add(jp_diem_danh, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 410));
-
         jp_pin.setBackground(new java.awt.Color(255, 255, 255));
         jp_pin.setPreferredSize(new java.awt.Dimension(712, 465));
 
         txt_pin_cu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        txt_pin_cu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txt_pin_cu.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         txt_pin_cu.setText("Mã PIN cũ");
 
         edt_pin_cu.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
 
         txt_pin_moi.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        txt_pin_moi.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txt_pin_moi.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         txt_pin_moi.setText("Mã PIN mới");
 
         edt_pin_moi.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
 
         txt_xac_nhan.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        txt_xac_nhan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txt_xac_nhan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         txt_xac_nhan.setText("Xác nhận mã PIN");
 
         edt_xac_nhan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
@@ -512,42 +443,38 @@ public class HomeForm extends javax.swing.JFrame {
         jp_infor.setBackground(new java.awt.Color(255, 255, 255));
 
         txt_ma_nv.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        txt_ma_nv.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txt_ma_nv.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         txt_ma_nv.setText("Mã nhân viên");
 
         edt_ma_nv.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         edt_ma_nv.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
 
         txt_name.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        txt_name.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txt_name.setText("Họ tên");
 
         edt_name.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         edt_name.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
 
         txt_ngay_sinh.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        txt_ngay_sinh.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txt_ngay_sinh.setText("Ngày sinh");
 
         edt_ngay_sinh.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         edt_ngay_sinh.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
 
         txt_co_quan.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        txt_co_quan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txt_co_quan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         txt_co_quan.setText("Tên cơ quan");
 
         edt_co_quan.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         edt_co_quan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
 
         txt_chuc_vu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        txt_chuc_vu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txt_chuc_vu.setText("Chức vụ");
 
         edt_chuc_vu.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         edt_chuc_vu.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
 
         txt_sdt.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        txt_sdt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txt_sdt.setText("Số điện thoại");
 
         edt_sdt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -718,6 +645,74 @@ public class HomeForm extends javax.swing.JFrame {
         );
 
         jPanel4.add(jp_infor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 410));
+
+        jp_diem_danh.setBackground(new java.awt.Color(255, 255, 255));
+        jp_diem_danh.setPreferredSize(new java.awt.Dimension(712, 465));
+
+        txt_title_diem_danh.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        txt_title_diem_danh.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txt_title_diem_danh.setText("Điểm danh");
+
+        txt_date.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txt_date.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        txt_time.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txt_time.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        btn_diemdanh.setBackground(new java.awt.Color(0, 102, 153));
+        btn_diemdanh.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btn_diemdanh.setForeground(new java.awt.Color(255, 255, 255));
+        btn_diemdanh.setText("Điểm danh");
+        btn_diemdanh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_diemdanhActionPerformed(evt);
+            }
+        });
+
+        txt_log.setEditable(false);
+        txt_log.setColumns(20);
+        txt_log.setRows(5);
+        txt_log_diemdanh.setViewportView(txt_log);
+
+        javax.swing.GroupLayout jp_diem_danhLayout = new javax.swing.GroupLayout(jp_diem_danh);
+        jp_diem_danh.setLayout(jp_diem_danhLayout);
+        jp_diem_danhLayout.setHorizontalGroup(
+            jp_diem_danhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jp_diem_danhLayout.createSequentialGroup()
+                .addGap(239, 239, 239)
+                .addComponent(txt_title_diem_danh, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_diem_danhLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_diemdanh, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(238, 238, 238))
+            .addGroup(jp_diem_danhLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jp_diem_danhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txt_log_diemdanh)
+                    .addGroup(jp_diem_danhLayout.createSequentialGroup()
+                        .addComponent(txt_date, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 206, Short.MAX_VALUE)
+                        .addComponent(txt_time, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jp_diem_danhLayout.setVerticalGroup(
+            jp_diem_danhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jp_diem_danhLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txt_title_diem_danh, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jp_diem_danhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txt_time, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_date, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_diemdanh, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt_log_diemdanh, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jPanel4.add(jp_diem_danh, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 410));
 
         javax.swing.GroupLayout jp_contentLayout = new javax.swing.GroupLayout(jp_content);
         jp_content.setLayout(jp_contentLayout);
@@ -960,7 +955,11 @@ public class HomeForm extends javax.swing.JFrame {
 
     private void initInformation() {
         if(ConnectCard.getInstance().ReadInformation()){
-            edt_ma_nv.setText(ConnectCard.getInstance().strID);
+            if(ConnectCard.getInstance().strID.isEmpty()){
+                edt_ma_nv.setText("NV001");
+            }else{
+                edt_ma_nv.setText(ConnectCard.getInstance().strID);
+            }
             edt_name.setText(ConnectCard.getInstance().strName);
             edt_ngay_sinh.setText(ConnectCard.getInstance().strDate);
             edt_co_quan.setText(ConnectCard.getInstance().strCoQuan);
@@ -994,7 +993,7 @@ public class HomeForm extends javax.swing.JFrame {
         }
         isEditing = b;
         
-        txt_ma_nv.setEnabled(b);
+//        txt_ma_nv.setEnabled(b);
         txt_name.setEnabled(b);
         txt_ngay_sinh.setEnabled(b);
         txt_co_quan.setEnabled(b);
@@ -1007,7 +1006,7 @@ public class HomeForm extends javax.swing.JFrame {
         edt_chuc_vu.setEnabled(b);
         edt_sdt.setEnabled(b);
         btn_update.setEnabled(b);
-        img_ava.setEnabled(b);
+//        img_ava.setEnabled(b);
         txt_ava.setEnabled(b);
         btn_ava.setEnabled(b);
         
