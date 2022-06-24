@@ -353,11 +353,26 @@ public class ConnectCard {
             
             byte[] napanh = bos.toByteArray();
             
+//            for(int i =0; i < napanh.length; i++) {
+//                if(i%249==0){
+//                    System.out.println("\n");
+//                }
+//                System.out.printf("0x%02X", napanh[i]);
+//            }
+//            System.out.println("UPLOAD ANH");
             int soLan = napanh.length / 249;
             
             String strsend = soLan + "S" + napanh.length % 249;
             
             byte[] send = strsend.getBytes();
+            //System.out.printf("0x%02X", send);
+            for(int i =0; i < send.length; i++) {
+//                if(i%249==0){
+//                    System.out.println("\n");
+//                }
+                System.out.printf("0x%02X", send[i]);
+            }
+            System.out.println("String SEND: " + strsend);
             
             ResponseAPDU response = channel.transmit(new CommandAPDU(0xB0,APPLET.INS_CREATE_SIZEIMAGE,0x00,0x01,send));
             String check = Integer.toHexString(response.getSW());
@@ -432,6 +447,13 @@ public class ConnectCard {
                 }
                 
                 ByteArrayInputStream bais = new ByteArrayInputStream(arrAnh);
+//                for(int i =0; i < arrAnh.length; i++) {
+//                    if(i%249==0){
+//                        System.out.println("\n");
+//                    }
+//                    System.out.printf("0x%02X", arrAnh[i]);
+//                }
+//                System.out.println("DownLOAD ANH");
                 try {
                     BufferedImage image  = ImageIO.read(bais);
                     return image;
