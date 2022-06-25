@@ -5,10 +5,12 @@
  */
 package javacard;
 
+import connectDB.DataUser;
 import javacard.connect.ConnectCard;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -16,6 +18,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -25,6 +30,7 @@ import java.util.logging.Logger;
 import javacard.connect.RSAAppletHelper;
 import javacard.utils.RSAData;
 import javacard.utils.RandomUtil;
+import javax.imageio.ImageIO;
 import javax.smartcardio.CardException;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -33,6 +39,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.Timer;
 import javax.swing.filechooser.FileFilter;
+import javax.xml.bind.DatatypeConverter;
 
 /**
  *
@@ -46,10 +53,13 @@ public class HomeForm extends javax.swing.JFrame {
     private int CheckEnd = 0;
     private String startTime = "";
     private boolean isEditing = false;
+    public DataUser dataUser = new DataUser();
     
-    private final String DATA = "G:/JavaCard/smartcarddata.bin";
+    
+    private final String DATA = "D:/JavaCard/smartcarddata.bin";
 
     public HomeForm() {
+        dataUser.setMaNV("NV001");
         initComponents();
         initInformation();
         
@@ -118,6 +128,10 @@ public class HomeForm extends javax.swing.JFrame {
                 }
             }
             StockFile s = new StockFile(dateString, startTimeString, endTimeString);
+            System.out.println("=>>>>>>>>time");
+            DataUser up = new DataUser(dataUser.maNV);
+            up.chamCong.add(dateString + " : " + startTimeString + " | " + endTimeString);
+            up.Update();
             oStream.writeObject(s);
             oStream.close();
  
@@ -161,6 +175,9 @@ public class HomeForm extends javax.swing.JFrame {
             }
 
             System.out.println("signed: " + Arrays.toString(signed));
+            DataUser up = new DataUser(dataUser.maNV);
+            up.setPublicKey(Arrays.toString(publicKeys.getEncoded()));
+            up.Update();
 
             return RSAData.verify(publicKeys, signed, data);
         } catch (CardException ex) {
@@ -793,6 +810,18 @@ public class HomeForm extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Kích thước quá lớn. Vui lòng chọn ảnh khác!");
                 return;
             }
+            try {
+                BufferedImage bImage = ImageIO.read(file);
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                ImageIO.write(bImage, "jpg", bos);
+                byte[] napanh = bos.toByteArray();
+                DataUser up = new DataUser(dataUser.maNV);
+                up.setImage(Arrays.toString(napanh));
+                up.Update();
+                
+            } catch (IOException ex) {
+                Logger.getLogger(HomeForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
             ReviewAvatarUI avatarUI = new ReviewAvatarUI(file, this);
             avatarUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             avatarUI.setLocationRelativeTo(null);
@@ -851,11 +880,18 @@ public class HomeForm extends javax.swing.JFrame {
         String strCoQuan = edt_co_quan.getText().trim();
         String strChucVu = edt_chuc_vu.getText().trim();
         String strPhone = edt_sdt.getText().trim();
-        
+           
         if(!checkInfor(strId, strName, strDate, strCoQuan, strChucVu, strPhone)){
             return;
         }
-
+        DataUser up = new DataUser(dataUser.maNV);
+        up.setBirth(strDate);
+        up.setMaNV(strId);
+        up.setName(strName);
+        up.setCoquan(strCoQuan);
+        up.setChucvu(strChucVu);
+        up.setPhone(strPhone);
+        
         byte[] byteID = strId.getBytes();
         byte[] byteName = strName.getBytes();
         byte[] byteDate = strDate.getBytes();
@@ -922,6 +958,13 @@ public class HomeForm extends javax.swing.JFrame {
             reloadInfor();
 
             System.out.println("Success");
+            
+            int checkDB = up.Update();
+            if (checkDB == 1){
+                System.out.println("Post Success to DB");
+            }else {
+                System.out.println("Post Err to DB");
+            }
         }
         else{
             System.out.println("Sending Error");
@@ -941,7 +984,19 @@ public class HomeForm extends javax.swing.JFrame {
 
         if(strNew.equals(strCofirm) && !strNew.equals(strOld)){
             if(ConnectCard.getInstance().ChangePIN(strOld, strNew)){
-                System.out.println("PIN CHANGE SUCCESS");
+                System.out.println("PIN CHANGE SUCCESS");                
+                try {
+                    MessageDigest md = MessageDigest.getInstance("SHA-256");
+                    byte[] digest = md.digest(strNew.getBytes(StandardCharsets.UTF_8));
+                    String sha256 = DatatypeConverter.printHexBinary(digest).toLowerCase();
+                    
+                    DataUser up = new DataUser(dataUser.maNV);
+                    up.setPin(sha256);
+                    up.Update();
+                    System.out.println("=>>>>>>>>>>>>>>>>>>>");
+                } catch (NoSuchAlgorithmException ex) {
+                    Logger.getLogger(HomeForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 resetFormPin();
             }
             else{
@@ -961,6 +1016,12 @@ public class HomeForm extends javax.swing.JFrame {
                 edt_ma_nv.setText(ConnectCard.getInstance().strID);
             }
             edt_name.setText(ConnectCard.getInstance().strName);
+            System.out.println(ConnectCard.getInstance().strName);
+            String add = ConnectCard.getInstance().strName;
+            byte[] byteArray = add.getBytes();
+            for(int i =0; i< byteArray.length; i++){
+                System.out.printf("0x%02X", byteArray[i]);
+            }
             edt_ngay_sinh.setText(ConnectCard.getInstance().strDate);
             edt_co_quan.setText(ConnectCard.getInstance().strCoQuan);
             edt_chuc_vu.setText(ConnectCard.getInstance().strChucVu);

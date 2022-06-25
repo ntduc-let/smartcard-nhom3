@@ -547,8 +547,28 @@ public class nhom3 extends Applet
 	private void SetupImage(APDU apdu, byte[] buffer){
 		apdu.setIncomingAndReceive();
 		short p1 = (short)(buffer[ISO7816.OFFSET_P1]&0xff);
-		short count = (short)(249 * p1);
-		Util.arrayCopy(buffer, ISO7816.OFFSET_CDATA, OpImage, count, (short)249);
+	// short count = (short)(249 * p1);
+	// Util.arrayCopy(buffer, ISO7816.OFFSET_CDATA, OpImage, count, (short)249);
+	
+		short count = (short)(256 * p1);
+		
+		byte[] data = new byte[249];
+		Util.arrayCopy(buffer, ISO7816.OFFSET_CDATA, data, (short)0, (short)249);
+		byte[] data1 = new byte[128];
+		Util.arrayCopy(data,(short)0, data1, (short)0, (short)128);
+		
+		Util.arrayCopy(encrypt(data1),(short)0, OpImage, count, (short)128);
+		
+		
+		
+		short count2 = (short)(256 * p1 + 128);
+		byte[] data2 = new byte[121];
+		
+		
+		Util.arrayCopy(data, (short)128, data2, (short)0, (short)121);
+		Util.arrayCopy(encrypt(data2),(short)0, OpImage, count2 , (short)128);
+		
+	
 	}
 	private void SetCount(APDU apdu, byte[] buffer){
 		apdu.setIncomingAndReceive();
@@ -565,9 +585,26 @@ public class nhom3 extends Applet
 		apdu.setIncomingAndReceive();
 		apdu.setOutgoing();
 		short p = (short)(buffer[ISO7816.OFFSET_P1]&0xff);
-		short count = (short)(249 * p);
+	//short count = (short)(249 * p);
+		short count = (short)(256 * p);
+		
+		
+		byte[] data = new byte[249];
+		
+		byte[] temp = new byte[128];
+		Util.arrayCopy(OpImage, count, temp,(short) 0, (short)128);
+		Util.arrayCopy(decrypt(temp, (byte)10), (short)0, data, (short)0, (short)128);
+		
+		short count2 = (short)(256 * p + 128);
+		byte[] temp2 = new byte[128];
+		Util.arrayCopy(OpImage, count2, temp2, (short)0, (short)128);
+		Util.arrayCopy(decrypt(temp2, (byte)10), (short) 0, data, (short)128, (short)121);
+		
+		
 		apdu.setOutgoingLength((short)249);
-		apdu.sendBytesLong(OpImage, count, (short)249);
+	//apdu.sendBytesLong(OpImage, count, (short)249);
+		
+		apdu.sendBytesLong(data, (short) 0, (short)249);
 	}
 	/*CHECK PIN POLICY*/
 	private boolean CheckPINPolicy(byte[] pin_buffer, short pin_offset, byte pin_size) {
@@ -609,7 +646,7 @@ public class nhom3 extends Applet
     			}
     		}
     	}
-        // short newLength = addPadding(temp, (short) 0, (short) encryptData.length);
+
         byte[] dataEncrypted; 
         
         try{
@@ -640,42 +677,9 @@ public class nhom3 extends Applet
     		byte[] dataDecrypted = new byte[1];
 	    	return dataDecrypted;
     	}
-        // short newLength = removePadding(dataDecrypted, (short) length);;
-    }
-	 /**Add padding
-     * Add padding for AES encryption.
-     *
-     * @param data
-     * @param offset
-     * @param length
-     * @return
-     */
-    // private short addPadding(byte[] data, short offset, short length) {
-        // data[(short) (offset + length++)] = (byte) 0x80;
-        // while (length < 16 || (length % 16 != 0)) {
-            // data[(short) (offset + length++)] = 0x00;
-        // }
-        // return length;
-    // }
 
-    /**remove padding
-     * remove padding from decrypted result.
-     *
-     * @param data
-     * @param length
-     * @return
-     */
-    // private short removePadding(byte[] data, short length) {
-        // while ((length != 0) && data[(short) (length - 1)] == (byte) 0x00) {
-            // length--;
-        // }
-        // if (data[(short) (length - 1)] != (byte) 0x80) {
-            // ISOException.throwIt(ISO7816.SW_DATA_INVALID);
-        // }
-        // length--;
-        // return length;
-    // }
-    /************RSA
-    *     RSA   *
-    *************/
+    }
+
 }
+
+
