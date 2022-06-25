@@ -189,15 +189,6 @@ public class HomeForm extends javax.swing.JFrame {
         txt_option = new javax.swing.JLabel();
         btn_disconnect = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jp_pin = new javax.swing.JPanel();
-        txt_pin_cu = new javax.swing.JLabel();
-        edt_pin_cu = new javax.swing.JPasswordField();
-        txt_pin_moi = new javax.swing.JLabel();
-        edt_pin_moi = new javax.swing.JPasswordField();
-        txt_xac_nhan = new javax.swing.JLabel();
-        edt_xac_nhan = new javax.swing.JPasswordField();
-        btn_update_pin = new javax.swing.JButton();
-        btn_cancel_pin = new javax.swing.JButton();
         jp_infor = new javax.swing.JPanel();
         txt_ma_nv = new javax.swing.JLabel();
         edt_ma_nv = new javax.swing.JTextField();
@@ -222,6 +213,15 @@ public class HomeForm extends javax.swing.JFrame {
         txt_noti_chuc_vu = new javax.swing.JLabel();
         txt_noti_co_quan = new javax.swing.JLabel();
         txt_noti_phone = new javax.swing.JLabel();
+        jp_pin = new javax.swing.JPanel();
+        txt_pin_cu = new javax.swing.JLabel();
+        edt_pin_cu = new javax.swing.JPasswordField();
+        txt_pin_moi = new javax.swing.JLabel();
+        edt_pin_moi = new javax.swing.JPasswordField();
+        txt_xac_nhan = new javax.swing.JLabel();
+        edt_xac_nhan = new javax.swing.JPasswordField();
+        btn_update_pin = new javax.swing.JButton();
+        btn_cancel_pin = new javax.swing.JButton();
         jp_diem_danh = new javax.swing.JPanel();
         txt_title_diem_danh = new javax.swing.JLabel();
         txt_date = new javax.swing.JLabel();
@@ -233,6 +233,7 @@ public class HomeForm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Trang chủ");
         setLocationByPlatform(true);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jp_home.setBackground(new java.awt.Color(0, 102, 153));
@@ -343,102 +344,6 @@ public class HomeForm extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jp_pin.setBackground(new java.awt.Color(255, 255, 255));
-        jp_pin.setPreferredSize(new java.awt.Dimension(712, 465));
-
-        txt_pin_cu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        txt_pin_cu.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        txt_pin_cu.setText("Mã PIN cũ");
-
-        edt_pin_cu.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-
-        txt_pin_moi.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        txt_pin_moi.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        txt_pin_moi.setText("Mã PIN mới");
-
-        edt_pin_moi.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-
-        txt_xac_nhan.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        txt_xac_nhan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        txt_xac_nhan.setText("Xác nhận mã PIN");
-
-        edt_xac_nhan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-
-        btn_update_pin.setBackground(new java.awt.Color(0, 102, 153));
-        btn_update_pin.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        btn_update_pin.setForeground(new java.awt.Color(255, 255, 255));
-        btn_update_pin.setText("Cập nhật");
-        btn_update_pin.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_update_pinMouseClicked(evt);
-            }
-        });
-        btn_update_pin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_update_pinActionPerformed(evt);
-            }
-        });
-
-        btn_cancel_pin.setBackground(new java.awt.Color(0, 102, 153));
-        btn_cancel_pin.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        btn_cancel_pin.setForeground(new java.awt.Color(255, 255, 255));
-        btn_cancel_pin.setText("Hủy bỏ");
-        btn_cancel_pin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_cancel_pinActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jp_pinLayout = new javax.swing.GroupLayout(jp_pin);
-        jp_pin.setLayout(jp_pinLayout);
-        jp_pinLayout.setHorizontalGroup(
-            jp_pinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_pinLayout.createSequentialGroup()
-                .addContainerGap(69, Short.MAX_VALUE)
-                .addGroup(jp_pinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jp_pinLayout.createSequentialGroup()
-                        .addComponent(txt_pin_cu, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(edt_pin_cu, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jp_pinLayout.createSequentialGroup()
-                        .addComponent(txt_pin_moi, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(edt_pin_moi, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jp_pinLayout.createSequentialGroup()
-                        .addComponent(txt_xac_nhan, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(edt_xac_nhan, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jp_pinLayout.createSequentialGroup()
-                        .addGap(76, 76, 76)
-                        .addComponent(btn_update_pin, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(121, 121, 121)
-                        .addComponent(btn_cancel_pin, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(81, 81, 81))
-        );
-        jp_pinLayout.setVerticalGroup(
-            jp_pinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jp_pinLayout.createSequentialGroup()
-                .addGap(91, 91, 91)
-                .addGroup(jp_pinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txt_pin_cu, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(edt_pin_cu, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jp_pinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_pin_moi, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(edt_pin_moi, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jp_pinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_xac_nhan, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(edt_xac_nhan, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jp_pinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_update_pin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_cancel_pin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(141, Short.MAX_VALUE))
-        );
-
-        jPanel4.add(jp_pin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 410));
 
         jp_infor.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -645,6 +550,102 @@ public class HomeForm extends javax.swing.JFrame {
         );
 
         jPanel4.add(jp_infor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 410));
+
+        jp_pin.setBackground(new java.awt.Color(255, 255, 255));
+        jp_pin.setPreferredSize(new java.awt.Dimension(712, 465));
+
+        txt_pin_cu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txt_pin_cu.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txt_pin_cu.setText("Mã PIN cũ");
+
+        edt_pin_cu.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+
+        txt_pin_moi.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txt_pin_moi.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txt_pin_moi.setText("Mã PIN mới");
+
+        edt_pin_moi.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+
+        txt_xac_nhan.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txt_xac_nhan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txt_xac_nhan.setText("Xác nhận mã PIN");
+
+        edt_xac_nhan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+
+        btn_update_pin.setBackground(new java.awt.Color(0, 102, 153));
+        btn_update_pin.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        btn_update_pin.setForeground(new java.awt.Color(255, 255, 255));
+        btn_update_pin.setText("Cập nhật");
+        btn_update_pin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_update_pinMouseClicked(evt);
+            }
+        });
+        btn_update_pin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_update_pinActionPerformed(evt);
+            }
+        });
+
+        btn_cancel_pin.setBackground(new java.awt.Color(0, 102, 153));
+        btn_cancel_pin.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        btn_cancel_pin.setForeground(new java.awt.Color(255, 255, 255));
+        btn_cancel_pin.setText("Hủy bỏ");
+        btn_cancel_pin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cancel_pinActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jp_pinLayout = new javax.swing.GroupLayout(jp_pin);
+        jp_pin.setLayout(jp_pinLayout);
+        jp_pinLayout.setHorizontalGroup(
+            jp_pinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_pinLayout.createSequentialGroup()
+                .addContainerGap(69, Short.MAX_VALUE)
+                .addGroup(jp_pinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jp_pinLayout.createSequentialGroup()
+                        .addComponent(txt_pin_cu, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(edt_pin_cu, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jp_pinLayout.createSequentialGroup()
+                        .addComponent(txt_pin_moi, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(edt_pin_moi, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jp_pinLayout.createSequentialGroup()
+                        .addComponent(txt_xac_nhan, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(edt_xac_nhan, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jp_pinLayout.createSequentialGroup()
+                        .addGap(76, 76, 76)
+                        .addComponent(btn_update_pin, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(121, 121, 121)
+                        .addComponent(btn_cancel_pin, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(81, 81, 81))
+        );
+        jp_pinLayout.setVerticalGroup(
+            jp_pinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jp_pinLayout.createSequentialGroup()
+                .addGap(91, 91, 91)
+                .addGroup(jp_pinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txt_pin_cu, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(edt_pin_cu, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jp_pinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_pin_moi, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(edt_pin_moi, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jp_pinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_xac_nhan, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(edt_xac_nhan, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jp_pinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_update_pin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_cancel_pin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(141, Short.MAX_VALUE))
+        );
+
+        jPanel4.add(jp_pin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 410));
 
         jp_diem_danh.setBackground(new java.awt.Color(255, 255, 255));
         jp_diem_danh.setPreferredSize(new java.awt.Dimension(712, 465));

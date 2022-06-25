@@ -56,6 +56,7 @@ public class LoginForm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Đăng nhập");
         setLocationByPlatform(true);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btn_admin.setBackground(new java.awt.Color(0, 255, 255));
@@ -154,6 +155,7 @@ public class LoginForm extends javax.swing.JFrame {
     private void btn_adminActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btn_adminActionPerformed
         // TODO add your handling code here:
         new AdminForm().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btn_adminActionPerformed
 
     private void btnConnectActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnConnectActionPerformed
@@ -214,5 +216,6 @@ public class LoginForm extends javax.swing.JFrame {
         edt_pin.setEnabled(b);
         chk_show_pw.setEnabled(b);
         btnLogin.setEnabled(b);
+        btn_admin.setEnabled(b);
     }
 }
