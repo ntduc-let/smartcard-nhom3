@@ -131,7 +131,13 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_chk_show_pwActionPerformed
 
     private void btnLoginActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-
+        if(ConnectCard.getInstance().ReadInformation()){
+            if (ConnectCard.getInstance().strID.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Thẻ chưa được khởi tạo");
+                return;
+            }
+        }
+        
         String pin = edt_pin.getText();
         
         if (ConnectCard.getInstance().verifyPin(pin)) {

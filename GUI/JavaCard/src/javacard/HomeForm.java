@@ -350,9 +350,11 @@ public class HomeForm extends javax.swing.JFrame {
         txt_ma_nv.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txt_ma_nv.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         txt_ma_nv.setText("Mã nhân viên");
+        txt_ma_nv.setEnabled(false);
 
         edt_ma_nv.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         edt_ma_nv.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        edt_ma_nv.setEnabled(false);
 
         txt_name.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txt_name.setText("Họ tên");
@@ -418,7 +420,7 @@ public class HomeForm extends javax.swing.JFrame {
 
         txt_noti_ma_nv.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         txt_noti_ma_nv.setForeground(new java.awt.Color(255, 0, 0));
-        txt_noti_ma_nv.setText("Mã nhân viên không được để trống");
+        txt_noti_ma_nv.setText(" ");
 
         txt_noti_name.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         txt_noti_name.setForeground(new java.awt.Color(255, 0, 0));
@@ -956,16 +958,12 @@ public class HomeForm extends javax.swing.JFrame {
 
     private void initInformation() {
         if(ConnectCard.getInstance().ReadInformation()){
-            if(ConnectCard.getInstance().strID.isEmpty()){
-                edt_ma_nv.setText("NV001");
-            }else{
-                edt_ma_nv.setText(ConnectCard.getInstance().strID);
-            }
-            edt_name.setText(ConnectCard.getInstance().strName);
-            edt_ngay_sinh.setText(ConnectCard.getInstance().strDate);
-            edt_co_quan.setText(ConnectCard.getInstance().strCoQuan);
-            edt_chuc_vu.setText(ConnectCard.getInstance().strChucVu);
-            edt_sdt.setText(ConnectCard.getInstance().strPhone);
+            edt_ma_nv.setText(ConnectCard.getInstance().strID.trim());
+            edt_name.setText(ConnectCard.getInstance().strName.trim());
+            edt_ngay_sinh.setText(ConnectCard.getInstance().strDate.trim());
+            edt_co_quan.setText(ConnectCard.getInstance().strCoQuan.trim());
+            edt_chuc_vu.setText(ConnectCard.getInstance().strChucVu.trim());
+            edt_sdt.setText(ConnectCard.getInstance().strPhone.trim());
         }
         getImage();
     }

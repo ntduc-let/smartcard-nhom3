@@ -245,6 +245,28 @@ public class ConnectCard {
         }
     }
     
+    public boolean ResetPin(){
+        try{
+            
+            TerminalFactory factory = TerminalFactory.getDefault();
+            List<CardTerminal> terminals = factory.terminals().list();
+            
+            CardTerminal terminal = terminals.get(0);
+            
+            Card card = terminal.connect("*");
+            
+            CardChannel channel = card.getBasicChannel();
+            
+            ResponseAPDU answer = channel.transmit(new CommandAPDU(0xB0,APPLET.INS_RESET_PIN,0x00,0x03));
+            JOptionPane.showMessageDialog(null, "Đặt lại mật khẩu thành công");
+            return true;
+            
+        }
+        catch(Exception ex){
+            return false;
+        }
+    }
+    
     public void setUp(){
         
         try{
@@ -265,6 +287,37 @@ public class ConnectCard {
             //return "Error";
         }
     
+    }
+    
+    public boolean CreateInformation(byte [] data){
+//        connectapplet();
+        try{
+            factory = TerminalFactory.getDefault();
+            terminals = factory.terminals().list();
+            
+            terminal = terminals.get(0);
+            
+            card = terminal.connect("*");
+            
+            channel = card.getBasicChannel();
+            channel.transmit(new CommandAPDU(APPLET.CLA,APPLET.INS_CHANGE_INFORMATION,0x00,0x00));
+                        
+            ResponseAPDU answer = channel.transmit(new CommandAPDU(APPLET.CLA,APPLET.INS_CREATE_INFORMATION,0x00,0x00,data));
+            
+            message = answer.toString();
+            switch (((message.split("="))[1]).toUpperCase()) {
+                case "9000":
+                    return true;
+                case RESPONS.SW_WRONG_LENGTH:
+                    return false;
+                default:
+                    return false;
+            }
+            
+        }
+        catch(Exception ex){
+            return false;
+        }
     }
     
     public boolean EditInformation(byte [] data){

@@ -8,8 +8,14 @@ package javacard;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
+import java.security.PublicKey;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javacard.connect.ConnectCard;
+import javacard.connect.RSAAppletHelper;
 import javacard.define.APPLET;
+import javax.smartcardio.CardException;
 
 /**
  *
@@ -22,12 +28,33 @@ public class AdminForm extends javax.swing.JFrame {
      */
     public AdminForm() {
         initComponents();
+        initInformation();
+        
         initUI();
+    }
+    
+    private void initInformation() {
+        if(ConnectCard.getInstance().ReadInformation()){
+            String id = ConnectCard.getInstance().strID.trim();
+            if (id.isEmpty()) {
+                id = randomMaNV();
+                createCard(id);
+            }
+            edt_ma_nv.setText(id);
+            edt_ma_nv1.setText(id);
+            edt_ma_nv2.setText(id);
+            edt_name.setText(ConnectCard.getInstance().strName.trim());
+            edt_ngay_sinh.setText(ConnectCard.getInstance().strDate.trim());
+            edt_co_quan.setText(ConnectCard.getInstance().strCoQuan.trim());
+            edt_chuc_vu.setText(ConnectCard.getInstance().strChucVu.trim());
+            edt_sdt.setText(ConnectCard.getInstance().strPhone.trim());
+        }
     }
     
     private void initUI() {
         clickCreateCard();
-        clearNotiCreateCard();
+        clearNotiUnlockCard();
+        clearNotiResetPW();
     }
     
     private void clickCreateCard() {
@@ -62,15 +89,6 @@ public class AdminForm extends javax.swing.JFrame {
         btn_reset_password.setBackground(Color.white);
         btn_disconnect.setBackground(new Color(240,240,240));
     }
-
-    private void clearNotiCreateCard() {
-        txt_noti_ma_nv.setText(" ");
-        txt_noti_name.setText(" ");
-        txt_noti_date.setText(" ");
-        txt_noti_co_quan.setText(" ");
-        txt_noti_chuc_vu.setText(" ");
-        txt_noti_phone.setText(" ");
-    }
     
     private void clearNotiUnlockCard() {
         txt_noti_ma_nv1.setText(" ");
@@ -78,6 +96,25 @@ public class AdminForm extends javax.swing.JFrame {
     
     private void clearNotiResetPW() {
         txt_noti_ma_nv2.setText(" ");
+    }
+    
+    private void reloadInfor() {
+        AdminForm admin = new AdminForm();
+            admin.setVisible(true);
+            this.dispose();
+    }
+    
+    private String randomMaNV() {
+        Random random = new Random();
+        int numberVN = random.nextInt(1000);
+        if(numberVN<10){
+            return "NV00" + numberVN;
+        }else if(numberVN<100){
+            return "NV0" + numberVN;
+        }else if(numberVN<1000){
+            return "NV" + numberVN;
+        }
+        return null;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -99,6 +136,12 @@ public class AdminForm extends javax.swing.JFrame {
         btn_reset_password = new javax.swing.JLabel();
         btn_disconnect = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
+        jp_reset_password = new javax.swing.JPanel();
+        txt_title_reset_password = new javax.swing.JLabel();
+        txt_ma_nv2 = new javax.swing.JLabel();
+        edt_ma_nv2 = new javax.swing.JTextField();
+        btn_reset = new javax.swing.JButton();
+        txt_noti_ma_nv2 = new javax.swing.JLabel();
         jp_create = new javax.swing.JPanel();
         txt_ma_nv = new javax.swing.JLabel();
         edt_ma_nv = new javax.swing.JTextField();
@@ -126,12 +169,6 @@ public class AdminForm extends javax.swing.JFrame {
         edt_ma_nv1 = new javax.swing.JTextField();
         btn_unlock = new javax.swing.JButton();
         txt_noti_ma_nv1 = new javax.swing.JLabel();
-        jp_reset_password = new javax.swing.JPanel();
-        txt_title_reset_password = new javax.swing.JLabel();
-        txt_ma_nv2 = new javax.swing.JLabel();
-        edt_ma_nv2 = new javax.swing.JTextField();
-        btn_reset = new javax.swing.JButton();
-        txt_noti_ma_nv2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Quản trị viên");
@@ -241,14 +278,82 @@ public class AdminForm extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jp_reset_password.setBackground(new java.awt.Color(255, 255, 255));
+
+        txt_title_reset_password.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        txt_title_reset_password.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txt_title_reset_password.setText("Đặt lại mật khẩu");
+
+        txt_ma_nv2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txt_ma_nv2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txt_ma_nv2.setText("Mã nhân viên");
+
+        edt_ma_nv2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        edt_ma_nv2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+
+        btn_reset.setBackground(new java.awt.Color(0, 102, 153));
+        btn_reset.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        btn_reset.setForeground(new java.awt.Color(255, 255, 255));
+        btn_reset.setText("Đặt lại");
+        btn_reset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_resetActionPerformed(evt);
+            }
+        });
+
+        txt_noti_ma_nv2.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        txt_noti_ma_nv2.setForeground(new java.awt.Color(255, 0, 0));
+        txt_noti_ma_nv2.setText("Mã nhân viên không được để trống");
+
+        javax.swing.GroupLayout jp_reset_passwordLayout = new javax.swing.GroupLayout(jp_reset_password);
+        jp_reset_password.setLayout(jp_reset_passwordLayout);
+        jp_reset_passwordLayout.setHorizontalGroup(
+            jp_reset_passwordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jp_reset_passwordLayout.createSequentialGroup()
+                .addGroup(jp_reset_passwordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jp_reset_passwordLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(txt_ma_nv2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jp_reset_passwordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_noti_ma_nv2, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(edt_ma_nv2, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jp_reset_passwordLayout.createSequentialGroup()
+                        .addGap(282, 282, 282)
+                        .addComponent(btn_reset, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jp_reset_passwordLayout.createSequentialGroup()
+                        .addGap(238, 238, 238)
+                        .addComponent(txt_title_reset_password, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jp_reset_passwordLayout.setVerticalGroup(
+            jp_reset_passwordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jp_reset_passwordLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txt_title_reset_password, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+                .addGroup(jp_reset_passwordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_ma_nv2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(edt_ma_nv2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt_noti_ma_nv2)
+                .addGap(115, 115, 115)
+                .addComponent(btn_reset, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61))
+        );
+
+        jPanel4.add(jp_reset_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 410));
+
         jp_create.setBackground(new java.awt.Color(255, 255, 255));
 
         txt_ma_nv.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txt_ma_nv.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         txt_ma_nv.setText("Mã nhân viên");
+        txt_ma_nv.setEnabled(false);
 
         edt_ma_nv.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         edt_ma_nv.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        edt_ma_nv.setEnabled(false);
 
         txt_name.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txt_name.setText("Họ tên");
@@ -293,27 +398,27 @@ public class AdminForm extends javax.swing.JFrame {
 
         txt_noti_ma_nv.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         txt_noti_ma_nv.setForeground(new java.awt.Color(255, 0, 0));
-        txt_noti_ma_nv.setText("Mã nhân viên không được để trống");
+        txt_noti_ma_nv.setText(" ");
 
         txt_noti_name.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         txt_noti_name.setForeground(new java.awt.Color(255, 0, 0));
-        txt_noti_name.setText("Họ tên không được để trống");
+        txt_noti_name.setText(" ");
 
         txt_noti_date.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         txt_noti_date.setForeground(new java.awt.Color(255, 0, 0));
-        txt_noti_date.setText("Ngày sinh không được để trống");
+        txt_noti_date.setText(" ");
 
         txt_noti_chuc_vu.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         txt_noti_chuc_vu.setForeground(new java.awt.Color(255, 0, 0));
-        txt_noti_chuc_vu.setText("Chức vụ không được để trống");
+        txt_noti_chuc_vu.setText(" ");
 
         txt_noti_co_quan.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         txt_noti_co_quan.setForeground(new java.awt.Color(255, 0, 0));
-        txt_noti_co_quan.setText("Tên cơ quan không được để trống");
+        txt_noti_co_quan.setText(" ");
 
         txt_noti_phone.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         txt_noti_phone.setForeground(new java.awt.Color(255, 0, 0));
-        txt_noti_phone.setText("Số điện thoại không được để trống");
+        txt_noti_phone.setText(" ");
 
         btn_reset_info.setBackground(new java.awt.Color(0, 102, 153));
         btn_reset_info.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
@@ -336,9 +441,7 @@ public class AdminForm extends javax.swing.JFrame {
                         .addComponent(txt_ma_nv, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jp_createLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jp_createLayout.createSequentialGroup()
-                                .addComponent(txt_noti_ma_nv, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(txt_noti_ma_nv, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(edt_ma_nv, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jp_createLayout.createSequentialGroup()
                         .addComponent(txt_name, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -368,7 +471,7 @@ public class AdminForm extends javax.swing.JFrame {
                         .addGroup(jp_createLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txt_noti_co_quan, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(edt_chuc_vu, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_createLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_update, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -490,72 +593,6 @@ public class AdminForm extends javax.swing.JFrame {
 
         jPanel4.add(jp_unlock_card, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 410));
 
-        jp_reset_password.setBackground(new java.awt.Color(255, 255, 255));
-
-        txt_title_reset_password.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        txt_title_reset_password.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txt_title_reset_password.setText("Đặt lại mật khẩu");
-
-        txt_ma_nv2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        txt_ma_nv2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        txt_ma_nv2.setText("Mã nhân viên");
-
-        edt_ma_nv2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        edt_ma_nv2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-
-        btn_reset.setBackground(new java.awt.Color(0, 102, 153));
-        btn_reset.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        btn_reset.setForeground(new java.awt.Color(255, 255, 255));
-        btn_reset.setText("Đặt lại");
-        btn_reset.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_resetActionPerformed(evt);
-            }
-        });
-
-        txt_noti_ma_nv2.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
-        txt_noti_ma_nv2.setForeground(new java.awt.Color(255, 0, 0));
-        txt_noti_ma_nv2.setText("Mã nhân viên không được để trống");
-
-        javax.swing.GroupLayout jp_reset_passwordLayout = new javax.swing.GroupLayout(jp_reset_password);
-        jp_reset_password.setLayout(jp_reset_passwordLayout);
-        jp_reset_passwordLayout.setHorizontalGroup(
-            jp_reset_passwordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jp_reset_passwordLayout.createSequentialGroup()
-                .addGroup(jp_reset_passwordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jp_reset_passwordLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(txt_ma_nv2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jp_reset_passwordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_noti_ma_nv2, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(edt_ma_nv2, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jp_reset_passwordLayout.createSequentialGroup()
-                        .addGap(282, 282, 282)
-                        .addComponent(btn_reset, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jp_reset_passwordLayout.createSequentialGroup()
-                        .addGap(238, 238, 238)
-                        .addComponent(txt_title_reset_password, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jp_reset_passwordLayout.setVerticalGroup(
-            jp_reset_passwordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jp_reset_passwordLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txt_title_reset_password, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
-                .addGroup(jp_reset_passwordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_ma_nv2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(edt_ma_nv2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txt_noti_ma_nv2)
-                .addGap(115, 115, 115)
-                .addComponent(btn_reset, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61))
-        );
-
-        jPanel4.add(jp_reset_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 410));
-
         javax.swing.GroupLayout jp_contentLayout = new javax.swing.GroupLayout(jp_content);
         jp_content.setLayout(jp_contentLayout);
         jp_contentLayout.setHorizontalGroup(
@@ -586,36 +623,156 @@ public class AdminForm extends javax.swing.JFrame {
 
     private void btn_unlock_cardMouseClicked(MouseEvent evt) {//GEN-FIRST:event_btn_unlock_cardMouseClicked
         clickUnlockCard();
-        clearNotiUnlockCard();
     }//GEN-LAST:event_btn_unlock_cardMouseClicked
 
     private void btn_updateActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btn_updateActionPerformed
-        System.out.println("Comming soon");
+        String strId = edt_ma_nv.getText().trim();
+        String strName = edt_name.getText().trim();
+        String strDate = edt_ngay_sinh.getText().trim();
+        String strCoQuan = edt_co_quan.getText().trim();
+        String strChucVu = edt_chuc_vu.getText().trim();
+        String strPhone = edt_sdt.getText().trim();
         
+        if (strId.isEmpty()) {
+            strId = " ";
+        }
+        if (strName.isEmpty()) {
+            strName = " ";
+        }
+        if (strDate.isEmpty()) {
+            strDate = " ";
+        }
+        if (strCoQuan.isEmpty()) {
+            strCoQuan = " ";
+        }
+        if (strChucVu.isEmpty()) {
+            strChucVu = " ";
+        }
+        if (strPhone.isEmpty()) {
+            strPhone = " ";
+        }
+
+        byte[] byteID = strId.getBytes();
+        byte[] byteName = strName.getBytes();
+        byte[] byteDate = strDate.getBytes();
+        byte[] byteCoQuan = strCoQuan.getBytes();
+        byte[] byteChucVu = strChucVu.getBytes();
+        byte[] bytePhone = strPhone.getBytes();
+
+        byte[] data = new byte[byteID.length+byteName.length+byteDate.length+bytePhone.length+byteCoQuan.length+byteChucVu.length+12];
+        //byteID
+        int offSet = 0;
+        data[offSet] = (byte)0x02;
+        offSet += 1;
+        System.arraycopy(byteID, 0,data, offSet, byteID.length);
+        offSet += byteID.length;
+        data[offSet] = (byte)0x03;
+        
+        //byteName
+        offSet += 1;
+        data[offSet] = (byte)0x02;
+        offSet += 1;
+        System.arraycopy(byteName, 0,data, offSet, byteName.length);
+        offSet += byteName.length;
+        data[offSet] = (byte) 0x03;
+        
+        //byteDate
+        offSet += 1;
+        data[offSet] = (byte) 0x02;
+        offSet += 1;
+        System.arraycopy(byteDate, 0, data, offSet, byteDate.length);
+        offSet += byteDate.length;
+        data[offSet] = (byte)0x03;
+        
+        //bytePhone
+        offSet += 1;
+        data[offSet] = (byte)0x02;
+        offSet += 1;
+        System.arraycopy(bytePhone, 0, data, offSet, bytePhone.length);
+        offSet += bytePhone.length;
+        data[offSet] = (byte)0x03;
+        
+        //byteCoQuan
+        offSet += 1;
+        data[offSet] = (byte)0x02;
+        offSet += 1;
+        System.arraycopy(byteCoQuan, 0, data, offSet, byteCoQuan.length);
+        offSet += byteCoQuan.length;
+        data[offSet] = (byte)0x03;
+        
+        //byteChucVu
+        offSet += 1;
+        data[offSet] = (byte)0x02;
+        offSet += 1;
+        System.arraycopy(byteChucVu, 0, data, offSet, byteChucVu.length);
+        offSet += byteChucVu.length;
+        data[offSet] = (byte)0x03;
+
+        if(ConnectCard.getInstance().EditInformation(data)){
+            try {
+                PublicKey publicKeys = RSAAppletHelper.getInstance(
+                    ConnectCard.getInstance().channel).getPublicKey();
+            } catch (CardException ex) {
+                Logger.getLogger(AdminForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            reloadInfor();
+
+            System.out.println("Success");
+        }
+        else{
+            System.out.println("Sending Error");
+        }
     }//GEN-LAST:event_btn_updateActionPerformed
 
     private void btn_reset_passwordMouseClicked(MouseEvent evt) {//GEN-FIRST:event_btn_reset_passwordMouseClicked
         clickResetPW();
-        clearNotiResetPW();
     }//GEN-LAST:event_btn_reset_passwordMouseClicked
 
     private void btn_unlockActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btn_unlockActionPerformed
+        if(edt_ma_nv1.getText().trim().isEmpty()){
+            txt_noti_ma_nv1.setText("Mã nhân viên không được để trống");
+            return;
+        }
+        
+        if(ConnectCard.getInstance().ReadInformation()){
+            String id = ConnectCard.getInstance().strID.trim();
+            if (!id.equals(edt_ma_nv1.getText().trim())) {
+                txt_noti_ma_nv1.setText("Mã nhân viên không chính xác");
+            return;
+            }
+        }
+        
         ConnectCard.getInstance().UnblockPin(APPLET.AID_APPLET);
         clearNotiUnlockCard();
     }//GEN-LAST:event_btn_unlockActionPerformed
 
     private void btn_resetActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btn_resetActionPerformed
-        System.out.println("Comming soon");
+        if(edt_ma_nv1.getText().trim().isEmpty()){
+            txt_noti_ma_nv1.setText("Mã nhân viên không được để trống");
+            return;
+        }
+        
+        if(ConnectCard.getInstance().ReadInformation()){
+            String id = ConnectCard.getInstance().strID.trim();
+            if (!id.equals(edt_ma_nv1.getText().trim())) {
+                txt_noti_ma_nv1.setText("Mã nhân viên không chính xác");
+            return;
+            }
+        }
+        
+        ConnectCard.getInstance().ResetPin();
+        clearNotiUnlockCard();
     }//GEN-LAST:event_btn_resetActionPerformed
 
     private void btn_reset_infoActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btn_reset_infoActionPerformed
-        edt_ma_nv.setText("");
-        edt_name.setText("");
-        edt_ngay_sinh.setText("");
-        edt_co_quan.setText("");
-        edt_chuc_vu.setText("");
-        edt_sdt.setText("");
-        clearNotiCreateCard();
+        if(ConnectCard.getInstance().ReadInformation()){
+            edt_ma_nv.setText(ConnectCard.getInstance().strID);
+            edt_name.setText(ConnectCard.getInstance().strName);
+            edt_ngay_sinh.setText(ConnectCard.getInstance().strDate);
+            edt_co_quan.setText(ConnectCard.getInstance().strCoQuan);
+            edt_chuc_vu.setText(ConnectCard.getInstance().strChucVu);
+            edt_sdt.setText(ConnectCard.getInstance().strPhone);
+        }
     }//GEN-LAST:event_btn_reset_infoActionPerformed
 
     /**
@@ -700,4 +857,76 @@ public class AdminForm extends javax.swing.JFrame {
     private javax.swing.JLabel txt_title_unlock_card;
     private javax.swing.JLabel txt_user;
     // End of variables declaration//GEN-END:variables
+
+    private void createCard(String id) {
+        byte[] byteID = id.getBytes();
+        byte[] byteName = " ".getBytes();
+        byte[] byteDate = " ".getBytes();
+        byte[] byteCoQuan = " ".getBytes();
+        byte[] byteChucVu = " ".getBytes();
+        byte[] bytePhone = " ".getBytes();
+
+        byte[] data = new byte[byteID.length+byteName.length+byteDate.length+bytePhone.length+byteCoQuan.length+byteChucVu.length+12];
+        //byteID
+        int offSet = 0;
+        data[offSet] = (byte)0x02;
+        offSet += 1;
+        System.arraycopy(byteID, 0,data, offSet, byteID.length);
+        offSet += byteID.length;
+        data[offSet] = (byte)0x03;
+        
+        //byteName
+        offSet += 1;
+        data[offSet] = (byte)0x02;
+        offSet += 1;
+        System.arraycopy(byteName, 0,data, offSet, byteName.length);
+        offSet += byteName.length;
+        data[offSet] = (byte) 0x03;
+        
+        //byteDate
+        offSet += 1;
+        data[offSet] = (byte) 0x02;
+        offSet += 1;
+        System.arraycopy(byteDate, 0, data, offSet, byteDate.length);
+        offSet += byteDate.length;
+        data[offSet] = (byte)0x03;
+        
+        //bytePhone
+        offSet += 1;
+        data[offSet] = (byte)0x02;
+        offSet += 1;
+        System.arraycopy(bytePhone, 0, data, offSet, bytePhone.length);
+        offSet += bytePhone.length;
+        data[offSet] = (byte)0x03;
+        
+        //byteCoQuan
+        offSet += 1;
+        data[offSet] = (byte)0x02;
+        offSet += 1;
+        System.arraycopy(byteCoQuan, 0, data, offSet, byteCoQuan.length);
+        offSet += byteCoQuan.length;
+        data[offSet] = (byte)0x03;
+        
+        //byteChucVu
+        offSet += 1;
+        data[offSet] = (byte)0x02;
+        offSet += 1;
+        System.arraycopy(byteChucVu, 0, data, offSet, byteChucVu.length);
+        offSet += byteChucVu.length;
+        data[offSet] = (byte)0x03;
+
+        if(ConnectCard.getInstance().CreateInformation(data)){
+            try {
+                PublicKey publicKeys = RSAAppletHelper.getInstance(
+                    ConnectCard.getInstance().channel).getPublicKey();
+            } catch (CardException ex) {
+                Logger.getLogger(AdminForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            reloadInfor();
+            System.out.println("Success");
+        }
+        else{
+            System.out.println("Sending Error");
+        }
+    }
 }

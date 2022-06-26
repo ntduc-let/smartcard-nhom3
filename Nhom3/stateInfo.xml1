@@ -6,10 +6,6 @@
 </ExpandNodes>
 <FileNodes>
 <fnode>
-<fileName>D:\JavaCardKit\SDK\Tools\JCIDE\apis\jc222\javacard\framework\OwnerPIN.java</fileName>
-<line>84</line>
-</fnode>
-<fnode>
 <fileName>src\nhom3\DeselectApplet.java</fileName>
 <line>0</line>
 </fnode>
@@ -39,7 +35,7 @@
 </fnode>
 <ActiveFile>
 <fileName>src\nhom3\nhom3.java</fileName>
-<line>595</line>
+<line>82</line>
 </ActiveFile>
 </FileNodes>
 </StateInfo>

@@ -59,6 +59,7 @@ public class nhom3 extends Applet
 	private final static byte INS_VERIFY_PIN = (byte) 0x42;
 	private final static byte INS_CHANGE_PIN = (byte) 0x44;
 	private final static byte INS_UNBLOCK_PIN = (byte) 0x46;
+	private final static byte INS_RESET_PIN = (byte) 0x48;
 	
 	private final static byte INS_CREATE_INFORMATION = (byte)0x50;
 	private final static byte INS_OUT_INFORMATION = (byte)0x51;
@@ -211,6 +212,9 @@ public class nhom3 extends Applet
 		case INS_UNBLOCK_PIN:
 			UnblockPIN(apdu, buffer);
 			break;
+		case INS_RESET_PIN:
+			ResetPIN(apdu, buffer);
+			break;
 		case INS_CHECK_LOGIN:
 			CheckLogin(apdu,buffer);
 			break;
@@ -265,7 +269,7 @@ public class nhom3 extends Applet
         } finally {
             Util.arrayFillNonAtomic(keyBytes, (short) 0, LENGTH_BLOCK_AES, (byte) 0);
         }
-		first_logged_ids[0] = (byte)0x00;
+		// first_logged_ids[0] = (byte)0x00;
 		setupDone = true;
 	}
 	
@@ -298,6 +302,7 @@ public class nhom3 extends Applet
 			
 		pin = new OwnerPIN(num_tries, PIN_MAX_SIZE);
 		pin.update(buffer, (short) (ISO7816.OFFSET_CDATA + 1), pin_size);
+		first_logged_ids[0] = (byte)0x00;
 		
 		////unblock
 		//ublk_pins[pin_nb] = new OwnerPIN((byte) 3, PIN_MAX_SIZE);
@@ -383,6 +388,11 @@ public class nhom3 extends Applet
 			// ISOException.throwIt(SW_AUTH_FAILED);
 		//
 		pin.resetAndUnblock();
+	}
+	
+	private void ResetPIN(APDU apdu, byte[] buffer) {
+		pin.update(PIN_INIT_VALUE, (short) 0, (byte) PIN_INIT_VALUE.length);
+		first_logged_ids[0] = (byte)0x01;
 	}
 	
 	private void SetupInformation(APDU apdu, byte[] buffer){

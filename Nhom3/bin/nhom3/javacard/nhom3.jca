@@ -1,5 +1,5 @@
 // converted by version 1.3
-// on Sat Jun 25 11:38:15 ICT 2022
+// on Sun Jun 26 15:22:49 ICT 2022
 
 .package nhom3 {
 	.aid 0x25:0x10:0x19:0x99:0x0:0x0;
@@ -192,112 +192,116 @@
 			.descriptor	Ljavacard/framework/APDU;	0.10;
 
 		// 72
-		staticMethodRef nhom3/CheckLogin(Ljavacard/framework/APDU;[B)V;
+		staticMethodRef nhom3/ResetPIN(Ljavacard/framework/APDU;[B)V;
 			.descriptor	Ljavacard/framework/APDU;	0.10;
 
 		// 73
-		staticMethodRef nhom3/SetupInformation(Ljavacard/framework/APDU;[B)V;
+		staticMethodRef nhom3/CheckLogin(Ljavacard/framework/APDU;[B)V;
 			.descriptor	Ljavacard/framework/APDU;	0.10;
 
 		// 74
-		staticMethodRef nhom3/OutputInformation(Ljavacard/framework/APDU;[B)V;
+		staticMethodRef nhom3/SetupInformation(Ljavacard/framework/APDU;[B)V;
 			.descriptor	Ljavacard/framework/APDU;	0.10;
 
 		// 75
-		staticMethodRef nhom3/ChangeInformation(Ljavacard/framework/APDU;[B)V;
+		staticMethodRef nhom3/OutputInformation(Ljavacard/framework/APDU;[B)V;
 			.descriptor	Ljavacard/framework/APDU;	0.10;
 
 		// 76
-		staticMethodRef nhom3/SetupImage(Ljavacard/framework/APDU;[B)V;
+		staticMethodRef nhom3/ChangeInformation(Ljavacard/framework/APDU;[B)V;
 			.descriptor	Ljavacard/framework/APDU;	0.10;
 
 		// 77
-		staticMethodRef nhom3/SetCount(Ljavacard/framework/APDU;[B)V;
+		staticMethodRef nhom3/SetupImage(Ljavacard/framework/APDU;[B)V;
 			.descriptor	Ljavacard/framework/APDU;	0.10;
 
 		// 78
-		staticMethodRef nhom3/OuputSize(Ljavacard/framework/APDU;[B)V;
+		staticMethodRef nhom3/SetCount(Ljavacard/framework/APDU;[B)V;
 			.descriptor	Ljavacard/framework/APDU;	0.10;
 
 		// 79
-		staticMethodRef nhom3/OututImage(Ljavacard/framework/APDU;[B)V;
+		staticMethodRef nhom3/OuputSize(Ljavacard/framework/APDU;[B)V;
 			.descriptor	Ljavacard/framework/APDU;	0.10;
 
 		// 80
-		classRef 0.13;		// javacard/framework/SystemException
+		staticMethodRef nhom3/OututImage(Ljavacard/framework/APDU;[B)V;
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
 		// 81
-		staticMethodRef 0.7.1(S)V;		// javacard/framework/ISOException.throwIt(S)V
+		classRef 0.13;		// javacard/framework/SystemException
 		// 82
+		staticMethodRef 0.7.1(S)V;		// javacard/framework/ISOException.throwIt(S)V
+		// 83
 		staticMethodRef 3.1.0(BZ)Ljavacardx/crypto/Cipher;;		// javacardx/crypto/Cipher.getInstance(BZ)Ljavacardx/crypto/Cipher;
 			.descriptor	Ljavacardx/crypto/Cipher;	3.1;
 
-		// 83
-		staticMethodRef 1.0.0()V;		// java/lang/Object.<init>()V
 		// 84
-		classRef 2.20;		// javacard/security/AESKey
+		staticMethodRef 1.0.0()V;		// java/lang/Object.<init>()V
 		// 85
-		staticFieldRef byte[] HMacSHA512/data;
+		classRef 2.20;		// javacard/security/AESKey
 		// 86
-		staticMethodRef Sha512/init()V;
+		staticFieldRef byte[] HMacSHA512/data;
 		// 87
-		staticMethodRef HMacSHA512/init([B)V;
+		staticMethodRef Sha512/init()V;
 		// 88
-		staticFieldRef short nhom3/LENGTH_BLOCK_AES;
+		staticMethodRef HMacSHA512/init([B)V;
 		// 89
-		staticMethodRef HMacSHA512/computeHmacSha512([BSS[BS)[B;
+		staticFieldRef short nhom3/LENGTH_BLOCK_AES;
 		// 90
-		staticFieldRef byte[] nhom3/first_logged_ids;
+		staticMethodRef HMacSHA512/computeHmacSha512([BSS[BS)[B;
 		// 91
 		staticMethodRef 0.16.5(BB)S;		// javacard/framework/Util.makeShort(BB)S
 		// 92
-		virtualMethodRef 0.9.2()B;		// javacard/framework/OwnerPIN.getTriesRemaining()B
+		staticFieldRef byte[] nhom3/first_logged_ids;
 		// 93
-		virtualMethodRef 0.9.1([BSB)Z;		// javacard/framework/OwnerPIN.check([BSB)Z
+		virtualMethodRef 0.9.2()B;		// javacard/framework/OwnerPIN.getTriesRemaining()B
 		// 94
-		staticMethodRef 0.16.3([BSSB)S;		// javacard/framework/Util.arrayFillNonAtomic([BSSB)S
+		virtualMethodRef 0.9.1([BSB)Z;		// javacard/framework/OwnerPIN.check([BSB)Z
 		// 95
-		virtualMethodRef 0.9.6()V;		// javacard/framework/OwnerPIN.resetAndUnblock()V
+		staticMethodRef 0.16.3([BSSB)S;		// javacard/framework/Util.arrayFillNonAtomic([BSSB)S
 		// 96
-		staticFieldRef byte nhom3/lenData;
+		virtualMethodRef 0.9.6()V;		// javacard/framework/OwnerPIN.resetAndUnblock()V
 		// 97
-		staticFieldRef byte[] nhom3/OpData;
+		staticFieldRef byte nhom3/lenData;
 		// 98
-		staticFieldRef byte nhom3/lenID;
+		staticFieldRef byte[] nhom3/OpData;
 		// 99
-		staticMethodRef nhom3/encrypt([B)[B;
+		staticFieldRef byte nhom3/lenID;
 		// 100
-		staticFieldRef byte[] nhom3/OpID;
+		staticMethodRef nhom3/encrypt([B)[B;
 		// 101
-		staticFieldRef byte nhom3/lenNAME;
+		staticFieldRef byte[] nhom3/OpID;
 		// 102
-		staticFieldRef byte[] nhom3/OpNAME;
+		staticFieldRef byte nhom3/lenNAME;
 		// 103
-		staticFieldRef byte nhom3/lenDATE;
+		staticFieldRef byte[] nhom3/OpNAME;
 		// 104
-		staticFieldRef byte[] nhom3/OpDATE;
+		staticFieldRef byte nhom3/lenDATE;
 		// 105
-		staticFieldRef byte nhom3/lenPHONE;
+		staticFieldRef byte[] nhom3/OpDATE;
 		// 106
-		staticFieldRef byte[] nhom3/OpPHONE;
+		staticFieldRef byte nhom3/lenPHONE;
 		// 107
-		staticFieldRef byte nhom3/lenCoQuan;
+		staticFieldRef byte[] nhom3/OpPHONE;
 		// 108
-		staticFieldRef byte[] nhom3/OpCoQuan;
+		staticFieldRef byte nhom3/lenCoQuan;
 		// 109
-		staticFieldRef byte nhom3/lenChucVu;
+		staticFieldRef byte[] nhom3/OpCoQuan;
 		// 110
-		staticFieldRef byte[] nhom3/OpChucVu;
+		staticFieldRef byte nhom3/lenChucVu;
 		// 111
-		staticMethodRef nhom3/decrypt([BB)[B;
+		staticFieldRef byte[] nhom3/OpChucVu;
 		// 112
-		virtualMethodRef 0.10.4(SS)V;		// javacard/framework/APDU.sendBytes(SS)V
+		staticMethodRef nhom3/decrypt([BB)[B;
 		// 113
-		virtualMethodRef 0.9.5()V;		// javacard/framework/OwnerPIN.reset()V
+		virtualMethodRef 0.10.4(SS)V;		// javacard/framework/APDU.sendBytes(SS)V
 		// 114
+		virtualMethodRef 0.9.5()V;		// javacard/framework/OwnerPIN.reset()V
+		// 115
 		virtualMethodRef 3.1.3(Ljavacard/security/Key;B)V;		// javacardx/crypto/Cipher.init(Ljavacard/security/Key;B)V
 			.descriptor	Ljavacard/security/Key;	2.0;
 
-		// 115
+		// 116
 		virtualMethodRef 3.1.1([BSS[BS)S;		// javacardx/crypto/Cipher.doFinal([BSS[BS)S
 	}
 
@@ -363,7 +367,7 @@
 					slookupswitch L5 1 0 L4;
 				L4:	goto L6;
 				L5:	sspush 27904;
-					invokestatic 81;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L6:	return;
 		}
 
@@ -390,7 +394,7 @@
 			.locals 0;
 
 				L0:	aload_0;
-					invokespecial 83;		// java/lang/Object.<init>()V
+					invokespecial 84;		// java/lang/Object.<init>()V
 					return;
 		}
 
@@ -399,7 +403,7 @@
 			.locals 0;
 
 				L0:	aload_0;
-					putstatic_a 85;		// reference nhom3/HMacSHA512.data
+					putstatic_a 86;		// reference nhom3/HMacSHA512.data
 					return;
 		}
 
@@ -413,13 +417,13 @@
 				L1:	sload_2;
 					ifge L3;
 				L2:	sspush -25586;
-					invokestatic 81;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L3:	sconst_0;
 					sstore 5;
 				L4:	sload 5;
 					sload_2;
 					if_scmpge L6;
-				L5:	getstatic_a 85;		// reference nhom3/HMacSHA512.data
+				L5:	getstatic_a 86;		// reference nhom3/HMacSHA512.data
 					sload 5;
 					aload_0;
 					sload_1;
@@ -431,18 +435,18 @@
 					bastore;
 					sinc 5 1;
 					goto L4;
-				L6:	getstatic_a 85;		// reference nhom3/HMacSHA512.data
+				L6:	getstatic_a 86;		// reference nhom3/HMacSHA512.data
 					sload_2;
 					sspush 128;
 					sload_2;
 					ssub;
 					bspush 54;
-					invokestatic 94;		// javacard/framework/Util.arrayFillNonAtomic([BSSB)S
+					invokestatic 95;		// javacard/framework/Util.arrayFillNonAtomic([BSSB)S
 					pop;
-					getstatic_a 85;		// reference nhom3/HMacSHA512.data
+					getstatic_a 86;		// reference nhom3/HMacSHA512.data
 					sconst_0;
 					sspush 128;
-					getstatic_a 85;		// reference nhom3/HMacSHA512.data
+					getstatic_a 86;		// reference nhom3/HMacSHA512.data
 					sspush 128;
 					invokestatic 10;		// nhom3/Sha512.resetUpdateDoFinal([BSS[BS)S
 					pop;
@@ -451,7 +455,7 @@
 				L7:	sload 5;
 					sload_2;
 					if_scmpge L9;
-				L8:	getstatic_a 85;		// reference nhom3/HMacSHA512.data
+				L8:	getstatic_a 86;		// reference nhom3/HMacSHA512.data
 					sload 5;
 					aload_0;
 					sload_1;
@@ -463,15 +467,15 @@
 					bastore;
 					sinc 5 1;
 					goto L7;
-				L9:	getstatic_a 85;		// reference nhom3/HMacSHA512.data
+				L9:	getstatic_a 86;		// reference nhom3/HMacSHA512.data
 					sload_1;
 					sspush 128;
 					sload_2;
 					ssub;
 					bspush 92;
-					invokestatic 94;		// javacard/framework/Util.arrayFillNonAtomic([BSSB)S
+					invokestatic 95;		// javacard/framework/Util.arrayFillNonAtomic([BSSB)S
 					pop;
-					getstatic_a 85;		// reference nhom3/HMacSHA512.data
+					getstatic_a 86;		// reference nhom3/HMacSHA512.data
 					sconst_0;
 					sspush 128;
 					aload_3;
@@ -612,7 +616,7 @@
 					invokespecial 30;		// nhom3/RSAApplet.rsaSign(Ljavacard/framework/APDU;)V
 					goto L8;
 				L7:	sspush 27904;
-					invokestatic 81;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L8:	return;
 		}
 
@@ -743,7 +747,7 @@
 			.locals 0;
 
 				L0:	aload_0;
-					invokespecial 83;		// java/lang/Object.<init>()V
+					invokespecial 84;		// java/lang/Object.<init>()V
 					return;
 		}
 
@@ -2828,7 +2832,7 @@
 					getstatic_s 47;		// short nhom3/Sha512.bufferOff
 					getstatic_s 48;		// short nhom3/Sha512.bufferLeft
 					sconst_0;
-					invokestatic 94;		// javacard/framework/Util.arrayFillNonAtomic([BSSB)S
+					invokestatic 95;		// javacard/framework/Util.arrayFillNonAtomic([BSSB)S
 					pop;
 					getstatic_a 44;		// reference nhom3/Sha512.buffer
 					getstatic_a 44;		// reference nhom3/Sha512.buffer
@@ -3099,6 +3103,7 @@
 			private static final byte INS_VERIFY_PIN = 66;		// B
 			private static final byte INS_CHANGE_PIN = 68;		// B
 			private static final byte INS_UNBLOCK_PIN = 70;		// B
+			private static final byte INS_RESET_PIN = 72;		// B
 			private static final byte INS_CREATE_INFORMATION = 80;		// B
 			private static final byte INS_OUT_INFORMATION = 81;		// B
 			private static final byte INS_CHANGE_INFORMATION = 82;		// B
@@ -3172,7 +3177,7 @@
 					invokespecial 54;		// nhom3/nhom3.CheckPINPolicy([BSB)Z
 					ifne L2;
 				L1:	sspush -25345;
-					invokestatic 81;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L2:	sspush 10000;
 					newarray 11;
 					putstatic_a 55;		// reference nhom3/nhom3.OpImage
@@ -3250,7 +3255,7 @@
 					aload_2;
 					invokespecial 66;		// nhom3/nhom3.CheckFisrtUse(Ljavacard/framework/APDU;[B)V
 					sspush -28672;
-					invokestatic 81;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L3:	aload_2;
 					sconst_0;
 					baload;
@@ -3267,7 +3272,7 @@
 					bspush -80;
 					if_scmpeq L8;
 				L7:	sspush 28160;
-					invokestatic 81;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L8:	aload_2;
 					sconst_1;
 					baload;
@@ -3278,87 +3283,92 @@
 					bspush 42;
 					if_scmpeq L12;
 				L11:	sspush -25596;
-					invokestatic 81;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L12:	getfield_b_this 4;		// boolean nhom3/nhom3.setupDone
 					ifeq L15;
 				L13:	sload_3;
 					bspush 42;
 					if_scmpne L15;
 				L14:	sspush 27904;
-					invokestatic 81;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L15:	sload_3;
-					stableswitch L30 42 97 L16 L30 L30 L30 L30 L30 L30 L30 L30 L30 L30 L30 L30 L30 L30 L30 L30 L30 L30 L30 L30 L30 L17 L30 L18 L30 L19 L30 L20 L30 L30 L30 L30 L30 L30 L30 L30 L30 L23 L24 L25 L26 L27 L28 L29 L30 L30 L30 L30 L30 L30 L30 L30 L30 L22 L21;
+					stableswitch L31 42 97 L16 L31 L31 L31 L31 L31 L31 L31 L31 L31 L31 L31 L31 L31 L31 L31 L31 L31 L31 L31 L31 L31 L17 L31 L18 L31 L19 L31 L20 L31 L21 L31 L31 L31 L31 L31 L31 L31 L24 L25 L26 L27 L28 L29 L30 L31 L31 L31 L31 L31 L31 L31 L31 L31 L23 L22;
 				L16:	aload_0;
 					aload_1;
 					aload_2;
 					invokespecial 67;		// nhom3/nhom3.setup(Ljavacard/framework/APDU;[B)V
-					goto L31;
+					goto L32;
 				L17:	aload_0;
 					aload_1;
 					aload_2;
 					invokespecial 68;		// nhom3/nhom3.CreatePIN(Ljavacard/framework/APDU;[B)V
-					goto L31;
+					goto L32;
 				L18:	aload_0;
 					aload_1;
 					aload_2;
 					invokespecial 69;		// nhom3/nhom3.VerifyPIN(Ljavacard/framework/APDU;[B)V
-					goto L31;
+					goto L32;
 				L19:	aload_0;
 					aload_1;
 					aload_2;
 					invokespecial 70;		// nhom3/nhom3.ChangePIN(Ljavacard/framework/APDU;[B)V
-					goto L31;
+					goto L32;
 				L20:	aload_0;
 					aload_1;
 					aload_2;
 					invokespecial 71;		// nhom3/nhom3.UnblockPIN(Ljavacard/framework/APDU;[B)V
-					goto L31;
+					goto L32;
 				L21:	aload_0;
 					aload_1;
 					aload_2;
-					invokespecial 72;		// nhom3/nhom3.CheckLogin(Ljavacard/framework/APDU;[B)V
-					goto L31;
+					invokespecial 72;		// nhom3/nhom3.ResetPIN(Ljavacard/framework/APDU;[B)V
+					goto L32;
 				L22:	aload_0;
-					invokespecial 62;		// nhom3/nhom3.LogOut()V
-					goto L31;
-				L23:	aload_0;
 					aload_1;
 					aload_2;
-					invokespecial 73;		// nhom3/nhom3.SetupInformation(Ljavacard/framework/APDU;[B)V
-					goto L31;
+					invokespecial 73;		// nhom3/nhom3.CheckLogin(Ljavacard/framework/APDU;[B)V
+					goto L32;
+				L23:	aload_0;
+					invokespecial 62;		// nhom3/nhom3.LogOut()V
+					goto L32;
 				L24:	aload_0;
 					aload_1;
 					aload_2;
-					invokespecial 74;		// nhom3/nhom3.OutputInformation(Ljavacard/framework/APDU;[B)V
-					goto L31;
+					invokespecial 74;		// nhom3/nhom3.SetupInformation(Ljavacard/framework/APDU;[B)V
+					goto L32;
 				L25:	aload_0;
 					aload_1;
 					aload_2;
-					invokespecial 75;		// nhom3/nhom3.ChangeInformation(Ljavacard/framework/APDU;[B)V
-					goto L31;
+					invokespecial 75;		// nhom3/nhom3.OutputInformation(Ljavacard/framework/APDU;[B)V
+					goto L32;
 				L26:	aload_0;
 					aload_1;
 					aload_2;
-					invokespecial 76;		// nhom3/nhom3.SetupImage(Ljavacard/framework/APDU;[B)V
-					goto L31;
+					invokespecial 76;		// nhom3/nhom3.ChangeInformation(Ljavacard/framework/APDU;[B)V
+					goto L32;
 				L27:	aload_0;
 					aload_1;
 					aload_2;
-					invokespecial 77;		// nhom3/nhom3.SetCount(Ljavacard/framework/APDU;[B)V
-					goto L31;
+					invokespecial 77;		// nhom3/nhom3.SetupImage(Ljavacard/framework/APDU;[B)V
+					goto L32;
 				L28:	aload_0;
 					aload_1;
 					aload_2;
-					invokespecial 78;		// nhom3/nhom3.OuputSize(Ljavacard/framework/APDU;[B)V
-					goto L31;
+					invokespecial 78;		// nhom3/nhom3.SetCount(Ljavacard/framework/APDU;[B)V
+					goto L32;
 				L29:	aload_0;
 					aload_1;
 					aload_2;
-					invokespecial 79;		// nhom3/nhom3.OututImage(Ljavacard/framework/APDU;[B)V
-					goto L31;
-				L30:	sspush 27904;
-					invokestatic 81;		// javacard/framework/ISOException.throwIt(S)V
-				L31:	return;
+					invokespecial 79;		// nhom3/nhom3.OuputSize(Ljavacard/framework/APDU;[B)V
+					goto L32;
+				L30:	aload_0;
+					aload_1;
+					aload_2;
+					invokespecial 80;		// nhom3/nhom3.OututImage(Ljavacard/framework/APDU;[B)V
+					goto L32;
+				L31:	sspush 27904;
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
+				L32:	return;
 		}
 
 		.method private setup(Ljavacard/framework/APDU;[B)V {
@@ -3381,19 +3391,19 @@
 				L4:	aload_0;
 					bspush 13;
 					sconst_0;
-					invokestatic 82;		// javacardx/crypto/Cipher.getInstance(BZ)Ljavacardx/crypto/Cipher;
+					invokestatic 83;		// javacardx/crypto/Cipher.getInstance(BZ)Ljavacardx/crypto/Cipher;
 					putfield_a 7;		// reference nhom3/nhom3.aesCipher
 					aload_0;
 					bspush 15;
 					sspush 128;
 					sconst_0;
 					invokestatic 17;		// javacard/security/KeyBuilder.buildKey(BSZ)Ljavacard/security/Key;
-					checkcast 0 84;		// T_CLASSORINTERFACE javacard/security/AESKey
+					checkcast 0 85;		// T_CLASSORINTERFACE javacard/security/AESKey
 					putfield_a 8;		// reference nhom3/nhom3.aesKey
-					invokestatic 86;		// nhom3/Sha512.init()V
+					invokestatic 87;		// nhom3/Sha512.init()V
 					getfield_a_this 6;		// reference nhom3/nhom3.tmpBuffer
-					invokestatic 87;		// nhom3/HMacSHA512.init([B)V
-					getstatic_s 88;		// short nhom3/nhom3.LENGTH_BLOCK_AES
+					invokestatic 88;		// nhom3/HMacSHA512.init([B)V
+					getstatic_s 89;		// short nhom3/nhom3.LENGTH_BLOCK_AES
 					sconst_2;
 					invokestatic 43;		// javacard/framework/JCSystem.makeTransientByteArray(SB)[B
 					astore_3;
@@ -3403,39 +3413,35 @@
 					arraylength;
 					aload_3;
 					sconst_0;
-					invokestatic 89;		// nhom3/HMacSHA512.computeHmacSha512([BSS[BS)[B
+					invokestatic 90;		// nhom3/HMacSHA512.computeHmacSha512([BSS[BS)[B
 					pop;
 					getfield_a_this 8;		// reference nhom3/nhom3.aesKey
 					aload_3;
 					sconst_0;
-					invokeinterface 3 84 4;		// javacard/security/AESKey
+					invokeinterface 3 85 4;		// javacard/security/AESKey
 				L6:	aload_3;
 					sconst_0;
-					getstatic_s 88;		// short nhom3/nhom3.LENGTH_BLOCK_AES
+					getstatic_s 89;		// short nhom3/nhom3.LENGTH_BLOCK_AES
 					sconst_0;
-					invokestatic 94;		// javacard/framework/Util.arrayFillNonAtomic([BSSB)S
+					invokestatic 95;		// javacard/framework/Util.arrayFillNonAtomic([BSSB)S
 					pop;
 					goto L9;
 				L7:	astore 4;
 				L8:	aload_3;
 					sconst_0;
-					getstatic_s 88;		// short nhom3/nhom3.LENGTH_BLOCK_AES
+					getstatic_s 89;		// short nhom3/nhom3.LENGTH_BLOCK_AES
 					sconst_0;
-					invokestatic 94;		// javacard/framework/Util.arrayFillNonAtomic([BSSB)S
+					invokestatic 95;		// javacard/framework/Util.arrayFillNonAtomic([BSSB)S
 					pop;
 					aload 4;
 					athrow;
-				L9:	getstatic_a 90;		// reference nhom3/nhom3.first_logged_ids
-					sconst_0;
-					sconst_0;
-					bastore;
-					aload_0;
+				L9:	aload_0;
 					sconst_1;
 					putfield_b 4;		// boolean nhom3/nhom3.setupDone
 					return;
 			.exceptionTable {
 				// start_block end_block handler_block catch_type_index
-				L0 L1 L2 80;
+				L0 L1 L2 81;
 				L5 L6 L7 0;
 				L7 L8 L7 0;
 			}
@@ -3462,12 +3468,12 @@
 					sload 4;
 					if_scmpeq L4;
 				L3:	sspush 26368;
-					invokestatic 81;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L4:	sload 4;
 					sconst_2;
 					if_scmpge L6;
 				L5:	sspush -25585;
-					invokestatic 81;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L6:	aload_2;
 					sconst_5;
 					baload;
@@ -3478,7 +3484,7 @@
 					sadd;
 					if_scmpge L9;
 				L8:	sspush -25585;
-					invokestatic 81;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L9:	aload_0;
 					aload_2;
 					bspush 6;
@@ -3486,7 +3492,7 @@
 					invokespecial 54;		// nhom3/nhom3.CheckPINPolicy([BSB)Z
 					ifne L11;
 				L10:	sspush -25585;
-					invokestatic 81;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L11:	aload_0;
 					new 57;		// javacard/framework/OwnerPIN
 					dup;
@@ -3499,6 +3505,10 @@
 					bspush 6;
 					sload 5;
 					invokevirtual 60;		// javacard/framework/OwnerPIN.update([BSB)V
+					getstatic_a 92;		// reference nhom3/nhom3.first_logged_ids
+					sconst_0;
+					sconst_0;
+					bastore;
 					return;
 		}
 
@@ -3511,13 +3521,13 @@
 				L0:	getfield_a_this 5;		// reference nhom3/nhom3.pin
 					ifnonnull L2;
 				L1:	sspush -25584;
-					invokestatic 81;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L2:	aload_2;
 					sconst_3;
 					baload;
 					ifeq L4;
 				L3:	sspush -25583;
-					invokestatic 81;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L4:	sconst_0;
 					aload_2;
 					sconst_4;
@@ -3529,7 +3539,7 @@
 					invokevirtual 31;		// javacard/framework/APDU.setIncomingAndReceive()S
 					if_scmpeq L7;
 				L6:	sspush 26368;
-					invokestatic 81;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L7:	aload_0;
 					aload_2;
 					sconst_5;
@@ -3538,23 +3548,23 @@
 					invokespecial 54;		// nhom3/nhom3.CheckPINPolicy([BSB)Z
 					ifne L9;
 				L8:	sspush -25585;
-					invokestatic 81;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L9:	getfield_a_this 5;		// reference nhom3/nhom3.pin
-					invokevirtual 92;		// javacard/framework/OwnerPIN.getTriesRemaining()B
+					invokevirtual 93;		// javacard/framework/OwnerPIN.getTriesRemaining()B
 					ifne L11;
 				L10:	sspush -25588;
-					invokestatic 81;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L11:	getfield_a_this 5;		// reference nhom3/nhom3.pin
 					aload_2;
 					sconst_5;
 					sload_3;
 					s2b;
-					invokevirtual 93;		// javacard/framework/OwnerPIN.check([BSB)Z
+					invokevirtual 94;		// javacard/framework/OwnerPIN.check([BSB)Z
 					ifne L13;
 				L12:	aload_0;
 					invokespecial 62;		// nhom3/nhom3.LogOut()V
 					sspush -25598;
-					invokestatic 81;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L13:	aload_0;
 					bspush 16;
 					putfield_s 9;		// short nhom3/nhom3.logged_ids
@@ -3570,13 +3580,13 @@
 				L0:	getfield_a_this 5;		// reference nhom3/nhom3.pin
 					ifnonnull L2;
 				L1:	sspush -25584;
-					invokestatic 81;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L2:	aload_2;
 					sconst_3;
 					baload;
 					ifeq L4;
 				L3:	sspush -25583;
-					invokestatic 81;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L4:	sconst_0;
 					aload_2;
 					sconst_4;
@@ -3588,12 +3598,12 @@
 					sload_3;
 					if_scmpeq L7;
 				L6:	sspush 26368;
-					invokestatic 81;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L7:	sload_3;
 					sconst_4;
 					if_scmpge L9;
 				L8:	sspush -25585;
-					invokestatic 81;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L9:	aload_2;
 					sconst_5;
 					baload;
@@ -3604,7 +3614,7 @@
 					sadd;
 					if_scmpge L12;
 				L11:	sspush -25585;
-					invokestatic 81;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L12:	aload_0;
 					aload_2;
 					bspush 6;
@@ -3612,7 +3622,7 @@
 					invokespecial 54;		// nhom3/nhom3.CheckPINPolicy([BSB)Z
 					ifne L14;
 				L13:	sspush -25585;
-					invokestatic 81;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L14:	aload_2;
 					bspush 6;
 					sload 4;
@@ -3627,7 +3637,7 @@
 					sadd;
 					if_scmpge L17;
 				L16:	sspush -25585;
-					invokestatic 81;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L17:	aload_0;
 					aload_2;
 					bspush 6;
@@ -3639,22 +3649,22 @@
 					invokespecial 54;		// nhom3/nhom3.CheckPINPolicy([BSB)Z
 					ifne L19;
 				L18:	sspush -25585;
-					invokestatic 81;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L19:	getfield_a_this 5;		// reference nhom3/nhom3.pin
-					invokevirtual 92;		// javacard/framework/OwnerPIN.getTriesRemaining()B
+					invokevirtual 93;		// javacard/framework/OwnerPIN.getTriesRemaining()B
 					ifne L21;
 				L20:	sspush -25588;
-					invokestatic 81;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L21:	getfield_a_this 5;		// reference nhom3/nhom3.pin
 					aload_2;
 					bspush 6;
 					sload 4;
-					invokevirtual 93;		// javacard/framework/OwnerPIN.check([BSB)Z
+					invokevirtual 94;		// javacard/framework/OwnerPIN.check([BSB)Z
 					ifne L23;
 				L22:	aload_0;
 					invokespecial 62;		// nhom3/nhom3.LogOut()V
 					sspush -25598;
-					invokestatic 81;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L23:	getfield_a_this 5;		// reference nhom3/nhom3.pin
 					aload_2;
 					bspush 6;
@@ -3679,18 +3689,18 @@
 				L0:	getfield_a_this 5;		// reference nhom3/nhom3.pin
 					ifnonnull L2;
 				L1:	sspush -25584;
-					invokestatic 81;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L2:	getfield_a_this 5;		// reference nhom3/nhom3.pin
-					invokevirtual 92;		// javacard/framework/OwnerPIN.getTriesRemaining()B
+					invokevirtual 93;		// javacard/framework/OwnerPIN.getTriesRemaining()B
 					ifeq L4;
 				L3:	sspush -25597;
-					invokestatic 81;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L4:	aload_2;
 					sconst_3;
 					baload;
 					ifeq L6;
 				L5:	sspush -25583;
-					invokestatic 81;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L6:	sconst_0;
 					aload_2;
 					sconst_4;
@@ -3702,9 +3712,29 @@
 					invokevirtual 31;		// javacard/framework/APDU.setIncomingAndReceive()S
 					if_scmpeq L9;
 				L8:	sspush 26368;
-					invokestatic 81;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L9:	getfield_a_this 5;		// reference nhom3/nhom3.pin
-					invokevirtual 95;		// javacard/framework/OwnerPIN.resetAndUnblock()V
+					invokevirtual 96;		// javacard/framework/OwnerPIN.resetAndUnblock()V
+					return;
+		}
+
+		.method private ResetPIN(Ljavacard/framework/APDU;[B)V {
+			.stack 4;
+			.locals 0;
+
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+				L0:	getfield_a_this 5;		// reference nhom3/nhom3.pin
+					getstatic_a 53;		// reference nhom3/nhom3.PIN_INIT_VALUE
+					sconst_0;
+					getstatic_a 53;		// reference nhom3/nhom3.PIN_INIT_VALUE
+					arraylength;
+					s2b;
+					invokevirtual 60;		// javacard/framework/OwnerPIN.update([BSB)V
+					getstatic_a 92;		// reference nhom3/nhom3.first_logged_ids
+					sconst_0;
+					sconst_1;
+					bastore;
 					return;
 		}
 
@@ -3717,19 +3747,19 @@
 				L0:	aload_0;
 					aload_1;
 					aload_2;
-					invokespecial 75;		// nhom3/nhom3.ChangeInformation(Ljavacard/framework/APDU;[B)V
+					invokespecial 76;		// nhom3/nhom3.ChangeInformation(Ljavacard/framework/APDU;[B)V
 					aload_1;
 					invokevirtual 31;		// javacard/framework/APDU.setIncomingAndReceive()S
 					pop;
 					aload_2;
 					sconst_4;
 					baload;
-					putstatic_b 96;		// byte nhom3/nhom3.lenData
+					putstatic_b 97;		// byte nhom3/nhom3.lenData
 					aload_2;
 					sconst_5;
-					getstatic_a 97;		// reference nhom3/nhom3.OpData
+					getstatic_a 98;		// reference nhom3/nhom3.OpData
 					sconst_0;
-					getstatic_b 96;		// byte nhom3/nhom3.lenData
+					getstatic_b 97;		// byte nhom3/nhom3.lenData
 					invokestatic 49;		// javacard/framework/Util.arrayCopyNonAtomic([BS[BSS)S
 					pop;
 					sconst_0;
@@ -3742,9 +3772,9 @@
 				L3:	sconst_0;
 					sstore 6;
 				L4:	sload 6;
-					getstatic_b 96;		// byte nhom3/nhom3.lenData
+					getstatic_b 97;		// byte nhom3/nhom3.lenData
 					if_scmpgt_w L62;
-				L5:	getstatic_a 97;		// reference nhom3/nhom3.OpData
+				L5:	getstatic_a 98;		// reference nhom3/nhom3.OpData
 					sload 6;
 					baload;
 					sconst_2;
@@ -3752,7 +3782,7 @@
 				L6:	sconst_1;
 					sstore_3;
 					goto_w L61;
-				L7:	getstatic_a 97;		// reference nhom3/nhom3.OpData
+				L7:	getstatic_a 98;		// reference nhom3/nhom3.OpData
 					sload 6;
 					baload;
 					sconst_3;
@@ -3808,7 +3838,7 @@
 					goto L17;
 				L21:	aload 4;
 					sload 5;
-					getstatic_a 97;		// reference nhom3/nhom3.OpData
+					getstatic_a 98;		// reference nhom3/nhom3.OpData
 					sload 6;
 					baload;
 					bastore;
@@ -3822,170 +3852,170 @@
 					ifne_w L61;
 				L24:	sload 5;
 					ifeq_w L61;
-				L25:	getstatic_b 98;		// byte nhom3/nhom3.lenID
+				L25:	getstatic_b 99;		// byte nhom3/nhom3.lenID
 					ifne L31;
 				L26:	sload 5;
 					bspush 6;
 					if_scmple L28;
 				L27:	sspush 26368;
-					invokestatic 81;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L28:	aload_0;
 					aload 4;
-					invokespecial 99;		// nhom3/nhom3.encrypt([B)[B
+					invokespecial 100;		// nhom3/nhom3.encrypt([B)[B
 					astore 7;
 				L29:	sspush 128;
 					newarray 11;
-					putstatic_a 100;		// reference nhom3/nhom3.OpID
+					putstatic_a 101;		// reference nhom3/nhom3.OpID
 					aload 7;
 					sconst_0;
-					getstatic_a 100;		// reference nhom3/nhom3.OpID
+					getstatic_a 101;		// reference nhom3/nhom3.OpID
 					sconst_0;
 					aload 7;
 					arraylength;
 					invokestatic 49;		// javacard/framework/Util.arrayCopyNonAtomic([BS[BSS)S
 					pop;
 					sload 5;
-					putstatic_b 98;		// byte nhom3/nhom3.lenID
+					putstatic_b 99;		// byte nhom3/nhom3.lenID
 					sconst_0;
 					newarray 11;
 					astore 4;
 				L30:	goto_w L60;
-				L31:	getstatic_b 101;		// byte nhom3/nhom3.lenNAME
+				L31:	getstatic_b 102;		// byte nhom3/nhom3.lenNAME
 					ifne L37;
 				L32:	sload 5;
 					bspush 25;
 					if_scmple L34;
 				L33:	sspush 26368;
-					invokestatic 81;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L34:	aload_0;
 					aload 4;
-					invokespecial 99;		// nhom3/nhom3.encrypt([B)[B
+					invokespecial 100;		// nhom3/nhom3.encrypt([B)[B
 					astore 7;
 				L35:	sspush 128;
 					newarray 11;
-					putstatic_a 102;		// reference nhom3/nhom3.OpNAME
+					putstatic_a 103;		// reference nhom3/nhom3.OpNAME
 					aload 7;
 					sconst_0;
-					getstatic_a 102;		// reference nhom3/nhom3.OpNAME
+					getstatic_a 103;		// reference nhom3/nhom3.OpNAME
 					sconst_0;
 					aload 7;
 					arraylength;
 					invokestatic 49;		// javacard/framework/Util.arrayCopyNonAtomic([BS[BSS)S
 					pop;
 					sload 5;
-					putstatic_b 101;		// byte nhom3/nhom3.lenNAME
+					putstatic_b 102;		// byte nhom3/nhom3.lenNAME
 					sconst_0;
 					newarray 11;
 					astore 4;
 				L36:	goto_w L60;
-				L37:	getstatic_b 103;		// byte nhom3/nhom3.lenDATE
+				L37:	getstatic_b 104;		// byte nhom3/nhom3.lenDATE
 					ifne L43;
 				L38:	sload 5;
 					bspush 10;
 					if_scmple L40;
 				L39:	sspush 26368;
-					invokestatic 81;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L40:	aload_0;
 					aload 4;
-					invokespecial 99;		// nhom3/nhom3.encrypt([B)[B
+					invokespecial 100;		// nhom3/nhom3.encrypt([B)[B
 					astore 7;
 				L41:	sspush 128;
 					newarray 11;
-					putstatic_a 104;		// reference nhom3/nhom3.OpDATE
+					putstatic_a 105;		// reference nhom3/nhom3.OpDATE
 					aload 7;
 					sconst_0;
-					getstatic_a 104;		// reference nhom3/nhom3.OpDATE
+					getstatic_a 105;		// reference nhom3/nhom3.OpDATE
 					sconst_0;
 					aload 7;
 					arraylength;
 					invokestatic 49;		// javacard/framework/Util.arrayCopyNonAtomic([BS[BSS)S
 					pop;
 					sload 5;
-					putstatic_b 103;		// byte nhom3/nhom3.lenDATE
+					putstatic_b 104;		// byte nhom3/nhom3.lenDATE
 					sconst_0;
 					newarray 11;
 					astore 4;
 				L42:	goto_w L60;
-				L43:	getstatic_b 105;		// byte nhom3/nhom3.lenPHONE
+				L43:	getstatic_b 106;		// byte nhom3/nhom3.lenPHONE
 					ifne L49;
 				L44:	sload 5;
 					bspush 10;
 					if_scmple L46;
 				L45:	sspush 26368;
-					invokestatic 81;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L46:	aload_0;
 					aload 4;
-					invokespecial 99;		// nhom3/nhom3.encrypt([B)[B
+					invokespecial 100;		// nhom3/nhom3.encrypt([B)[B
 					astore 7;
 				L47:	sspush 128;
 					newarray 11;
-					putstatic_a 106;		// reference nhom3/nhom3.OpPHONE
+					putstatic_a 107;		// reference nhom3/nhom3.OpPHONE
 					aload 7;
 					sconst_0;
-					getstatic_a 106;		// reference nhom3/nhom3.OpPHONE
+					getstatic_a 107;		// reference nhom3/nhom3.OpPHONE
 					sconst_0;
 					aload 7;
 					arraylength;
 					invokestatic 49;		// javacard/framework/Util.arrayCopyNonAtomic([BS[BSS)S
 					pop;
 					sload 5;
-					putstatic_b 105;		// byte nhom3/nhom3.lenPHONE
+					putstatic_b 106;		// byte nhom3/nhom3.lenPHONE
 					sconst_0;
 					newarray 11;
 					astore 4;
 				L48:	goto L60;
-				L49:	getstatic_b 107;		// byte nhom3/nhom3.lenCoQuan
+				L49:	getstatic_b 108;		// byte nhom3/nhom3.lenCoQuan
 					ifne L55;
 				L50:	sload 5;
 					bspush 25;
 					if_scmple L52;
 				L51:	sspush 26368;
-					invokestatic 81;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L52:	aload_0;
 					aload 4;
-					invokespecial 99;		// nhom3/nhom3.encrypt([B)[B
+					invokespecial 100;		// nhom3/nhom3.encrypt([B)[B
 					astore 7;
 				L53:	sspush 128;
 					newarray 11;
-					putstatic_a 108;		// reference nhom3/nhom3.OpCoQuan
+					putstatic_a 109;		// reference nhom3/nhom3.OpCoQuan
 					aload 7;
 					sconst_0;
-					getstatic_a 108;		// reference nhom3/nhom3.OpCoQuan
+					getstatic_a 109;		// reference nhom3/nhom3.OpCoQuan
 					sconst_0;
 					aload 7;
 					arraylength;
 					invokestatic 49;		// javacard/framework/Util.arrayCopyNonAtomic([BS[BSS)S
 					pop;
 					sload 5;
-					putstatic_b 107;		// byte nhom3/nhom3.lenCoQuan
+					putstatic_b 108;		// byte nhom3/nhom3.lenCoQuan
 					sconst_0;
 					newarray 11;
 					astore 4;
 				L54:	goto L60;
-				L55:	getstatic_b 109;		// byte nhom3/nhom3.lenChucVu
+				L55:	getstatic_b 110;		// byte nhom3/nhom3.lenChucVu
 					ifne L60;
 				L56:	sload 5;
 					bspush 25;
 					if_scmple L58;
 				L57:	sspush 26368;
-					invokestatic 81;		// javacard/framework/ISOException.throwIt(S)V
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L58:	aload_0;
 					aload 4;
-					invokespecial 99;		// nhom3/nhom3.encrypt([B)[B
+					invokespecial 100;		// nhom3/nhom3.encrypt([B)[B
 					astore 7;
 				L59:	sspush 128;
 					newarray 11;
-					putstatic_a 110;		// reference nhom3/nhom3.OpChucVu
+					putstatic_a 111;		// reference nhom3/nhom3.OpChucVu
 					aload 7;
 					sconst_0;
-					getstatic_a 110;		// reference nhom3/nhom3.OpChucVu
+					getstatic_a 111;		// reference nhom3/nhom3.OpChucVu
 					sconst_0;
 					aload 7;
 					arraylength;
 					invokestatic 49;		// javacard/framework/Util.arrayCopyNonAtomic([BS[BSS)S
 					pop;
 					sload 5;
-					putstatic_b 109;		// byte nhom3/nhom3.lenChucVu
+					putstatic_b 110;		// byte nhom3/nhom3.lenChucVu
 					sconst_0;
 					newarray 11;
 					astore 4;
@@ -4014,22 +4044,22 @@
 					invokevirtual 36;		// javacard/framework/APDU.setOutgoing()S
 					pop;
 					aload_1;
-					getstatic_b 98;		// byte nhom3/nhom3.lenID
+					getstatic_b 99;		// byte nhom3/nhom3.lenID
 					invokevirtual 37;		// javacard/framework/APDU.setOutgoingLength(S)V
 					aload_0;
-					getstatic_a 100;		// reference nhom3/nhom3.OpID
-					getstatic_b 98;		// byte nhom3/nhom3.lenID
-					invokespecial 111;		// nhom3/nhom3.decrypt([BB)[B
+					getstatic_a 101;		// reference nhom3/nhom3.OpID
+					getstatic_b 99;		// byte nhom3/nhom3.lenID
+					invokespecial 112;		// nhom3/nhom3.decrypt([BB)[B
 					sconst_0;
 					aload_2;
 					sconst_0;
-					getstatic_b 98;		// byte nhom3/nhom3.lenID
+					getstatic_b 99;		// byte nhom3/nhom3.lenID
 					invokestatic 33;		// javacard/framework/Util.arrayCopy([BS[BSS)S
 					pop;
 					aload_1;
 					sconst_0;
-					getstatic_b 98;		// byte nhom3/nhom3.lenID
-					invokevirtual 112;		// javacard/framework/APDU.sendBytes(SS)V
+					getstatic_b 99;		// byte nhom3/nhom3.lenID
+					invokevirtual 113;		// javacard/framework/APDU.sendBytes(SS)V
 					goto_w L12;
 				L2:	aload_2;
 					sconst_2;
@@ -4040,22 +4070,22 @@
 					invokevirtual 36;		// javacard/framework/APDU.setOutgoing()S
 					pop;
 					aload_1;
-					getstatic_b 101;		// byte nhom3/nhom3.lenNAME
+					getstatic_b 102;		// byte nhom3/nhom3.lenNAME
 					invokevirtual 37;		// javacard/framework/APDU.setOutgoingLength(S)V
 					aload_0;
-					getstatic_a 102;		// reference nhom3/nhom3.OpNAME
-					getstatic_b 101;		// byte nhom3/nhom3.lenNAME
-					invokespecial 111;		// nhom3/nhom3.decrypt([BB)[B
+					getstatic_a 103;		// reference nhom3/nhom3.OpNAME
+					getstatic_b 102;		// byte nhom3/nhom3.lenNAME
+					invokespecial 112;		// nhom3/nhom3.decrypt([BB)[B
 					sconst_0;
 					aload_2;
 					sconst_0;
-					getstatic_b 101;		// byte nhom3/nhom3.lenNAME
+					getstatic_b 102;		// byte nhom3/nhom3.lenNAME
 					invokestatic 33;		// javacard/framework/Util.arrayCopy([BS[BSS)S
 					pop;
 					aload_1;
 					sconst_0;
-					getstatic_b 101;		// byte nhom3/nhom3.lenNAME
-					invokevirtual 112;		// javacard/framework/APDU.sendBytes(SS)V
+					getstatic_b 102;		// byte nhom3/nhom3.lenNAME
+					invokevirtual 113;		// javacard/framework/APDU.sendBytes(SS)V
 					goto_w L12;
 				L4:	aload_2;
 					sconst_2;
@@ -4066,22 +4096,22 @@
 					invokevirtual 36;		// javacard/framework/APDU.setOutgoing()S
 					pop;
 					aload_1;
-					getstatic_b 103;		// byte nhom3/nhom3.lenDATE
+					getstatic_b 104;		// byte nhom3/nhom3.lenDATE
 					invokevirtual 37;		// javacard/framework/APDU.setOutgoingLength(S)V
 					aload_0;
-					getstatic_a 104;		// reference nhom3/nhom3.OpDATE
-					getstatic_b 103;		// byte nhom3/nhom3.lenDATE
-					invokespecial 111;		// nhom3/nhom3.decrypt([BB)[B
+					getstatic_a 105;		// reference nhom3/nhom3.OpDATE
+					getstatic_b 104;		// byte nhom3/nhom3.lenDATE
+					invokespecial 112;		// nhom3/nhom3.decrypt([BB)[B
 					sconst_0;
 					aload_2;
 					sconst_0;
-					getstatic_b 103;		// byte nhom3/nhom3.lenDATE
+					getstatic_b 104;		// byte nhom3/nhom3.lenDATE
 					invokestatic 33;		// javacard/framework/Util.arrayCopy([BS[BSS)S
 					pop;
 					aload_1;
 					sconst_0;
-					getstatic_b 103;		// byte nhom3/nhom3.lenDATE
-					invokevirtual 112;		// javacard/framework/APDU.sendBytes(SS)V
+					getstatic_b 104;		// byte nhom3/nhom3.lenDATE
+					invokevirtual 113;		// javacard/framework/APDU.sendBytes(SS)V
 					goto_w L12;
 				L6:	aload_2;
 					sconst_2;
@@ -4092,22 +4122,22 @@
 					invokevirtual 36;		// javacard/framework/APDU.setOutgoing()S
 					pop;
 					aload_1;
-					getstatic_b 105;		// byte nhom3/nhom3.lenPHONE
+					getstatic_b 106;		// byte nhom3/nhom3.lenPHONE
 					invokevirtual 37;		// javacard/framework/APDU.setOutgoingLength(S)V
 					aload_0;
-					getstatic_a 106;		// reference nhom3/nhom3.OpPHONE
-					getstatic_b 105;		// byte nhom3/nhom3.lenPHONE
-					invokespecial 111;		// nhom3/nhom3.decrypt([BB)[B
+					getstatic_a 107;		// reference nhom3/nhom3.OpPHONE
+					getstatic_b 106;		// byte nhom3/nhom3.lenPHONE
+					invokespecial 112;		// nhom3/nhom3.decrypt([BB)[B
 					sconst_0;
 					aload_2;
 					sconst_0;
-					getstatic_b 105;		// byte nhom3/nhom3.lenPHONE
+					getstatic_b 106;		// byte nhom3/nhom3.lenPHONE
 					invokestatic 33;		// javacard/framework/Util.arrayCopy([BS[BSS)S
 					pop;
 					aload_1;
 					sconst_0;
-					getstatic_b 105;		// byte nhom3/nhom3.lenPHONE
-					invokevirtual 112;		// javacard/framework/APDU.sendBytes(SS)V
+					getstatic_b 106;		// byte nhom3/nhom3.lenPHONE
+					invokevirtual 113;		// javacard/framework/APDU.sendBytes(SS)V
 					goto L12;
 				L8:	aload_2;
 					sconst_2;
@@ -4118,22 +4148,22 @@
 					invokevirtual 36;		// javacard/framework/APDU.setOutgoing()S
 					pop;
 					aload_1;
-					getstatic_b 107;		// byte nhom3/nhom3.lenCoQuan
+					getstatic_b 108;		// byte nhom3/nhom3.lenCoQuan
 					invokevirtual 37;		// javacard/framework/APDU.setOutgoingLength(S)V
 					aload_0;
-					getstatic_a 108;		// reference nhom3/nhom3.OpCoQuan
-					getstatic_b 107;		// byte nhom3/nhom3.lenCoQuan
-					invokespecial 111;		// nhom3/nhom3.decrypt([BB)[B
+					getstatic_a 109;		// reference nhom3/nhom3.OpCoQuan
+					getstatic_b 108;		// byte nhom3/nhom3.lenCoQuan
+					invokespecial 112;		// nhom3/nhom3.decrypt([BB)[B
 					sconst_0;
 					aload_2;
 					sconst_0;
-					getstatic_b 107;		// byte nhom3/nhom3.lenCoQuan
+					getstatic_b 108;		// byte nhom3/nhom3.lenCoQuan
 					invokestatic 33;		// javacard/framework/Util.arrayCopy([BS[BSS)S
 					pop;
 					aload_1;
 					sconst_0;
-					getstatic_b 107;		// byte nhom3/nhom3.lenCoQuan
-					invokevirtual 112;		// javacard/framework/APDU.sendBytes(SS)V
+					getstatic_b 108;		// byte nhom3/nhom3.lenCoQuan
+					invokevirtual 113;		// javacard/framework/APDU.sendBytes(SS)V
 					goto L12;
 				L10:	aload_2;
 					sconst_2;
@@ -4144,22 +4174,22 @@
 					invokevirtual 36;		// javacard/framework/APDU.setOutgoing()S
 					pop;
 					aload_1;
-					getstatic_b 109;		// byte nhom3/nhom3.lenChucVu
+					getstatic_b 110;		// byte nhom3/nhom3.lenChucVu
 					invokevirtual 37;		// javacard/framework/APDU.setOutgoingLength(S)V
 					aload_0;
-					getstatic_a 110;		// reference nhom3/nhom3.OpChucVu
-					getstatic_b 109;		// byte nhom3/nhom3.lenChucVu
-					invokespecial 111;		// nhom3/nhom3.decrypt([BB)[B
+					getstatic_a 111;		// reference nhom3/nhom3.OpChucVu
+					getstatic_b 110;		// byte nhom3/nhom3.lenChucVu
+					invokespecial 112;		// nhom3/nhom3.decrypt([BB)[B
 					sconst_0;
 					aload_2;
 					sconst_0;
-					getstatic_b 109;		// byte nhom3/nhom3.lenChucVu
+					getstatic_b 110;		// byte nhom3/nhom3.lenChucVu
 					invokestatic 33;		// javacard/framework/Util.arrayCopy([BS[BSS)S
 					pop;
 					aload_1;
 					sconst_0;
-					getstatic_b 109;		// byte nhom3/nhom3.lenChucVu
-					invokevirtual 112;		// javacard/framework/APDU.sendBytes(SS)V
+					getstatic_b 110;		// byte nhom3/nhom3.lenChucVu
+					invokevirtual 113;		// javacard/framework/APDU.sendBytes(SS)V
 				L12:	return;
 		}
 
@@ -4170,17 +4200,17 @@
 			.descriptor	Ljavacard/framework/APDU;	0.10;
 
 				L0:	sconst_0;
-					putstatic_b 98;		// byte nhom3/nhom3.lenID
+					putstatic_b 99;		// byte nhom3/nhom3.lenID
 					sconst_0;
-					putstatic_b 103;		// byte nhom3/nhom3.lenDATE
+					putstatic_b 104;		// byte nhom3/nhom3.lenDATE
 					sconst_0;
-					putstatic_b 101;		// byte nhom3/nhom3.lenNAME
+					putstatic_b 102;		// byte nhom3/nhom3.lenNAME
 					sconst_0;
-					putstatic_b 105;		// byte nhom3/nhom3.lenPHONE
+					putstatic_b 106;		// byte nhom3/nhom3.lenPHONE
 					sconst_0;
-					putstatic_b 107;		// byte nhom3/nhom3.lenCoQuan
+					putstatic_b 108;		// byte nhom3/nhom3.lenCoQuan
 					sconst_0;
-					putstatic_b 109;		// byte nhom3/nhom3.lenChucVu
+					putstatic_b 110;		// byte nhom3/nhom3.lenChucVu
 					return;
 		}
 
@@ -4225,7 +4255,7 @@
 					pop;
 					aload_0;
 					aload 6;
-					invokespecial 99;		// nhom3/nhom3.encrypt([B)[B
+					invokespecial 100;		// nhom3/nhom3.encrypt([B)[B
 					sconst_0;
 					getstatic_a 55;		// reference nhom3/nhom3.OpImage
 					sload 4;
@@ -4250,7 +4280,7 @@
 					pop;
 					aload_0;
 					aload 8;
-					invokespecial 99;		// nhom3/nhom3.encrypt([B)[B
+					invokespecial 100;		// nhom3/nhom3.encrypt([B)[B
 					sconst_0;
 					getstatic_a 55;		// reference nhom3/nhom3.OpImage
 					sload 7;
@@ -4305,7 +4335,7 @@
 					aload_1;
 					sconst_0;
 					bspush 7;
-					invokevirtual 112;		// javacard/framework/APDU.sendBytes(SS)V
+					invokevirtual 113;		// javacard/framework/APDU.sendBytes(SS)V
 					return;
 		}
 
@@ -4347,7 +4377,7 @@
 					aload_0;
 					aload 6;
 					bspush 10;
-					invokespecial 111;		// nhom3/nhom3.decrypt([BB)[B
+					invokespecial 112;		// nhom3/nhom3.decrypt([BB)[B
 					sconst_0;
 					aload 5;
 					sconst_0;
@@ -4373,7 +4403,7 @@
 					aload_0;
 					aload 8;
 					bspush 10;
-					invokespecial 111;		// nhom3/nhom3.decrypt([BB)[B
+					invokespecial 112;		// nhom3/nhom3.decrypt([BB)[B
 					sconst_0;
 					aload 5;
 					sspush 128;
@@ -4415,7 +4445,7 @@
 					sconst_0;
 					putfield_s 9;		// short nhom3/nhom3.logged_ids
 					getfield_a_this 5;		// reference nhom3/nhom3.pin
-					invokevirtual 113;		// javacard/framework/OwnerPIN.reset()V
+					invokevirtual 114;		// javacard/framework/OwnerPIN.reset()V
 					return;
 		}
 
@@ -4431,7 +4461,7 @@
 					aload_1;
 					sconst_1;
 					invokevirtual 37;		// javacard/framework/APDU.setOutgoingLength(S)V
-					getstatic_a 90;		// reference nhom3/nhom3.first_logged_ids
+					getstatic_a 92;		// reference nhom3/nhom3.first_logged_ids
 					sconst_0;
 					aload_2;
 					sconst_0;
@@ -4441,7 +4471,7 @@
 					aload_1;
 					sconst_0;
 					sconst_1;
-					invokevirtual 112;		// javacard/framework/APDU.sendBytes(SS)V
+					invokevirtual 113;		// javacard/framework/APDU.sendBytes(SS)V
 					return;
 		}
 
@@ -4475,7 +4505,7 @@
 					aload_1;
 					sconst_0;
 					sconst_1;
-					invokevirtual 112;		// javacard/framework/APDU.sendBytes(SS)V
+					invokevirtual 113;		// javacard/framework/APDU.sendBytes(SS)V
 					return;
 		}
 
@@ -4486,7 +4516,7 @@
 				L0:	getfield_a_this 7;		// reference nhom3/nhom3.aesCipher
 					getfield_a_this 8;		// reference nhom3/nhom3.aesKey
 					sconst_2;
-					invokevirtual 114;		// javacardx/crypto/Cipher.init(Ljavacard/security/Key;B)V
+					invokevirtual 115;		// javacardx/crypto/Cipher.init(Ljavacard/security/Key;B)V
 					sconst_1;
 					sstore_2;
 				L1:	sspush 128;
@@ -4532,13 +4562,13 @@
 					sspush 128;
 					aload 4;
 					sconst_0;
-					invokevirtual 115;		// javacardx/crypto/Cipher.doFinal([BSS[BS)S
+					invokevirtual 116;		// javacardx/crypto/Cipher.doFinal([BSS[BS)S
 					pop;
 					aload 4;
 					areturn;
 			.exceptionTable {
 				// start_block end_block handler_block catch_type_index
-				L10 L11 L12 80;
+				L10 L11 L12 81;
 			}
 		}
 
@@ -4551,7 +4581,7 @@
 				L1:	getfield_a_this 7;		// reference nhom3/nhom3.aesCipher
 					getfield_a_this 8;		// reference nhom3/nhom3.aesKey
 					sconst_1;
-					invokevirtual 114;		// javacardx/crypto/Cipher.init(Ljavacard/security/Key;B)V
+					invokevirtual 115;		// javacardx/crypto/Cipher.init(Ljavacard/security/Key;B)V
 				L2:	sspush 128;
 					sconst_2;
 					invokestatic 43;		// javacard/framework/JCSystem.makeTransientByteArray(SB)[B
@@ -4567,7 +4597,7 @@
 					sspush 128;
 					aload_3;
 					sconst_0;
-					invokevirtual 115;		// javacardx/crypto/Cipher.doFinal([BSS[BS)S
+					invokevirtual 116;		// javacardx/crypto/Cipher.doFinal([BSS[BS)S
 					pop;
 					aload_3;
 					areturn;
@@ -4578,7 +4608,7 @@
 					areturn;
 			.exceptionTable {
 				// start_block end_block handler_block catch_type_index
-				L2 L3 L4 80;
+				L2 L3 L4 81;
 			}
 		}
 
