@@ -5,10 +5,17 @@
  */
 package javacard;
 
+import connectDB.DataUser;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
+import java.security.PublicKey;
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 import javacard.connect.ConnectCard;
+import javacard.connect.RSAAppletHelper;
+import javacard.utils.RSAData;
+import javacard.utils.RandomUtil;
+import javax.smartcardio.CardException;
 import javax.swing.BorderFactory;
 
 /**
@@ -170,12 +177,23 @@ public class LoginForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Kết nối bị lỗi");
         } else {
             if ((response.split("="))[1].equals("9000")) {
-                JOptionPane.showMessageDialog(null, "Kết nối thẻ thành công");
                 loginSetEnabled(true);
                 btnConnect.setText("Đã kết nối thẻ");
                 btnConnect.setEnabled(false);
                 firstUSE = (int) ((ConnectCard.getInstance().data)[0] & 0xFF);
-                ConnectCard.getInstance().setUp();
+                
+                if (firstUSE == 0) {
+                    if (rsaAuthentication()) {
+                        ConnectCard.getInstance().setUp();
+                        JOptionPane.showMessageDialog(null, "Kết nối thẻ thành công");
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Thẻ không xác thực");
+                    }
+                }else{
+                    ConnectCard.getInstance().setUp();
+                    JOptionPane.showMessageDialog(null, "Kết nối thẻ thành công");
+                }
+                
             } else {
                 JOptionPane.showMessageDialog(null, "Kết nối bị lỗi");
             }
@@ -223,5 +241,33 @@ public class LoginForm extends javax.swing.JFrame {
         chk_show_pw.setEnabled(b);
         btnLogin.setEnabled(b);
         btn_admin.setEnabled(b);
+    }
+    
+    private boolean rsaAuthentication() {
+        try {
+            PublicKey publicKeys = RSAData.getPublicKey();
+            if (publicKeys == null) {
+                return false;
+            }
+            System.out.println("publicKeys: " + Arrays.toString(publicKeys.getEncoded()));
+            byte[] data = RandomUtil.randomData(20);
+
+            byte[] signed = RSAAppletHelper.getInstance(
+                    ConnectCard.getInstance().channel).requestSign(data);
+
+            if (signed == null) {
+                return false;
+            }
+
+            System.out.println("signed: " + Arrays.toString(signed));
+
+//            DataUser up = new DataUser(dataUser.maNV);
+//            up.setPublicKey(Arrays.toString(publicKeys.getEncoded()));
+//            up.Update();
+            
+            return RSAData.verify(publicKeys, signed, data);
+        } catch (CardException ex) {
+        }
+        return false;
     }
 }

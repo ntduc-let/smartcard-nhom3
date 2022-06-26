@@ -5,10 +5,12 @@
  */
 package javacard;
 
+import connectDB.DataUser;
 import javacard.connect.ConnectCard;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -16,6 +18,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -25,6 +30,7 @@ import java.util.logging.Logger;
 import javacard.connect.RSAAppletHelper;
 import javacard.utils.RSAData;
 import javacard.utils.RandomUtil;
+import javax.imageio.ImageIO;
 import javax.smartcardio.CardException;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -33,6 +39,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.Timer;
 import javax.swing.filechooser.FileFilter;
+import javax.xml.bind.DatatypeConverter;
 
 /**
  *
@@ -46,6 +53,7 @@ public class HomeForm extends javax.swing.JFrame {
     private int CheckEnd = 0;
     private String startTime = "";
     private boolean isEditing = false;
+    public DataUser dataUser = new DataUser();
     
     private final String DATA = "G:/JavaCard/smartcarddata.bin";
 
@@ -118,6 +126,11 @@ public class HomeForm extends javax.swing.JFrame {
                 }
             }
             StockFile s = new StockFile(dateString, startTimeString, endTimeString);
+            
+            DataUser up = new DataUser(dataUser.maNV);
+            up.chamCong.add(dateString + " : " + startTimeString + " | " + endTimeString);
+            up.Update();
+            
             oStream.writeObject(s);
             oStream.close();
  
@@ -142,30 +155,6 @@ public class HomeForm extends javax.swing.JFrame {
         } catch (ClassNotFoundException | IOException e) {
             System.out.println("javacard.HomeForm.outputTime()" + e.toString());
         }
-    }
-    
-    private boolean rsaAuthentication() {
-        try {
-            PublicKey publicKeys = RSAData.getPublicKey();
-            if (publicKeys == null) {
-                return false;
-            }
-            System.out.println("publicKeys: " + Arrays.toString(publicKeys.getEncoded()));
-            byte[] data = RandomUtil.randomData(20);
-
-            byte[] signed = RSAAppletHelper.getInstance(
-                    ConnectCard.getInstance().channel).requestSign(data);
-
-            if (signed == null) {
-                return false;
-            }
-
-            System.out.println("signed: " + Arrays.toString(signed));
-
-            return RSAData.verify(publicKeys, signed, data);
-        } catch (CardException ex) {
-        }
-        return false;
     }
     
     /**
@@ -796,6 +785,19 @@ public class HomeForm extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Kích thước quá lớn. Vui lòng chọn ảnh khác!");
                 return;
             }
+            try {
+                BufferedImage bImage = ImageIO.read(file);
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                ImageIO.write(bImage, "jpg", bos);
+                byte[] napanh = bos.toByteArray();
+                DataUser up = new DataUser(dataUser.maNV);
+                up.setImage(Arrays.toString(napanh));
+                up.Update();
+
+            } catch (IOException ex) {
+                Logger.getLogger(HomeForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
             ReviewAvatarUI avatarUI = new ReviewAvatarUI(file, this);
             avatarUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             avatarUI.setLocationRelativeTo(null);
@@ -821,7 +823,7 @@ public class HomeForm extends javax.swing.JFrame {
 
     private void btn_diemdanhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_diemdanhActionPerformed
         // TODO add your handling code here:
-        if(rsaAuthentication()){
+//        if(rsaAuthentication()){
             String date = txt_date.getText();
             String time = txt_time.getText();
             switch (CheckEnd) {
@@ -840,10 +842,10 @@ public class HomeForm extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Bạn đã điểm danh ngày hôm nay! Vui lòng quay lại vào ngày mai");
                 break;
             }
-        }
-        else{
-            System.out.println("RSA ERROR");
-        }
+//        }
+//        else{
+//            System.out.println("RSA ERROR");
+//        }
     }//GEN-LAST:event_btn_diemdanhActionPerformed
 
     private void btn_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_updateActionPerformed
@@ -859,6 +861,14 @@ public class HomeForm extends javax.swing.JFrame {
             return;
         }
 
+        DataUser up = new DataUser(dataUser.maNV);
+        up.setBirth(strDate);
+        up.setMaNV(strId);
+        up.setName(strName);
+        up.setCoquan(strCoQuan);
+        up.setChucvu(strChucVu);
+        up.setPhone(strPhone);
+        
         byte[] byteID = strId.getBytes();
         byte[] byteName = strName.getBytes();
         byte[] byteDate = strDate.getBytes();
@@ -925,6 +935,13 @@ public class HomeForm extends javax.swing.JFrame {
             reloadInfor();
 
             System.out.println("Success");
+            
+            int checkDB = up.Update();
+            if (checkDB == 1){
+                System.out.println("Post Success to DB");
+            }else {
+                System.out.println("Post Err to DB");
+            }
         }
         else{
             System.out.println("Sending Error");
@@ -945,6 +962,20 @@ public class HomeForm extends javax.swing.JFrame {
         if(strNew.equals(strCofirm) && !strNew.equals(strOld)){
             if(ConnectCard.getInstance().ChangePIN(strOld, strNew)){
                 System.out.println("PIN CHANGE SUCCESS");
+                
+                try {
+                    MessageDigest md = MessageDigest.getInstance("SHA-256");
+                    byte[] digest = md.digest(strNew.getBytes(StandardCharsets.UTF_8));
+                    String sha256 = DatatypeConverter.printHexBinary(digest).toLowerCase();
+
+                    DataUser up = new DataUser(dataUser.maNV);
+                    up.setPin(sha256);
+                    up.Update();
+                    System.out.println("=>>>>>>>>>>>>>>>>>>>");
+                } catch (NoSuchAlgorithmException ex) {
+                    Logger.getLogger(HomeForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
                 resetFormPin();
             }
             else{
@@ -964,6 +995,13 @@ public class HomeForm extends javax.swing.JFrame {
             edt_co_quan.setText(ConnectCard.getInstance().strCoQuan.trim());
             edt_chuc_vu.setText(ConnectCard.getInstance().strChucVu.trim());
             edt_sdt.setText(ConnectCard.getInstance().strPhone.trim());
+            
+            System.out.println(ConnectCard.getInstance().strName);
+            String add = ConnectCard.getInstance().strName;
+            byte[] byteArray = add.getBytes();
+            for(int i =0; i< byteArray.length; i++){
+                System.out.printf("0x%02X", byteArray[i]);
+            }
         }
         getImage();
     }
