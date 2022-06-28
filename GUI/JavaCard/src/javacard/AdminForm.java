@@ -245,7 +245,7 @@ public class AdminForm extends javax.swing.JFrame {
         btn_reset_password.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         btn_reset_password.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btn_reset_password.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-password-reset-32.png"))); // NOI18N
-        btn_reset_password.setText("Đặt lại mật khẩu");
+        btn_reset_password.setText("Đặt lại PIN");
         btn_reset_password.setOpaque(true);
         btn_reset_password.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

@@ -1035,13 +1035,13 @@ public class HomeForm extends javax.swing.JFrame {
         }
         isEditing = b;
         
-//        txt_ma_nv.setEnabled(b);
+        txt_ma_nv.setEnabled(b);
         txt_name.setEnabled(b);
         txt_ngay_sinh.setEnabled(b);
         txt_co_quan.setEnabled(b);
         txt_chuc_vu.setEnabled(b);
         txt_sdt.setEnabled(b);
-        edt_ma_nv.setEnabled(b);
+//        edt_ma_nv.setEnabled(b);
         edt_name.setEnabled(b);
         edt_ngay_sinh.setEnabled(b);
         edt_co_quan.setEnabled(b);
