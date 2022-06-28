@@ -260,10 +260,7 @@ public class LoginForm extends javax.swing.JFrame {
             }
 
             System.out.println("signed: " + Arrays.toString(signed));
-
-//            DataUser up = new DataUser(dataUser.maNV);
-//            up.setPublicKey(Arrays.toString(publicKeys.getEncoded()));
-//            up.Update();
+            
             
             return RSAData.verify(publicKeys, signed, data);
         } catch (CardException ex) {

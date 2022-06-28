@@ -5,16 +5,20 @@
  */
 package javacard;
 
+import connectDB.DataUser;
+import connectDB.GetData;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.security.PublicKey;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javacard.connect.ConnectCard;
 import javacard.connect.RSAAppletHelper;
 import javacard.define.APPLET;
+import javacard.utils.RSAData;
 import javax.smartcardio.CardException;
 
 /**
@@ -103,18 +107,35 @@ public class AdminForm extends javax.swing.JFrame {
             admin.setVisible(true);
             this.dispose();
     }
-    
-    private String randomMaNV() {
+        private String maNVGen() {
         Random random = new Random();
         int numberVN = random.nextInt(1000);
+        String maNV="";
         if(numberVN<10){
-            return "NV00" + numberVN;
+            maNV = "NV00" + numberVN;
         }else if(numberVN<100){
-            return "NV0" + numberVN;
+            maNV = "NV0" + numberVN;
         }else if(numberVN<1000){
-            return "NV" + numberVN;
+           maNV = "NV" + numberVN;
+        }
+        DataUser dataUser = new DataUser();
+        dataUser.setMaNV(maNV);
+        GetData get = dataUser.Get(dataUser.maNV);
+        if(get.document.getString("maNV")==null){
+            PublicKey publicKeys = RSAData.getPublicKey();
+            dataUser.setPublicKey(Arrays.toString(publicKeys.getEncoded()));
+            dataUser.Post();
+            return maNV;
         }
         return null;
+    }
+    
+    private String randomMaNV() {
+        String maNV = maNVGen();
+        while(maNV == null){
+            maNV = maNVGen();
+        }
+        return maNV;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -522,7 +543,7 @@ public class AdminForm extends javax.swing.JFrame {
                 .addGroup(jp_createLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_update, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_reset_info, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel4.add(jp_create, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 410));

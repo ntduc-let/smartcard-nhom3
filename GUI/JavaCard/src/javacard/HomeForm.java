@@ -6,6 +6,7 @@
 package javacard;
 
 import connectDB.DataUser;
+import connectDB.GetData;
 import javacard.connect.ConnectCard;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -55,12 +56,16 @@ public class HomeForm extends javax.swing.JFrame {
     private boolean isEditing = false;
     public DataUser dataUser = new DataUser();
     
-    private final String DATA = "G:/JavaCard/smartcarddata.bin";
+    private final String DATA = "D:/JavaCard/smartcarddata.bin";
 
     public HomeForm() {
         initComponents();
         initInformation();
-        
+        dataUser.setMaNV(edt_ma_nv.getText());
+//        GetData get = dataUser.Get(dataUser.maNV);
+//        if(get.document.getString("maNV")==null){
+//            dataUser.Post();
+//        }
         initUI();
         
         showDate();

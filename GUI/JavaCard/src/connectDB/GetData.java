@@ -20,7 +20,7 @@ import java.util.List;
 public class GetData {
     MongoDatabase db = new ConnectDB().database;
     Iterator it ;
-    Document document = new Document();
+    public Document document = new Document();
     public GetData(String maNV) {
         
         BasicDBObject inQuery = new BasicDBObject();
@@ -35,16 +35,17 @@ public class GetData {
 //        System.out.println(document.getString("name"));
       
     }
-//    final static Class<? extends List> docClazz = new ArrayList<Document>().getClass();
-//    public static void main(String[] args) {
-//        GetData a = new GetData("NV002");
+    final static Class<? extends List> docClazz = new ArrayList<Document>().getClass();
+    public static void main(String[] args) {
+        GetData a = new GetData("NV003");
 //        List<Document> comments = a.document.get("chamcong", docClazz);
 //        ArrayList<String> cham = new ArrayList<>();
 //        for (Object x : comments){
 //            System.out.println(x);
 //            cham.add(x.toString());
 //        }
-//        
-//    }
+        System.out.println(a.document.getString("maNV"));
+        
+    }
 
 }
