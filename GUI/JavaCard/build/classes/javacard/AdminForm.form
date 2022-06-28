@@ -308,7 +308,7 @@
                       <Font name="Tahoma" size="18" style="1"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="&#x110;&#x1eb7;t l&#x1ea1;i m&#x1ead;t kh&#x1ea9;u"/>
+                    <Property name="text" type="java.lang.String" value="&#x110;&#x1eb7;t l&#x1ea1;i PIN"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="txt_ma_nv2">

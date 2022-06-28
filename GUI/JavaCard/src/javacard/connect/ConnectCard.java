@@ -258,7 +258,7 @@ public class ConnectCard {
             CardChannel channel = card.getBasicChannel();
             
             ResponseAPDU answer = channel.transmit(new CommandAPDU(0xB0,APPLET.INS_RESET_PIN,0x00,0x03));
-            JOptionPane.showMessageDialog(null, "Đặt lại mật khẩu thành công");
+            JOptionPane.showMessageDialog(null, "Đặt lại PIN thành công");
             return true;
             
         }

@@ -303,7 +303,7 @@ public class AdminForm extends javax.swing.JFrame {
 
         txt_title_reset_password.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         txt_title_reset_password.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txt_title_reset_password.setText("Đặt lại mật khẩu");
+        txt_title_reset_password.setText("Đặt lại PIN");
 
         txt_ma_nv2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txt_ma_nv2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
