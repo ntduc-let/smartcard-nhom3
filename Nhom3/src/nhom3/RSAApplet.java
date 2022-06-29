@@ -8,8 +8,10 @@ import javacard.security.KeyBuilder;
 
 public class RSAApplet extends Applet
 {
-	private static final byte INS_SIGN	= (byte)0x00; 
-	private static final byte INS_VERIFY = (byte)0x01;
+	private static final byte INS_SEND_pMODULUS	= (byte)0x00; 
+	private static final byte INS_SEND_pEXPONENT= (byte)0x01;	
+	private static final byte INS_rsaSIGN = (byte)0x02;
+
 
 	private RSAPrivateKey rsaPrivKey; 
 	private RSAPublicKey rsaPubKey; 
@@ -49,13 +51,13 @@ public class RSAApplet extends Applet
 		
 		switch (buf[ISO7816.OFFSET_INS])
 		{
-		case (byte)0x00:
+		case INS_SEND_pMODULUS:
 			sendPublicModulus(apdu);
 			break;
-		case (byte)0x01:
+		case INS_SEND_pEXPONENT:
 			sendPublicExponent(apdu);
 			break;
-		case (byte)0x02:
+		case INS_rsaSIGN:
 			rsaSign(apdu);
 			break;	
 		default:
