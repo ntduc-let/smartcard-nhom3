@@ -23,6 +23,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -1107,6 +1108,9 @@ public class HomeForm extends javax.swing.JFrame {
         if(strDate.isEmpty()){
             txt_noti_date.setText("Ngày sinh không được để trống");
             check = false;
+        }else if(!checkDate(strDate)){
+            txt_noti_date.setText("Ngày sinh không đúng định dạng. VD: 01/01/2000");
+            check = false;
         }else{
             txt_noti_date.setText(" ");
         }
@@ -1125,12 +1129,50 @@ public class HomeForm extends javax.swing.JFrame {
         if(strPhone.isEmpty()){
             txt_noti_phone.setText("Số điện thoại không được để trống");
             check = false;
-        }else{
+        }else if(!checkPhone(strPhone)){
+            txt_noti_phone.setText("Số điện thoại không đúng định dạng");
+            check = false;
+        }else {
             txt_noti_phone.setText(" ");
         }
         return check;
     }
 
+    private boolean checkDate(String date) {
+        SimpleDateFormat sdfrmt = new SimpleDateFormat("dd/MM/yyyy");
+	    sdfrmt.setLenient(false);
+	    /* Create Date object
+	     * parse the string into date 
+             */
+	    try
+	    {
+	        Date javaDate = sdfrmt.parse(date); 
+	    }
+	    /* Date format is invalid */
+	    catch (ParseException e)
+	    {
+	        return false;
+	    }
+	    /* Return true if date format is valid */
+	    return true;
+    }
+    
+    private boolean checkPhone(String strPhone) {
+        if(strPhone.length()==10
+                && strPhone.charAt(0)=='0'
+                && (strPhone.charAt(1)=='3' || strPhone.charAt(1)=='5' || strPhone.charAt(1)=='7' || strPhone.charAt(1)=='8' || strPhone.charAt(1)=='9')){
+            for(int i = 2; i < strPhone.length(); i++){
+                if(strPhone.charAt(i) != '0' && strPhone.charAt(i) != '1' && strPhone.charAt(i) != '2' && strPhone.charAt(i) != '3' && strPhone.charAt(i) != '4' 
+                        && strPhone.charAt(i) != '5' && strPhone.charAt(i) != '6' && strPhone.charAt(i) != '7' && strPhone.charAt(i) != '8' && strPhone.charAt(i) != '9'){
+                    return false;
+                }
+            }
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
     private void resetFormPin() {
         edt_pin_cu.setText("");
         edt_pin_moi.setText("");

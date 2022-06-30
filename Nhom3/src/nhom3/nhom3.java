@@ -132,6 +132,16 @@ public class nhom3 extends Applet
 	private final static short SW_INVALID_PARAMETER = (short) 0x9C0F;
 	/** returns error 9c0c when card is locked */
 	private final static short SW_IDENTITY_BLOCKED = (short) 0x9C0C;
+	
+	
+	
+	private final static short SW_VERYFI_2 = (short) 0x9C00;
+	private final static short SW_VERYFI_1 = (short) 0x9C01;
+	
+	
+	
+	
+	
 	/** tra lai 9c02 khi nhap ma pin sai */
 	private final static short SW_AUTH_FAILED = (short) 0x9C02;
 	/** tra lai khi pin khong bi khoa*/
@@ -322,11 +332,14 @@ public class nhom3 extends Applet
 			ISOException.throwIt(ISO7816.SW_WRONG_LENGTH);
 		if (!CheckPINPolicy(buffer, ISO7816.OFFSET_CDATA, (byte) numBytes))
 			ISOException.throwIt(SW_INVALID_PARAMETER);
-		if (pin.getTriesRemaining() == (byte) 0x00)
-			ISOException.throwIt(SW_IDENTITY_BLOCKED);
 		if (!pin.check(buffer, (short) ISO7816.OFFSET_CDATA, (byte) numBytes)) {
 			LogOut();
-			ISOException.throwIt(SW_AUTH_FAILED);
+			if (pin.getTriesRemaining() == (byte) 0x02)
+				ISOException.throwIt(SW_VERYFI_2);
+			if (pin.getTriesRemaining() == (byte) 0x01)
+				ISOException.throwIt(SW_VERYFI_1);
+			if (pin.getTriesRemaining() == (byte) 0x00)
+				ISOException.throwIt(SW_IDENTITY_BLOCKED);
 		}
 		logged_ids = (short) (0x0010);
 	}

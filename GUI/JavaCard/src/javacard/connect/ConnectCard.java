@@ -92,8 +92,14 @@ public class ConnectCard {
             switch (message.toUpperCase()) {
                 case RESPONS.SW_NO_ERROR:
                     return true;
-                case RESPONS.SW_AUTH_FAILED:
-                    JOptionPane.showMessageDialog(null, "Bạn đã nhập sai PIN");
+//                case RESPONS.SW_AUTH_FAILED:
+//                    JOptionPane.showMessageDialog(null, "Bạn đã nhập sai PIN");
+//                    return false;
+                case RESPONS.SW_VERYFI_2:
+                    JOptionPane.showMessageDialog(null, "Bạn đã nhập sai. Bạn còn 2 lần thử");
+                    return false;
+                case RESPONS.SW_VERYFI_1:
+                    JOptionPane.showMessageDialog(null, "Bạn đã nhập sai. Bạn còn 1 lần thử");
                     return false;
                 case RESPONS.SW_IDENTITY_BLOCKED:
                     JOptionPane.showMessageDialog(null, "Bạn đã nhập sai quá số lần thử!Thẻ đã bị khoá");

@@ -15,6 +15,9 @@ public class RESPONS {
     public final static String  SW_UNKNOWN = "6F00";
     
     public final static String  SW_INVALID_PARAMETER = "9C0F";
+    
+    public final static String  SW_VERYFI_2 = "9C00";
+    public final static String  SW_VERYFI_1 = "9C01";
     //card block
     public final static String  SW_IDENTITY_BLOCKED = "9C0C";
     //error pin

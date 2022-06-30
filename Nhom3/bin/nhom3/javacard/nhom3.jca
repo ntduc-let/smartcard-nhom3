@@ -1,5 +1,5 @@
 // converted by version 1.3
-// on Sun Jun 26 16:28:41 ICT 2022
+// on Thu Jun 30 21:06:52 ICT 2022
 
 .package nhom3 {
 	.aid 0x25:0x10:0x19:0x99:0x0:0x0;
@@ -254,9 +254,9 @@
 		// 92
 		staticFieldRef byte[] nhom3/first_logged_ids;
 		// 93
-		virtualMethodRef 0.9.2()B;		// javacard/framework/OwnerPIN.getTriesRemaining()B
-		// 94
 		virtualMethodRef 0.9.1([BSB)Z;		// javacard/framework/OwnerPIN.check([BSB)Z
+		// 94
+		virtualMethodRef 0.9.2()B;		// javacard/framework/OwnerPIN.getTriesRemaining()B
 		// 95
 		staticMethodRef 0.16.3([BSSB)S;		// javacard/framework/Util.arrayFillNonAtomic([BSSB)S
 		// 96
@@ -495,8 +495,9 @@
 			private 2.9 rsaPubKey 1;		// Ljavacard/security/RSAPublicKey;
 			private 2.15 rsaSig 2;		// Ljavacard/security/Signature;
 			private short sigLen 3;		// S
-			private static final byte INS_SIGN = 0;		// B
-			private static final byte INS_VERIFY = 1;		// B
+			private static final byte INS_SEND_pMODULUS = 0;		// B
+			private static final byte INS_SEND_pEXPONENT = 1;		// B
+			private static final byte INS_rsaSIGN = 2;		// B
 		}
 
 		.publicMethodTable 7 {
@@ -3135,6 +3136,8 @@
 			private static final short OFFSET_GENKEY_RSA_PUB_EXP_VALUE = 23;		// S
 			private static final short SW_INVALID_PARAMETER = -25585;		// S
 			private static final short SW_IDENTITY_BLOCKED = -25588;		// S
+			private static final short SW_VERYFI_2 = -25600;		// S
+			private static final short SW_VERYFI_1 = -25599;		// S
 			private static final short SW_AUTH_FAILED = -25598;		// S
 			private static final short SW_OPERATION_NOT_ALLOWED = -25597;		// S
 			private static final short SW_INTERNAL_ERROR = -25345;		// S
@@ -3550,22 +3553,32 @@
 				L8:	sspush -25585;
 					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L9:	getfield_a_this 5;		// reference nhom3/nhom3.pin
-					invokevirtual 93;		// javacard/framework/OwnerPIN.getTriesRemaining()B
-					ifne L11;
-				L10:	sspush -25588;
-					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
-				L11:	getfield_a_this 5;		// reference nhom3/nhom3.pin
 					aload_2;
 					sconst_5;
 					sload_3;
 					s2b;
-					invokevirtual 94;		// javacard/framework/OwnerPIN.check([BSB)Z
-					ifne L13;
-				L12:	aload_0;
+					invokevirtual 93;		// javacard/framework/OwnerPIN.check([BSB)Z
+					ifne L16;
+				L10:	aload_0;
 					invokespecial 62;		// nhom3/nhom3.LogOut()V
-					sspush -25598;
+					getfield_a_this 5;		// reference nhom3/nhom3.pin
+					invokevirtual 94;		// javacard/framework/OwnerPIN.getTriesRemaining()B
+					sconst_2;
+					if_scmpne L12;
+				L11:	sspush -25600;
 					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
-				L13:	aload_0;
+				L12:	getfield_a_this 5;		// reference nhom3/nhom3.pin
+					invokevirtual 94;		// javacard/framework/OwnerPIN.getTriesRemaining()B
+					sconst_1;
+					if_scmpne L14;
+				L13:	sspush -25599;
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
+				L14:	getfield_a_this 5;		// reference nhom3/nhom3.pin
+					invokevirtual 94;		// javacard/framework/OwnerPIN.getTriesRemaining()B
+					ifne L16;
+				L15:	sspush -25588;
+					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
+				L16:	aload_0;
 					bspush 16;
 					putfield_s 9;		// short nhom3/nhom3.logged_ids
 					return;
@@ -3651,7 +3664,7 @@
 				L18:	sspush -25585;
 					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L19:	getfield_a_this 5;		// reference nhom3/nhom3.pin
-					invokevirtual 93;		// javacard/framework/OwnerPIN.getTriesRemaining()B
+					invokevirtual 94;		// javacard/framework/OwnerPIN.getTriesRemaining()B
 					ifne L21;
 				L20:	sspush -25588;
 					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
@@ -3659,7 +3672,7 @@
 					aload_2;
 					bspush 6;
 					sload 4;
-					invokevirtual 94;		// javacard/framework/OwnerPIN.check([BSB)Z
+					invokevirtual 93;		// javacard/framework/OwnerPIN.check([BSB)Z
 					ifne L23;
 				L22:	aload_0;
 					invokespecial 62;		// nhom3/nhom3.LogOut()V
@@ -3691,7 +3704,7 @@
 				L1:	sspush -25584;
 					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V
 				L2:	getfield_a_this 5;		// reference nhom3/nhom3.pin
-					invokevirtual 93;		// javacard/framework/OwnerPIN.getTriesRemaining()B
+					invokevirtual 94;		// javacard/framework/OwnerPIN.getTriesRemaining()B
 					ifeq L4;
 				L3:	sspush -25597;
 					invokestatic 82;		// javacard/framework/ISOException.throwIt(S)V

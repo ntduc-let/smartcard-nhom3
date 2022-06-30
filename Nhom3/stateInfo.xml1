@@ -21,9 +21,13 @@
 <fileName>src\nhom3\DeselectApplet.java</fileName>
 <line>16</line>
 </fnode>
+<fnode>
+<fileName>D:\JavaCardKit\SDK\Tools\JCIDE\apis\jc222\javacard\framework\OwnerPIN.java</fileName>
+<line>88</line>
+</fnode>
 <ActiveFile>
 <fileName>src\nhom3\nhom3.java</fileName>
-<line>321</line>
+<line>316</line>
 </ActiveFile>
 </FileNodes>
 </StateInfo>
