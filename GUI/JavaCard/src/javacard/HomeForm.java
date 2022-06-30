@@ -826,9 +826,33 @@ public class HomeForm extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btn_update_pinMouseClicked
 
+    private boolean rsaAuthentication() {
+        try {
+            PublicKey publicKeys = RSAData.getPublicKey();
+            if (publicKeys == null) {
+                return false;
+            }
+            System.out.println("publicKeys: " + Arrays.toString(publicKeys.getEncoded()));
+            byte[] data = RandomUtil.randomData(20);
+
+            byte[] signed = RSAAppletHelper.getInstance(
+                    ConnectCard.getInstance().channel).requestSign(data);
+
+            if (signed == null) {
+                return false;
+            }
+
+            System.out.println("signed: " + Arrays.toString(signed));
+
+            return RSAData.verify(publicKeys, signed, data);
+        } catch (CardException ex) {
+        }
+
+        return false;
+    }
     private void btn_diemdanhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_diemdanhActionPerformed
         // TODO add your handling code here:
-//        if(rsaAuthentication()){
+        if(rsaAuthentication()){
             String date = txt_date.getText();
             String time = txt_time.getText();
             switch (CheckEnd) {
@@ -847,10 +871,10 @@ public class HomeForm extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Bạn đã điểm danh ngày hôm nay! Vui lòng quay lại vào ngày mai");
                 break;
             }
-//        }
-//        else{
-//            System.out.println("RSA ERROR");
-//        }
+        }
+        else{
+            System.out.println("RSA ERROR");
+        }
     }//GEN-LAST:event_btn_diemdanhActionPerformed
 
     private void btn_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_updateActionPerformed

@@ -157,12 +157,6 @@ public class AdminForm extends javax.swing.JFrame {
         btn_reset_password = new javax.swing.JLabel();
         btn_disconnect = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jp_reset_password = new javax.swing.JPanel();
-        txt_title_reset_password = new javax.swing.JLabel();
-        txt_ma_nv2 = new javax.swing.JLabel();
-        edt_ma_nv2 = new javax.swing.JTextField();
-        btn_reset = new javax.swing.JButton();
-        txt_noti_ma_nv2 = new javax.swing.JLabel();
         jp_create = new javax.swing.JPanel();
         txt_ma_nv = new javax.swing.JLabel();
         edt_ma_nv = new javax.swing.JTextField();
@@ -184,6 +178,12 @@ public class AdminForm extends javax.swing.JFrame {
         txt_noti_co_quan = new javax.swing.JLabel();
         txt_noti_phone = new javax.swing.JLabel();
         btn_reset_info = new javax.swing.JButton();
+        jp_reset_password = new javax.swing.JPanel();
+        txt_title_reset_password = new javax.swing.JLabel();
+        txt_ma_nv2 = new javax.swing.JLabel();
+        edt_ma_nv2 = new javax.swing.JTextField();
+        btn_reset = new javax.swing.JButton();
+        txt_noti_ma_nv2 = new javax.swing.JLabel();
         jp_unlock_card = new javax.swing.JPanel();
         txt_title_unlock_card = new javax.swing.JLabel();
         txt_ma_nv1 = new javax.swing.JLabel();
@@ -298,72 +298,6 @@ public class AdminForm extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jp_reset_password.setBackground(new java.awt.Color(255, 255, 255));
-
-        txt_title_reset_password.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        txt_title_reset_password.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txt_title_reset_password.setText("Đặt lại PIN");
-
-        txt_ma_nv2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        txt_ma_nv2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        txt_ma_nv2.setText("Mã nhân viên");
-
-        edt_ma_nv2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        edt_ma_nv2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-
-        btn_reset.setBackground(new java.awt.Color(0, 102, 153));
-        btn_reset.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        btn_reset.setForeground(new java.awt.Color(255, 255, 255));
-        btn_reset.setText("Đặt lại");
-        btn_reset.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_resetActionPerformed(evt);
-            }
-        });
-
-        txt_noti_ma_nv2.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
-        txt_noti_ma_nv2.setForeground(new java.awt.Color(255, 0, 0));
-        txt_noti_ma_nv2.setText("Mã nhân viên không được để trống");
-
-        javax.swing.GroupLayout jp_reset_passwordLayout = new javax.swing.GroupLayout(jp_reset_password);
-        jp_reset_password.setLayout(jp_reset_passwordLayout);
-        jp_reset_passwordLayout.setHorizontalGroup(
-            jp_reset_passwordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jp_reset_passwordLayout.createSequentialGroup()
-                .addGroup(jp_reset_passwordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jp_reset_passwordLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(txt_ma_nv2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jp_reset_passwordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_noti_ma_nv2, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(edt_ma_nv2, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jp_reset_passwordLayout.createSequentialGroup()
-                        .addGap(282, 282, 282)
-                        .addComponent(btn_reset, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jp_reset_passwordLayout.createSequentialGroup()
-                        .addGap(238, 238, 238)
-                        .addComponent(txt_title_reset_password, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jp_reset_passwordLayout.setVerticalGroup(
-            jp_reset_passwordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jp_reset_passwordLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txt_title_reset_password, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
-                .addGroup(jp_reset_passwordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_ma_nv2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(edt_ma_nv2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txt_noti_ma_nv2)
-                .addGap(115, 115, 115)
-                .addComponent(btn_reset, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61))
-        );
-
-        jPanel4.add(jp_reset_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 410));
 
         jp_create.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -547,6 +481,72 @@ public class AdminForm extends javax.swing.JFrame {
         );
 
         jPanel4.add(jp_create, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 410));
+
+        jp_reset_password.setBackground(new java.awt.Color(255, 255, 255));
+
+        txt_title_reset_password.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        txt_title_reset_password.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txt_title_reset_password.setText("Đặt lại PIN");
+
+        txt_ma_nv2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txt_ma_nv2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txt_ma_nv2.setText("Mã nhân viên");
+
+        edt_ma_nv2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        edt_ma_nv2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+
+        btn_reset.setBackground(new java.awt.Color(0, 102, 153));
+        btn_reset.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        btn_reset.setForeground(new java.awt.Color(255, 255, 255));
+        btn_reset.setText("Đặt lại");
+        btn_reset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_resetActionPerformed(evt);
+            }
+        });
+
+        txt_noti_ma_nv2.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        txt_noti_ma_nv2.setForeground(new java.awt.Color(255, 0, 0));
+        txt_noti_ma_nv2.setText("Mã nhân viên không được để trống");
+
+        javax.swing.GroupLayout jp_reset_passwordLayout = new javax.swing.GroupLayout(jp_reset_password);
+        jp_reset_password.setLayout(jp_reset_passwordLayout);
+        jp_reset_passwordLayout.setHorizontalGroup(
+            jp_reset_passwordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jp_reset_passwordLayout.createSequentialGroup()
+                .addGroup(jp_reset_passwordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jp_reset_passwordLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(txt_ma_nv2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jp_reset_passwordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_noti_ma_nv2, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(edt_ma_nv2, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jp_reset_passwordLayout.createSequentialGroup()
+                        .addGap(282, 282, 282)
+                        .addComponent(btn_reset, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jp_reset_passwordLayout.createSequentialGroup()
+                        .addGap(238, 238, 238)
+                        .addComponent(txt_title_reset_password, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jp_reset_passwordLayout.setVerticalGroup(
+            jp_reset_passwordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jp_reset_passwordLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txt_title_reset_password, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+                .addGroup(jp_reset_passwordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_ma_nv2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(edt_ma_nv2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt_noti_ma_nv2)
+                .addGap(115, 115, 115)
+                .addComponent(btn_reset, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61))
+        );
+
+        jPanel4.add(jp_reset_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 410));
 
         jp_unlock_card.setBackground(new java.awt.Color(255, 255, 255));
 
